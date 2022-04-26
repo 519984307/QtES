@@ -1,0 +1,195 @@
+{
+    "version": 1,
+    "supportedProjectTypes": [ "CMakeProjectManager.CMakeProject", "Qbs.QbsProject", "Qt4ProjectManager.Qt4Project" ],
+    "id": "NMS Plugin",
+    "category": "G.Library",
+    "trDescription": "创建一个 NMS Plugin",
+    "trDisplayName": "NMS Plugin",
+    "trDisplayCategory": "Library",
+    "icon": "lib.png",
+    "enabled": "%{JS: [ %{Plugins} ].indexOf('CppEditor') >= 0 && ([ %{Plugins} ].indexOf('QmakeProjectManager') >= 0 || [ %{Plugins} ].indexOf('QbsProjectManager') >= 0 || [ %{Plugins} ].indexOf('CMakeProjectManager') >= 0)}",
+
+    "options":
+    [
+        { "key": "ProjectFile", "value": "%{ProFile}" },
+        { "key": "ProFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{ProjectName}', 'pro')}" },
+
+        { "key": "IsTopLevelProject", "value": "%{JS: !'%{Exists:ProjectExplorer.Profile.Ids}'}" },
+
+        { "key": "Plugin_Name","value": "%{PluginName}"},
+        { "key": "Plugin_Version","value": "%{PluginVersion}"},
+        { "key": "Plugin_Description","value": "%{PluginDescription}"},
+        { "key": "Plugin_Vendor","value": "%{PluginVendor}"},
+
+        { "key": "Service","value": "%{PluginName}Service" },
+        { "key": "ServiceImpl","value": "%{PluginName}ServiceImpl" },
+        { "key": "PluginClass","value": "%{PluginName}Plugin" },
+
+        { "key": "ServiceHdrFileName","value": "%{JS: Cpp.classToFileName('%{Service}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}"},
+
+        { "key": "ServiceImplHdrFileName","value": "%{JS: Cpp.classToFileName('%{ServiceImpl}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}"},
+        { "key": "ServiceImplSrcFileName","value": "%{JS: Cpp.classToFileName('%{ServiceImpl}', '%{JS: Util.preferredSuffix('text/x-c++src')}')}"},
+
+        { "key": "PluginHdrFileName","value": "%{JS: Cpp.classToFileName('%{PluginClass}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}"},
+        { "key": "PluginSrcFileName","value": "%{JS: Cpp.classToFileName('%{PluginClass}', '%{JS: Util.preferredSuffix('text/x-c++src')}')}"},
+
+        { "key": "ServiceHdrPath", "value": "%{ProjectDirectory}/%{ServiceHdrFileName}" },
+        { "key": "ServiceCN", "value": "%{JS: Cpp.className('%{Service}')}" },
+
+        { "key": "ServiceImplHdrPath", "value": "%{ProjectDirectory}/%{ServiceImplHdrFileName}" },
+        { "key": "ServiceImplSrcPath", "value": "%{ProjectDirectory}/%{ServiceImplSrcFileName}" },
+        { "key": "ServiceImplCN", "value": "%{JS: Cpp.className('%{ServiceImpl}')}" },
+
+        { "key": "PluginHdrPath", "value": "%{ProjectDirectory}/%{PluginHdrFileName}" },
+        { "key": "PluginSrcPath", "value": "%{ProjectDirectory}/%{PluginSrcFileName}" },
+        { "key": "PluginCN", "value": "%{JS: Cpp.className('%{PluginClass}')}" },
+		
+		{ "key": "JsonFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{PluginName}', 'json')}" }
+    ],
+
+    "pages":
+    [
+        {
+            "trDisplayName": "Project Location",
+            "trShortTitle": "Location",
+            "typeId": "Project",
+			"type": "LineEdit",
+			"data":
+			{
+				"trText": "",
+                "validator": "(?:(?:[a-zA-Z][a-zA-Z0-9]*::)*[a-zA-Z][a-zA-Z0-9]*|)"
+			}
+        },
+        {
+            "trDisplayName": "Kit Selection",
+            "trShortTitle": "Kits",
+            "typeId": "Kits",
+            "enabled": "%{IsTopLevelProject}",
+            "data": { "projectFilePath": "%{ProFile}" }
+        },
+        {
+            "trDisplayName": "Plugin Information",
+            "trShortTitle": "Information",
+            "typeId": "Fields",
+            "data" :
+            [
+                {
+                    "name": "PluginName",
+                    "trDisplayName": "插件名称:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data": { "validator": "(?:(?:[a-zA-Z][a-zA-Z0-9]*::)*[a-zA-Z][a-zA-Z0-9]*|)" }
+                },
+                {
+                    "name": "PluginVersion",
+                    "trDisplayName": "插件版本:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data":
+                    {
+                        "trText": "0.0.1",
+                        "validator": "^[0-9a-zA-Z\.]+$"
+                    }
+                },
+                {
+                    "name": "PluginDescription",
+                    "trDisplayName": "插件描述:",
+                    "type": "TextEdit",
+                    "data" :
+                    {
+                        "trText": "" ,
+                        "richText": true
+                    }
+                },
+                {
+                    "name": "PluginVendor",
+                    "trDisplayName": "插件供应商:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data":
+                    {
+                        "trText": "电子科大"
+                    }
+                }
+            ]
+        },
+        {
+            "trDisplayName": "Project Management",
+            "trShortTitle": "Summary",
+            "typeId": "Summary"
+        }
+    ],
+    "generators":
+    [
+        {
+            "typeId": "File",
+            "data":
+            [
+                {
+                    "source": "XXX.pro",
+                    "target": "%{ProFile}",
+                    "openAsProject": true
+                },
+                {
+                    "source": "XXXservice.h",
+                    "target": "%{ServiceHdrPath}",
+                    "openInEditor": true,
+                    "options": [
+                        { "key": "Cpp:License:FileName", "value": "%{ServiceHdrFileName}" },
+                        { "key": "Cpp:License:ClassName", "value": "%{ServiceCN}" }
+                    ]
+                },
+                {
+                    "source": "XXXserviceimpl.h",
+                    "target": "%{ServiceImplHdrPath}",
+                    "openInEditor": true,
+                    "options": [
+                        { "key": "Cpp:License:FileName", "value": "%{ServiceImplHdrFileName}" },
+                        { "key": "Cpp:License:ClassName", "value": "%{ServiceImplCN}" }
+                    ]
+                },
+                {
+                    "source": "XXXserviceimpl.cpp",
+                    "target": "%{ServiceImplSrcPath}",
+                    "openInEditor": true,
+                    "options": [
+                        { "key": "Cpp:License:FileName", "value": "%{ServiceImplSrcFileName}" },
+                        { "key": "Cpp:License:ClassName", "value": "%{ServiceImplCN}" }
+                    ]
+                },
+                {
+                    "source": "XXXplugin.h",
+                    "target": "%{PluginHdrPath}",
+                    "openInEditor": true,
+                    "options": [
+                        { "key": "Cpp:License:FileName", "value": "%{PluginHdrFileName}" },
+                        { "key": "Cpp:License:ClassName", "value": "%{PluginCN}" }
+                    ]
+                },
+                {
+                    "source": "XXXplugin.cpp",
+                    "target": "%{PluginSrcPath}",
+                    "openInEditor": true,
+                    "options": [
+                        { "key": "Cpp:License:FileName", "value": "%{PluginSrcFileName}" },
+                        { "key": "Cpp:License:ClassName", "value": "%{PluginCN}" }
+                    ]
+                },
+                {
+                    "source": "XXX.json",
+                    "target": "%{JsonFile}",
+                    "openAsProject": true
+                },
+                {
+                    "source": "resource.qrc",
+                    "target": "resource.qrc"
+                },
+                {
+                    "source": "../git.ignore",
+                    "target": ".gitignore",
+                    "condition": "%{JS: ! %{IsSubproject} && '%{VersionControl}' === 'G.Git'}"
+                }
+            ]
+        }
+    ]
+}

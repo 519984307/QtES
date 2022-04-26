@@ -1,0 +1,16 @@
+{
+    "Name" : "%{Plugin_Name}",
+    "Version" : "%{Plugin_Version}",
+    "CompatVersion" : "%{Plugin_Version}",
+    "DisabledByDefault" : false,
+    "HiddenByDefault" : false,
+    "Vendor" : "%{Plugin_Vendor}",
+    "Copyright" : "Copyright (C) 2022 The Programmer Plcreed",
+    "License" : ["Programmer Plcreed"],
+    "Category" : "Core",
+    "Description" : "%{Plugin_Description}",
+    "Url" : "",
+    "Dependencies" : [
+
+    ]
+}
