@@ -1,32 +1,3 @@
-/**************************************************************************
-**
-** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of Qt Creator.
-**
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and Digia.  For licensing terms and
-** conditions see http://qt.digia.com/licensing.  For further information
-** use the contact form at http://qt.digia.com/contact-us.
-**
-** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
-** General Public License version 2.1 as published by the Free Software
-** Foundation and appearing in the file LICENSE.LGPL included in the
-** packaging of this file.  Please review the following information to
-** ensure the GNU Lesser General Public License version 2.1 requirements
-** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
-**
-** In addition, as a special exception, Digia gives you certain additional
-** rights.  These rights are described in the Digia Qt LGPL Exception
-** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
-**
-****************************************************************************/
-
 #include "crashhandlersetup.h"
 
 #include <QtGlobal>
@@ -90,11 +61,11 @@ extern "C" void signalHandler(int signal)
 void setupCrashHandler()
 {
 #ifdef BUILD_CRASH_HANDLER
-    if (qgetenv("QTC_USE_CRASH_HANDLER").isEmpty())
-        return;
+//    if (qgetenv("QTC_USE_CRASH_HANDLER").isEmpty())
+//        return;
 
     const QString crashHandlerPath = qApp->applicationDirPath()
-        + QLatin1String("/qtcreator_crash_handler");
+        + QLatin1String("/crash_handler");
     crashHandlerPathC = qstrdup(qPrintable(crashHandlerPath));
 
     // Setup an alternative stack for the signal handler. This way we are able to handle SIGSEGV
@@ -122,7 +93,7 @@ void setupCrashHandler()
     // SA_RESETHAND - Restore signal action to default after signal handler has been called.
     // SA_NODEFER - Don't block the signal after it was triggered (otherwise blocked signals get
     // inherited via fork() and execve()). Without this the signal will not be delivered to the
-    // restarted Qt Creator.
+    // restarted App.
     // SA_ONSTACK - Use alternative stack.
     sa.sa_flags = SA_RESETHAND | SA_NODEFER | SA_ONSTACK;
     // See "man 7 signal" for an overview of signals.

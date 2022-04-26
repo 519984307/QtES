@@ -12,7 +12,6 @@
 #include <QDialogButtonBox>
 #include <QSettings>
 
-static const char SettingsApplication[] = "QtCreator";
 static const char SettingsKeySkipWarningAbortingBacktrace[]
     = "CrashHandler/SkipWarningAbortingBacktrace";
 
@@ -54,7 +53,7 @@ bool CrashHandlerDialog::runDebuggerWhileBacktraceNotFinished()
     // Check settings.
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
         QLatin1String(Core::Constants::APP_SETTINGSVARIANT_STR),
-        QLatin1String(SettingsApplication));
+        QLatin1String(Core::Constants::APP_NAME));
     if (settings.value(QLatin1String(SettingsKeySkipWarningAbortingBacktrace), false).toBool())
         return true;
 
@@ -96,7 +95,7 @@ void CrashHandlerDialog::disableDebugAppButton()
 
 void CrashHandlerDialog::setApplicationInfo(const QString &signalName)
 {
-    const QString ideName = QLatin1String("Qt Creator");
+    const QString ideName = QLatin1String(Core::Constants::APP_NAME);
     const QString title = tr("%1 has closed unexpectedly (Signal \"%2\")").arg(ideName, signalName);
     const QString introLabelContents = tr(
         "<p><b>%1.</b></p>"

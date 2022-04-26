@@ -25,12 +25,12 @@ int main(int argc, char *argv[])
     Q_PID parentPid = getppid();
     QString parentExecutable = QFile::symLinkTarget(QString::fromLatin1("/proc/%1/exe")
         .arg(QString::number(parentPid)));
-    if (argc > 2 || !parentExecutable.contains(QLatin1String("qtcreator"))) {
-        QTextStream err(stderr);
-        err << QString::fromLatin1("This crash handler will be called by Qt Creator itself. "
-                                   "Do not call this manually.\n");
-        return EXIT_FAILURE;
-    }
+//    if (argc > 2 || !parentExecutable.contains(QLatin1String("qtcreator"))) {
+//        QTextStream err(stderr);
+//        err << QString::fromLatin1("This crash handler will be called by Qt Creator itself. "
+//                                   "Do not call this manually.\n");
+//        return EXIT_FAILURE;
+//    }
 
     // Run.
     CrashHandler *crashHandler = new CrashHandler(parentPid, app.arguments().at(1));

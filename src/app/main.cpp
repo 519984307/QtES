@@ -1,18 +1,26 @@
+
+#include "qtsingleapplication.h"
+#include "../tools/crashhandler/crashhandlersetup.h"
+
+#include <app/app_version.h>
 #include <extensionsystem/iplugin.h>
 #include <extensionsystem/pluginmanager.h>
 #include <extensionsystem/pluginspec.h>
-#include "../plugins/helloworld/helloservice.h"
+#include <extensionsystem/pluginview.h>
+#include <extensionsystem/pluginerroroverview.h>
 
-#include "extensionsystem/pluginview.h"
+#include "../plugins/helloworld/helloservice.h"
 
 #include <QApplication>
 #include <QFileInfo>
 #include <QDebug>
+#include <QThreadPool>
 #include <QList>
 
 using namespace ExtensionSystem;
 
-const char corePluginNameC[] = "coreplugin";
+static const char appNameC[] = "App";
+static const char corePluginNameC[] = "coreplugin";
 
 static void printSpecs(QList<PluginSpec *> plugins)
 {
@@ -47,7 +55,13 @@ static void printSpecs(QList<PluginSpec *> plugins)
 
 int main(int argc, char **argv)
 {
-    QApplication app(argc, argv);
+    SharedTools::QtSingleApplication app((QLatin1String(appNameC)), argc, argv);
+
+    const int threadCount = QThreadPool::globalInstance()->maxThreadCount();
+    QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));
+
+    // Display a backtrace once a serious signal is delivered.
+    setupCrashHandler();
 
     QString pluginPath = QApplication::applicationDirPath() + "/plugins/";
 
@@ -92,9 +106,13 @@ int main(int argc, char **argv)
     if (helloService != nullptr)
         helloService->sayHello();
 
+    QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
     QObject::connect(&app, SIGNAL(aboutToQuit()), &pluginManager, SLOT(shutdown()));
 
     PluginManager::instance()->shutdown();
 
-    return app.exec();
+    const int r = app.exec();
+    cleanupCrashHandler();
+
+    return r;
 }

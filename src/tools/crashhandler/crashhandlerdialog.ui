@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>800</height>
+    <width>850</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -70,7 +70,7 @@
    <item alignment="Qt::AlignRight">
     <widget class="QCheckBox" name="restartAppCheckBox">
      <property name="text">
-      <string>&amp;Restart Qt Creator on close</string>
+      <string>&amp;Restart App on close</string>
      </property>
      <property name="checked">
       <bool>true</bool>
