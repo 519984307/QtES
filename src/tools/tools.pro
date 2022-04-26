@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 CONFIG  += ordered
 
 SUBDIRS += \
-    Plugin-Wizards
+    Plugin-Wizards \
+    crashhandler

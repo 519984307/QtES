@@ -11,9 +11,9 @@ DEFINES += EXTENSIONSYSTEM_LIBRARY
 unix:!macx:!freebsd*:LIBS += -ldl
 
 !isEmpty(vcproj) {
-    DEFINES += IDE_TEST_DIR=\"$$IDE_SOURCE_TREE\"
+    DEFINES += IDE_TEST_DIR=\"$$SRC_DIR\"
 } else {
-    DEFINES += IDE_TEST_DIR=\\\"$$IDE_SOURCE_TREE\\\"
+    DEFINES += IDE_TEST_DIR=\\\"$$SRC_DIR\\\"
 }
 
 INCLUDEPATH += $$PWD/../

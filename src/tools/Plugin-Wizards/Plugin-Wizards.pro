@@ -1,4 +1,4 @@
-include(../../global.prf)
+include(../../../global.pri)
 
 Wizards_Name = Plugin-Wizards
 Wizards_Dir = $$QMAKESPEC/../../../../Tools/QtCreator/share/qtcreator/templates/wizards/projects/$$Wizards_Name
@@ -16,8 +16,8 @@ DISTFILES += \
     lib.png \
     wizard.json \
 
-message($(QTDIR))
-message($$Wizards_Dir)
+#message($(QTDIR))
+#message($$Wizards_Dir)
 
 #copyFolder(, $$Wizards_Dir)
 

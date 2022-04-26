@@ -1,6 +1,8 @@
 include(../../global.pri)
 include(../../rpath.pri)
 
+include(../shared/qtsingleapplication/qtsingleapplication.pri)
+
 QT += core gui widgets
 
 CONFIG += console
@@ -15,5 +17,10 @@ INCLUDEPATH += \
 
 LIBS += -L$$LIB_DIR/ -lextensionsystem
 
+HEADERS += \
+    ../tools/crashhandler/crashhandlersetup.h \
+    app_version.h
+
 SOURCES += \
-    main.cpp
+    main.cpp \
+    ../tools/crashhandler/crashhandlersetup.cpp
