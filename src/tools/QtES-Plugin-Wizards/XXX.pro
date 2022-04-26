@@ -17,6 +17,8 @@ SOURCES += \\
 RESOURCES += \\
     resource.qrc
 
-DISTFILES += %{PluginName}.json
+DISTFILES += %{PluginName}.xml
 
-deployModule(%{ServiceHdrFileName}, $$INCLUDE_DIR/pluginsNMS/)
+deployModule(%{PluginName}.xml, $$PLUGINS_DIR)
+#deployModule(%{ServiceHdrFileName}, $$INCLUDE_DIR/pluginsNMS/)
+

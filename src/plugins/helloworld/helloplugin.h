@@ -23,8 +23,9 @@ public:
     bool delayedInitialize();
 
 private:
-    QScopedPointer<Internal::HelloPluginPrivate> dd_ptr;
-    Q_DECLARE_PRIVATE(Internal::HelloPlugin)
+    std::unique_ptr<Internal::HelloPluginPrivate> d_ptr_;
+    Q_DISABLE_COPY(HelloPlugin)
+    Q_DECLARE_PRIVATE_D(d_ptr_.get(), Internal::HelloPlugin)
 };
 
 } // namespace Internal

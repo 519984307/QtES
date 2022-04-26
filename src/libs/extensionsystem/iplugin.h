@@ -3,6 +3,7 @@
 #define IPLUGIN_H
 
 #include "extensionsystem_global.h"
+#include <memory>
 
 #include <QObject>
 #if QT_VERSION >= 0x050000

@@ -1,9 +1,10 @@
-﻿#include "%{PluginHdrFileName}"
+#include "%{PluginHdrFileName}"
 #include "%{ServiceImplHdrFileName}"
 
 #include "extensionsystem/pluginmanager.h"
 
 #include <QDebug>
+#include <QtPlugin>
 
 namespace %{PluginName} {
 namespace Internal {
@@ -33,10 +34,14 @@ private:
 }
 
 %{PluginClass}::%{PluginClass}() : d_ptr_(new %{PluginCN}Private(*this))
-{}
+{
+    qDebug() << __func__;
+}
 
 %{PluginClass}::~%{PluginClass}()
-{}
+{
+    qDebug() << __func__;
+}
 
 bool %{PluginClass}::initialize(const QStringList &arguments, QString *errorMessage)
 {
@@ -62,3 +67,6 @@ bool %{PluginClass}::delayedInitialize()
 
 } // namespace Internal
 } // namespace %{PluginName}
+
+
+Q_EXPORT_PLUGIN(%{PluginName}::Internal::%{PluginClass})

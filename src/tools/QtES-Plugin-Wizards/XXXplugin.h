@@ -12,7 +12,7 @@ class %{PluginCN}Private;
 class %{PluginClass} : public ExtensionSystem::IPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "wg.es.pluginframework" FILE "%{PluginName}.json")
+    Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin.%{PluginName}" FILE "%{PluginName}.xml")
 
 public:
     explicit %{PluginClass}();
@@ -23,11 +23,11 @@ public:
     bool delayedInitialize();
 
 private:
-    QScopedPointer<Internal::%{PluginCN}Private> d_ptr_;
+    std::unique_ptr<Internal::%{PluginCN}Private> d_ptr_;
 
 private:
     Q_DISABLE_COPY(%{PluginCN})
-    Q_DECLARE_PRIVATE_D(d_ptr_, Internal::%{PluginCN})
+    Q_DECLARE_PRIVATE_D(d_ptr_.get(), Internal::%{PluginCN})
 };
 
 } // namespace Internal

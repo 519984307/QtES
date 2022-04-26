@@ -2,5 +2,5 @@ TEMPLATE = subdirs
 CONFIG  += ordered
 
 SUBDIRS += \
-    Plugin-Wizards \
+    QtES-Plugin-Wizards \
     crashhandler

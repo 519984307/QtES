@@ -1,10 +1,10 @@
 {
     "version": 1,
     "supportedProjectTypes": [ "CMakeProjectManager.CMakeProject", "Qbs.QbsProject", "Qt4ProjectManager.Qt4Project" ],
-    "id": "NMS Plugin",
+    "id": "QtES Plugin",
     "category": "G.Library",
-    "trDescription": "创建一个 NMS Plugin",
-    "trDisplayName": "NMS Plugin",
+    "trDescription": "Create a QtES Plugin",
+    "trDisplayName": "QtES Plugin",
     "trDisplayCategory": "Library",
     "icon": "lib.png",
     "enabled": "%{JS: [ %{Plugins} ].indexOf('CppEditor') >= 0 && ([ %{Plugins} ].indexOf('QmakeProjectManager') >= 0 || [ %{Plugins} ].indexOf('QbsProjectManager') >= 0 || [ %{Plugins} ].indexOf('CMakeProjectManager') >= 0)}",
@@ -43,8 +43,9 @@
         { "key": "PluginHdrPath", "value": "%{ProjectDirectory}/%{PluginHdrFileName}" },
         { "key": "PluginSrcPath", "value": "%{ProjectDirectory}/%{PluginSrcFileName}" },
         { "key": "PluginCN", "value": "%{JS: Cpp.className('%{PluginClass}')}" },
-		
-		{ "key": "JsonFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{PluginName}', 'json')}" }
+
+        { "key": "JsonFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{PluginName}', 'json')}" },
+        { "key": "XmlFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{PluginName}', 'xml')}" }
     ],
 
     "pages":
@@ -53,12 +54,12 @@
             "trDisplayName": "Project Location",
             "trShortTitle": "Location",
             "typeId": "Project",
-			"type": "LineEdit",
-			"data":
-			{
-				"trText": "",
+            "type": "LineEdit",
+            "data":
+            {
+                "trText": "",
                 "validator": "(?:(?:[a-zA-Z][a-zA-Z0-9]*::)*[a-zA-Z][a-zA-Z0-9]*|)"
-			}
+            }
         },
         {
             "trDisplayName": "Kit Selection",
@@ -78,7 +79,11 @@
                     "trDisplayName": "插件名称:",
                     "mandatory": true,
                     "type": "LineEdit",
-                    "data": { "validator": "(?:(?:[a-zA-Z][a-zA-Z0-9]*::)*[a-zA-Z][a-zA-Z0-9]*|)" }
+                    "data":
+                    {
+                        "validator": "(?:(?:[a-zA-Z][a-zA-Z0-9]*::)*[a-zA-Z][a-zA-Z0-9]*|)",
+                        "trText": "%{JS: value('ProjectName').charAt(0).toUpperCase() + value('ProjectName').slice(1)}"
+                    }
                 },
                 {
                     "name": "PluginVersion",
@@ -108,7 +113,7 @@
                     "type": "LineEdit",
                     "data":
                     {
-                        "trText": "电子科大"
+                        "trText": "DJEL"
                     }
                 }
             ]
@@ -176,8 +181,8 @@
                     ]
                 },
                 {
-                    "source": "XXX.json",
-                    "target": "%{JsonFile}",
+                    "source": "XXX.xml",
+                    "target": "%{XmlFile}",
                     "openAsProject": true
                 },
                 {
