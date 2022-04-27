@@ -1,21 +1,19 @@
 
-#include "qtsingleapplication.h"
+#include "../plugins/helloqtes/helloqtesservice.h"
 #include "../tools/crashhandler/crashhandlersetup.h"
-
+#include "qtsingleapplication.h"
 #include <app/app_version.h>
 #include <extensionsystem/iplugin.h>
+#include <extensionsystem/pluginerroroverview.h>
 #include <extensionsystem/pluginmanager.h>
 #include <extensionsystem/pluginspec.h>
 #include <extensionsystem/pluginview.h>
-#include <extensionsystem/pluginerroroverview.h>
-
-#include "../plugins/helloqtes/helloqtesservice.h"
 
 #include <QApplication>
-#include <QFileInfo>
 #include <QDebug>
-#include <QThreadPool>
+#include <QFileInfo>
 #include <QList>
+#include <QThreadPool>
 
 using namespace ExtensionSystem;
 
@@ -94,7 +92,6 @@ int main(int argc, char **argv)
         qCritical() << coreplugin->errorString();
         return 1;
     }
-
 
     PluginManager::loadPlugins();
     if (coreplugin->hasError()) {

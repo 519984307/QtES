@@ -20,12 +20,14 @@ public:
     bool wasSuccessful() const;
     void setConnectionType(Qt::ConnectionType connectionType);
 
-    template <class T> void addArgument(const T &t)
+    template <class T>
+    void addArgument(const T &t)
     {
         arg[lastArg++] = QGenericArgument(typeName<T>(), &t);
     }
 
-    template <class T> void setReturnValue(T &t)
+    template <class T>
+    void setReturnValue(T &t)
     {
         useRet = true;
         ret = QGenericReturnArgument(typeName<T>(), &t);
@@ -35,7 +37,8 @@ public:
 
 private:
     InvokerBase(const InvokerBase &); // Unimplemented.
-    template <class T> const char *typeName()
+    template <class T>
+    const char *typeName()
     {
         return QMetaType::typeName(qMetaTypeId<T>());
     }
@@ -54,10 +57,7 @@ template <class Result>
 class Invoker : public InvokerBase
 {
 public:
-    Invoker(QObject *target, const char *slot)
-    {
-        InvokerBase::invoke(target, slot);
-    }
+    Invoker(QObject *target, const char *slot) { InvokerBase::invoke(target, slot); }
 
     template <class T0>
     Invoker(QObject *target, const char *slot, const T0 &t0)
@@ -77,8 +77,7 @@ public:
     }
 
     template <class T0, class T1, class T2>
-    Invoker(QObject *target, const char *slot, const T0 &t0,
-        const T1 &t1, const T2 &t2)
+    Invoker(QObject *target, const char *slot, const T0 &t0, const T1 &t1, const T2 &t2)
     {
         setReturnValue(result);
         addArgument(t0);
@@ -93,13 +92,11 @@ private:
     Result result;
 };
 
-template<> class Invoker<void> : public InvokerBase
+template <>
+class Invoker<void> : public InvokerBase
 {
 public:
-    Invoker(QObject *target, const char *slot)
-    {
-        InvokerBase::invoke(target, slot);
-    }
+    Invoker(QObject *target, const char *slot) { InvokerBase::invoke(target, slot); }
 
     template <class T0>
     Invoker(QObject *target, const char *slot, const T0 &t0)
@@ -117,8 +114,7 @@ public:
     }
 
     template <class T0, class T1, class T2>
-    Invoker(QObject *target, const char *slot, const T0 &t0,
-        const T1 &t1, const T2 &t2)
+    Invoker(QObject *target, const char *slot, const T0 &t0, const T1 &t1, const T2 &t2)
     {
         addArgument(t0);
         addArgument(t1);
@@ -142,14 +138,14 @@ inline void invokeHelper<void>(InvokerBase &in, QObject *target, const char *slo
     in.invoke(target, slot);
 }
 
-template<class Result>
+template <class Result>
 Result invoke(QObject *target, const char *slot)
 {
     InvokerBase in;
     return invokeHelper<Result>(in, target, slot);
 }
 
-template<class Result, class T0>
+template <class Result, class T0>
 Result invoke(QObject *target, const char *slot, const T0 &t0)
 {
     InvokerBase in;
@@ -157,7 +153,7 @@ Result invoke(QObject *target, const char *slot, const T0 &t0)
     return invokeHelper<Result>(in, target, slot);
 }
 
-template<class Result, class T0, class T1>
+template <class Result, class T0, class T1>
 Result invoke(QObject *target, const char *slot, const T0 &t0, const T1 &t1)
 {
     InvokerBase in;
@@ -166,9 +162,8 @@ Result invoke(QObject *target, const char *slot, const T0 &t0, const T1 &t1)
     return invokeHelper<Result>(in, target, slot);
 }
 
-template<class Result, class T0, class T1, class T2>
-Result invoke(QObject *target, const char *slot,
-    const T0 &t0, const T1 &t1, const T2 &t2)
+template <class Result, class T0, class T1, class T2>
+Result invoke(QObject *target, const char *slot, const T0 &t0, const T1 &t1, const T2 &t2)
 {
     InvokerBase in;
     in.addArgument(t0);

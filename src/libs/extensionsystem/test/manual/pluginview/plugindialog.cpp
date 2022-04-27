@@ -33,15 +33,15 @@
 #include <extensionsystem/pluginerrorview.h>
 #include <extensionsystem/pluginspec.h>
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QDialog>
-#include <QDialogButtonBox>
 #include <QApplication>
 #include <QDebug>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
-PluginDialog::PluginDialog(ExtensionSystem::PluginManager *manager)
-    : m_view(new ExtensionSystem::PluginView(manager, this))
+PluginDialog::PluginDialog(ExtensionSystem::PluginManager *manager) :
+    m_view(new ExtensionSystem::PluginView(manager, this))
 {
     QVBoxLayout *vl = new QVBoxLayout(this);
     vl->setMargin(0);
@@ -62,10 +62,10 @@ PluginDialog::PluginDialog(ExtensionSystem::PluginManager *manager)
     resize(650, 300);
     setWindowTitle(tr("Installed Plugins"));
 
-    connect(m_view, SIGNAL(currentPluginChanged(ExtensionSystem::PluginSpec*)),
-                this, SLOT(updateButtons()));
-    connect(m_view, SIGNAL(pluginActivated(ExtensionSystem::PluginSpec*)),
-                this, SLOT(openDetails(ExtensionSystem::PluginSpec*)));
+    connect(m_view, SIGNAL(currentPluginChanged(ExtensionSystem::PluginSpec *)), this,
+            SLOT(updateButtons()));
+    connect(m_view, SIGNAL(pluginActivated(ExtensionSystem::PluginSpec *)), this,
+            SLOT(openDetails(ExtensionSystem::PluginSpec *)));
     connect(m_detailsButton, SIGNAL(clicked()), this, SLOT(openDetails()));
     connect(m_errorDetailsButton, SIGNAL(clicked()), this, SLOT(openErrorDetails()));
 }
@@ -82,10 +82,9 @@ void PluginDialog::updateButtons()
     }
 }
 
-
 void PluginDialog::openDetails()
 {
-        openDetails(m_view->currentPlugin());
+    openDetails(m_view->currentPlugin());
 }
 
 void PluginDialog::openDetails(ExtensionSystem::PluginSpec *spec)
@@ -99,7 +98,8 @@ void PluginDialog::openDetails(ExtensionSystem::PluginSpec *spec)
     ExtensionSystem::PluginDetailsView *details = new ExtensionSystem::PluginDetailsView(&dialog);
     layout->addWidget(details);
     details->update(spec);
-    QDialogButtonBox *buttons = new QDialogButtonBox(QDialogButtonBox::Close, Qt::Horizontal, &dialog);
+    QDialogButtonBox *buttons
+        = new QDialogButtonBox(QDialogButtonBox::Close, Qt::Horizontal, &dialog);
     layout->addWidget(buttons);
     connect(buttons, SIGNAL(accepted()), &dialog, SLOT(accept()));
     connect(buttons, SIGNAL(rejected()), &dialog, SLOT(reject()));
@@ -119,7 +119,8 @@ void PluginDialog::openErrorDetails()
     ExtensionSystem::PluginErrorView *errors = new ExtensionSystem::PluginErrorView(&dialog);
     layout->addWidget(errors);
     errors->update(spec);
-    QDialogButtonBox *buttons = new QDialogButtonBox(QDialogButtonBox::Close, Qt::Horizontal, &dialog);
+    QDialogButtonBox *buttons
+        = new QDialogButtonBox(QDialogButtonBox::Close, Qt::Horizontal, &dialog);
     layout->addWidget(buttons);
     connect(buttons, SIGNAL(accepted()), &dialog, SLOT(accept()));
     connect(buttons, SIGNAL(rejected()), &dialog, SLOT(reject()));

@@ -3,9 +3,9 @@
 #define IPLUGIN_H
 
 #include "extensionsystem_global.h"
-#include <memory>
 
 #include <QObject>
+#include <memory>
 #if QT_VERSION >= 0x050000
 #    include <QtPlugin>
 #endif
@@ -13,9 +13,9 @@
 namespace ExtensionSystem {
 
 namespace Internal {
-    class IPluginPrivate;
-    class PluginSpecPrivate;
-}
+class IPluginPrivate;
+class PluginSpecPrivate;
+} // namespace Internal
 
 class PluginManager;
 class PluginSpec;
@@ -25,7 +25,8 @@ class EXTENSIONSYSTEM_EXPORT IPlugin : public QObject
     Q_OBJECT
 
 public:
-    enum ShutdownFlag {
+    enum ShutdownFlag
+    {
         SynchronousShutdown,
         AsynchronousShutdown
     };
@@ -37,7 +38,11 @@ public:
     virtual void extensionsInitialized() = 0;
     virtual bool delayedInitialize() { return false; }
     virtual ShutdownFlag aboutToShutdown() { return SynchronousShutdown; }
-    virtual QObject *remoteCommand(const QStringList & /* options */, const QStringList & /* arguments */) { return 0; }
+    virtual QObject *remoteCommand(const QStringList & /* options */,
+                                   const QStringList & /* arguments */)
+    {
+        return 0;
+    }
 
     PluginSpec *pluginSpec() const;
 

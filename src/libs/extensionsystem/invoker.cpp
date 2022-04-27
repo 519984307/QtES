@@ -16,8 +16,8 @@ InvokerBase::InvokerBase()
 InvokerBase::~InvokerBase()
 {
     if (!success && nag)
-        qWarning("Could not invoke function '%s' in object of type '%s'.",
-            sig.constData(), target->metaObject()->className());
+        qWarning("Could not invoke function '%s' in object of type '%s'.", sig.constData(),
+                 target->metaObject()->className());
 }
 
 bool InvokerBase::wasSuccessful() const
@@ -50,13 +50,11 @@ void InvokerBase::invoke(QObject *t, const char *slot)
         return;
     QMetaMethod method = target->metaObject()->method(idx);
     if (useRet)
-        success = method.invoke(target, connectionType, ret,
-           arg[0], arg[1], arg[2], arg[3], arg[4],
-           arg[5], arg[6], arg[7], arg[8], arg[9]);
+        success = method.invoke(target, connectionType, ret, arg[0], arg[1], arg[2], arg[3], arg[4],
+                                arg[5], arg[6], arg[7], arg[8], arg[9]);
     else
-        success = method.invoke(target, connectionType,
-           arg[0], arg[1], arg[2], arg[3], arg[4],
-           arg[5], arg[6], arg[7], arg[8], arg[9]);
+        success = method.invoke(target, connectionType, arg[0], arg[1], arg[2], arg[3], arg[4],
+                                arg[5], arg[6], arg[7], arg[8], arg[9]);
 }
 
 } // namespace ExtensionSystem

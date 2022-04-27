@@ -14,6 +14,7 @@ class CrashHandlerPrivate;
 class CrashHandler : public QObject
 {
     Q_OBJECT
+
 public:
     explicit CrashHandler(pid_t pid, const QString &signalName, QObject *parent = 0);
     ~CrashHandler();
@@ -32,7 +33,11 @@ public slots:
 private:
     bool collectRestartAppData();
 
-    enum WaitMode { WaitForExit, DontWaitForExit };
+    enum WaitMode
+    {
+        WaitForExit,
+        DontWaitForExit
+    };
     static void runCommand(QStringList commandLine, QStringList environment, WaitMode waitMode);
 
     CrashHandlerPrivate *d;

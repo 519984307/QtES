@@ -12,19 +12,18 @@ const char *OptionsParser::LOAD_OPTION = "-load";
 const char *OptionsParser::TEST_OPTION = "-test";
 const char *OptionsParser::PROFILE_OPTION = "-profile";
 
-OptionsParser::OptionsParser(const QStringList &args,
-        const QMap<QString, bool> &appOptions,
-        QMap<QString, QString> *foundAppOptions,
-        QString *errorString,
-        PluginManagerPrivate *pmPrivate)
-    : m_args(args), m_appOptions(appOptions),
-      m_foundAppOptions(foundAppOptions),
-      m_errorString(errorString),
-      m_pmPrivate(pmPrivate),
-      m_it(m_args.constBegin()),
-      m_end(m_args.constEnd()),
-      m_isDependencyRefreshNeeded(false),
-      m_hasError(false)
+OptionsParser::OptionsParser(const QStringList &args, const QMap<QString, bool> &appOptions,
+                             QMap<QString, QString> *foundAppOptions, QString *errorString,
+                             PluginManagerPrivate *pmPrivate) :
+    m_args(args),
+    m_appOptions(appOptions),
+    m_foundAppOptions(foundAppOptions),
+    m_errorString(errorString),
+    m_pmPrivate(pmPrivate),
+    m_it(m_args.constBegin()),
+    m_end(m_args.constEnd()),
+    m_isDependencyRefreshNeeded(false),
+    m_hasError(false)
 {
     ++m_it; // jump over program name
     if (m_errorString)
@@ -91,16 +90,19 @@ bool OptionsParser::checkForTestOption()
             if (PluginSpec *spec = m_pmPrivate->pluginByName(pluginName)) {
                 if (m_pmPrivate->containsTestSpec(spec)) {
                     if (m_errorString)
-                        *m_errorString = QCoreApplication::translate("PluginManager",
-                                                                     "The plugin '%1' is specified twice for testing.").arg(pluginName);
+                        *m_errorString = QCoreApplication::translate(
+                                             "PluginManager",
+                                             "The plugin '%1' is specified twice for testing.")
+                                             .arg(pluginName);
                     m_hasError = true;
                 } else {
                     m_pmPrivate->testSpecs.append(PluginManagerPrivate::TestSpec(spec, args));
                 }
-            } else  {
+            } else {
                 if (m_errorString)
                     *m_errorString = QCoreApplication::translate("PluginManager",
-                                                                 "The plugin '%1' does not exist.").arg(pluginName);
+                                                                 "The plugin '%1' does not exist.")
+                                         .arg(pluginName);
                 m_hasError = true;
             }
         }
@@ -118,7 +120,7 @@ bool OptionsParser::checkForLoadOption()
             if (m_errorString)
                 *m_errorString = QCoreApplication::translate("PluginManager",
                                                              "The plugin '%1' does not exist.")
-                    .arg(m_currentArg);
+                                     .arg(m_currentArg);
             m_hasError = true;
         } else {
             spec->setForceEnabled(true);
@@ -137,7 +139,8 @@ bool OptionsParser::checkForNoLoadOption()
         if (!spec) {
             if (m_errorString)
                 *m_errorString = QCoreApplication::translate("PluginManager",
-                                                             "The plugin '%1' does not exist.").arg(m_currentArg);
+                                                             "The plugin '%1' does not exist.")
+                                     .arg(m_currentArg);
             m_hasError = true;
         } else {
             spec->setForceDisabled(true);
@@ -187,8 +190,8 @@ bool OptionsParser::checkForUnknownOption()
     if (!m_currentArg.startsWith(QLatin1Char('-')))
         return false;
     if (m_errorString)
-        *m_errorString = QCoreApplication::translate("PluginManager",
-                                                     "Unknown option %1").arg(m_currentArg);
+        *m_errorString
+            = QCoreApplication::translate("PluginManager", "Unknown option %1").arg(m_currentArg);
     m_hasError = true;
     return true;
 }
@@ -200,7 +203,8 @@ bool OptionsParser::nextToken(OptionsParser::TokenType type)
             m_hasError = true;
             if (m_errorString)
                 *m_errorString = QCoreApplication::translate("PluginManager",
-                                                             "The option %1 requires an argument.").arg(m_currentArg);
+                                                             "The option %1 requires an argument.")
+                                     .arg(m_currentArg);
         }
         return false;
     }

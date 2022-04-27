@@ -1,15 +1,15 @@
 
 #include "crashhandlerdialog.h"
+
 #include "crashhandler.h"
 #include "ui_crashhandlerdialog.h"
 #include "utils.h"
-
 #include <../../app/app_version.h>
 #include <../../libs/utils/checkablemessagebox.h>
 
 #include <QClipboard>
-#include <QIcon>
 #include <QDialogButtonBox>
+#include <QIcon>
 #include <QSettings>
 
 static const char SettingsKeySkipWarningAbortingBacktrace[]
@@ -17,9 +17,7 @@ static const char SettingsKeySkipWarningAbortingBacktrace[]
 
 CrashHandlerDialog::CrashHandlerDialog(CrashHandler *handler, const QString &signalName,
                                        QWidget *parent) :
-    QDialog(parent),
-    m_crashHandler(handler),
-    m_ui(new Ui::CrashHandlerDialog)
+    QDialog(parent), m_crashHandler(handler), m_ui(new Ui::CrashHandlerDialog)
 {
     m_ui->setupUi(this);
     m_ui->introLabel->setTextFormat(Qt::RichText);
@@ -28,7 +26,7 @@ CrashHandlerDialog::CrashHandlerDialog(CrashHandler *handler, const QString &sig
     m_ui->progressBar->setMinimum(0);
     m_ui->progressBar->setMaximum(0);
 
-    const QStyle * const style = QApplication::style();
+    const QStyle *const style = QApplication::style();
     m_ui->closeButton->setIcon(style->standardIcon(QStyle::SP_DialogCloseButton));
 
     const int iconSize = style->pixelMetric(QStyle::PM_MessageBoxIconSize, 0);
@@ -52,24 +50,24 @@ bool CrashHandlerDialog::runDebuggerWhileBacktraceNotFinished()
 {
     // Check settings.
     QSettings settings(QSettings::IniFormat, QSettings::UserScope,
-        QLatin1String(Core::Constants::APP_SETTINGSVARIANT_STR),
-        QLatin1String(Core::Constants::APP_NAME));
+                       QLatin1String(Core::Constants::APP_SETTINGSVARIANT_STR),
+                       QLatin1String(Core::Constants::APP_NAME));
     if (settings.value(QLatin1String(SettingsKeySkipWarningAbortingBacktrace), false).toBool())
         return true;
 
     // Ask user.
     const QString title = tr("Run Debugger And Abort Collecting Backtrace?");
-    const QString message = tr(
-        "<html><head/><body>"
-          "<p><b>Run the debugger and abort collecting backtrace?</b></p>"
-          "<p>You have requested to run the debugger while collecting the backtrace was not "
-          "finished.</p>"
-        "</body></html>");
+    const QString message
+        = tr("<html><head/><body>"
+             "<p><b>Run the debugger and abort collecting backtrace?</b></p>"
+             "<p>You have requested to run the debugger while collecting the backtrace was not "
+             "finished.</p>"
+             "</body></html>");
     const QString checkBoxText = tr("Do not &ask again.");
     bool checkBoxSetting = false;
-    const QDialogButtonBox::StandardButton button = Utils::CheckableMessageBox::question(this,
-        title, message, checkBoxText, &checkBoxSetting,
-        QDialogButtonBox::Yes|QDialogButtonBox::No, QDialogButtonBox::No);
+    const QDialogButtonBox::StandardButton button = Utils::CheckableMessageBox::question(
+        this, title, message, checkBoxText, &checkBoxSetting,
+        QDialogButtonBox::Yes | QDialogButtonBox::No, QDialogButtonBox::No);
     if (checkBoxSetting)
         settings.setValue(QLatin1String(SettingsKeySkipWarningAbortingBacktrace), checkBoxSetting);
 
@@ -97,22 +95,23 @@ void CrashHandlerDialog::setApplicationInfo(const QString &signalName)
 {
     const QString ideName = QLatin1String(Core::Constants::APP_NAME);
     const QString title = tr("%1 has closed unexpectedly (Signal \"%2\")").arg(ideName, signalName);
-    const QString introLabelContents = tr(
-        "<p><b>%1.</b></p>"
-        "<p>Please file a <a href='%2'>bug report</a> with the debug information provided below.</p>")
-        .arg(title, QLatin1String(URL_BUGTRACKER));
+    const QString introLabelContents = tr("<p><b>%1.</b></p>"
+                                          "<p>Please file a <a href='%2'>bug report</a> with the "
+                                          "debug information provided below.</p>")
+                                           .arg(title, QLatin1String(URL_BUGTRACKER));
     m_ui->introLabel->setText(introLabelContents);
     setWindowTitle(title);
 
     QString revision;
 #ifdef APP_REVISION
-     revision = tr(" from revision %1").arg(QString::fromLatin1(Core::Constants::APP_REVISION_STR).left(10));
+    revision = tr(" from revision %1")
+                   .arg(QString::fromLatin1(Core::Constants::APP_REVISION_STR).left(10));
 #endif
-    const QString versionInformation = tr(
-        "%1 %2%3, built on %4 at %5, based on Qt %6 (%7 bit)\n")
-            .arg(ideName, QLatin1String(Core::Constants::APP_VERSION_LONG), revision,
-                 QLatin1String(__DATE__), QLatin1String(__TIME__), QLatin1String(QT_VERSION_STR),
-                 QString::number(QSysInfo::WordSize));
+    const QString versionInformation
+        = tr("%1 %2%3, built on %4 at %5, based on Qt %6 (%7 bit)\n")
+              .arg(ideName, QLatin1String(Core::Constants::APP_VERSION_LONG), revision,
+                   QLatin1String(__DATE__), QLatin1String(__TIME__), QLatin1String(QT_VERSION_STR),
+                   QString::number(QSysInfo::WordSize));
     m_ui->debugInfoEdit->append(versionInformation);
 }
 
@@ -131,7 +130,8 @@ void CrashHandlerDialog::selectLineWithContents(const QString &text)
     m_ui->debugInfoEdit->setTextCursor(cursor);
 
     // Find text by searching backwards.
-    m_ui->debugInfoEdit->find(text, QTextDocument::FindCaseSensitively | QTextDocument::FindBackward);
+    m_ui->debugInfoEdit->find(text,
+                              QTextDocument::FindCaseSensitively | QTextDocument::FindBackward);
 
     // Highlight whole line.
     cursor = m_ui->debugInfoEdit->textCursor();

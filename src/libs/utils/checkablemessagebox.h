@@ -17,20 +17,20 @@ class UTILSSHARED_EXPORT CheckableMessageBox : public QDialog
     Q_PROPERTY(QPixmap iconPixmap READ iconPixmap WRITE setIconPixmap)
     Q_PROPERTY(bool isChecked READ isChecked WRITE setChecked)
     Q_PROPERTY(QString checkBoxText READ checkBoxText WRITE setCheckBoxText)
-    Q_PROPERTY(QDialogButtonBox::StandardButtons buttons READ standardButtons WRITE setStandardButtons)
-    Q_PROPERTY(QDialogButtonBox::StandardButton defaultButton READ defaultButton WRITE setDefaultButton)
+    Q_PROPERTY(
+        QDialogButtonBox::StandardButtons buttons READ standardButtons WRITE setStandardButtons)
+    Q_PROPERTY(
+        QDialogButtonBox::StandardButton defaultButton READ defaultButton WRITE setDefaultButton)
 
 public:
     explicit CheckableMessageBox(QWidget *parent);
     virtual ~CheckableMessageBox();
 
     static QDialogButtonBox::StandardButton
-        question(QWidget *parent,
-                 const QString &title,
-                 const QString &question,
-                 const QString &checkBoxText,
-                 bool *checkBoxSetting,
-                 QDialogButtonBox::StandardButtons buttons = QDialogButtonBox::Yes|QDialogButtonBox::No,
+        question(QWidget *parent, const QString &title, const QString &question,
+                 const QString &checkBoxText, bool *checkBoxSetting,
+                 QDialogButtonBox::StandardButtons buttons
+                 = QDialogButtonBox::Yes | QDialogButtonBox::No,
                  QDialogButtonBox::StandardButton defaultButton = QDialogButtonBox::No);
 
     QString text() const;
@@ -55,14 +55,15 @@ public:
 
     // See static QMessageBox::standardPixmap()
     QPixmap iconPixmap() const;
-    void setIconPixmap (const QPixmap &p);
+    void setIconPixmap(const QPixmap &p);
 
     // Query the result
     QAbstractButton *clickedButton() const;
     QDialogButtonBox::StandardButton clickedStandardButton() const;
 
     // Conversion convenience
-    static QMessageBox::StandardButton dialogButtonBoxToMessageBoxButton(QDialogButtonBox::StandardButton);
+    static QMessageBox::StandardButton
+        dialogButtonBoxToMessageBoxButton(QDialogButtonBox::StandardButton);
 
 private slots:
     void slotClicked(QAbstractButton *b);

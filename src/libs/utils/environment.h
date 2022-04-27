@@ -14,9 +14,7 @@ namespace Utils {
 class UTILSSHARED_EXPORT EnvironmentItem
 {
 public:
-    EnvironmentItem(const QString &n, const QString &v)
-            : name(n), value(v), unset(false)
-    {}
+    EnvironmentItem(const QString &n, const QString &v) : name(n), value(v), unset(false) {}
 
     QString name;
     QString value;

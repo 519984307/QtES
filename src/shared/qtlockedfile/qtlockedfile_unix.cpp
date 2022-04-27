@@ -1,10 +1,10 @@
 
 #include "qtlockedfile.h"
 
-#include <string.h>
 #include <errno.h>
-#include <unistd.h>
 #include <fcntl.h>
+#include <string.h>
+#include <unistd.h>
 
 namespace SharedTools {
 
@@ -38,11 +38,9 @@ bool QtLockedFile::lock(LockMode mode, bool block)
         return false;
     }
 
-
     m_lock_mode = mode;
     return true;
 }
-
 
 bool QtLockedFile::unlock()
 {

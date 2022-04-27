@@ -11,7 +11,7 @@ namespace ExtensionSystem {
 class PluginSpec;
 namespace Internal {
 namespace Ui {
-    class PluginErrorView;
+class PluginErrorView;
 } // namespace Ui
 } // namespace Internal
 

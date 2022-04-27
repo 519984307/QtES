@@ -2,8 +2,6 @@
 
 using namespace Core;
 
-CoreServiceImpl::CoreServiceImpl(QObject *parent) : QObject(parent)
-{}
+CoreServiceImpl::CoreServiceImpl(QObject *parent) : QObject(parent) {}
 
-CoreServiceImpl::~CoreServiceImpl()
-{}
+CoreServiceImpl::~CoreServiceImpl() {}

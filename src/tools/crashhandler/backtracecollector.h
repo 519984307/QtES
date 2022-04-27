@@ -9,6 +9,7 @@ class BacktraceCollectorPrivate;
 class BacktraceCollector : public QObject
 {
     Q_OBJECT
+
 public:
     explicit BacktraceCollector(QObject *parent = 0);
     ~BacktraceCollector();

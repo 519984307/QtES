@@ -4,9 +4,9 @@
 
 #include "extensionsystem_global.h"
 
-#include <QString>
-#include <QList>
 #include <QHash>
+#include <QList>
+#include <QString>
 
 QT_BEGIN_NAMESPACE
 class QStringList;
@@ -15,15 +15,16 @@ QT_END_NAMESPACE
 namespace ExtensionSystem {
 
 namespace Internal {
-    class PluginSpecPrivate;
-    class PluginManagerPrivate;
-}
+class PluginSpecPrivate;
+class PluginManagerPrivate;
+} // namespace Internal
 
 class IPlugin;
 
 struct EXTENSIONSYSTEM_EXPORT PluginDependency
 {
-    enum Type {
+    enum Type
+    {
         Required,
         Optional
     };
@@ -50,7 +51,17 @@ struct EXTENSIONSYSTEM_EXPORT PluginArgumentDescription
 class EXTENSIONSYSTEM_EXPORT PluginSpec
 {
 public:
-    enum State { Invalid, Read, Resolved, Loaded, Initialized, Running, Stopped, Deleted};
+    enum State
+    {
+        Invalid,
+        Read,
+        Resolved,
+        Loaded,
+        Initialized,
+        Running,
+        Stopped,
+        Deleted
+    };
 
     ~PluginSpec();
 
@@ -114,4 +125,3 @@ private:
 } // namespace ExtensionSystem
 
 #endif // PLUGINSPEC_H
-

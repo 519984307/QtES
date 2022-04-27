@@ -5,8 +5,8 @@
 #include "extensionsystem_global.h"
 
 #include <QHash>
-#include <QWidget>
 #include <QIcon>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 class QTreeWidgetItem;
@@ -20,7 +20,7 @@ class PluginCollection;
 
 namespace Internal {
 namespace Ui {
-    class PluginView;
+class PluginView;
 } // namespace Ui
 } // namespace Internal
 
@@ -46,14 +46,21 @@ private slots:
     void activatePlugin(QTreeWidgetItem *item);
 
 private:
-    enum ParsedState { ParsedNone = 1, ParsedPartial = 2, ParsedAll = 4, ParsedWithErrors = 8};
+    enum ParsedState
+    {
+        ParsedNone = 1,
+        ParsedPartial = 2,
+        ParsedAll = 4,
+        ParsedWithErrors = 8
+    };
     QIcon iconForState(int state);
     void updatePluginDependencies();
-    int parsePluginSpecs(QTreeWidgetItem *parentItem, Qt::CheckState &groupState, QList<PluginSpec*> plugins);
+    int parsePluginSpecs(QTreeWidgetItem *parentItem, Qt::CheckState &groupState,
+                         QList<PluginSpec *> plugins);
 
     Internal::Ui::PluginView *m_ui;
-    QList<QTreeWidgetItem*> m_items;
-    QHash<PluginSpec*, QTreeWidgetItem*> m_specToItem;
+    QList<QTreeWidgetItem *> m_items;
+    QHash<PluginSpec *, QTreeWidgetItem *> m_specToItem;
 
     QStringList m_whitelist;
     QIcon m_okIcon;
@@ -64,6 +71,6 @@ private:
     const int C_LOAD;
 };
 
-} // namespae ExtensionSystem
+} // namespace ExtensionSystem
 
 #endif // PLUGIN_VIEW_H

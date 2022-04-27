@@ -31,15 +31,12 @@
 
 #include <extensionsystem/pluginmanager.h>
 
-#include <qplugin.h>
 #include <QObject>
+#include <qplugin.h>
 
 using namespace Plugin3;
 
-MyPlugin3::MyPlugin3()
-    : initializeCalled(false)
-{
-}
+MyPlugin3::MyPlugin3() : initializeCalled(false) {}
 
 bool MyPlugin3::initialize(const QStringList & /*arguments*/, QString *errorString)
 {

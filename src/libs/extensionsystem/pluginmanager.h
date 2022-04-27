@@ -2,8 +2,8 @@
 #ifndef EXTENSIONSYSTEM_PLUGINMANAGER_H
 #define EXTENSIONSYSTEM_PLUGINMANAGER_H
 
-#include "extensionsystem_global.h"
 #include "aggregate.h"
+#include "extensionsystem_global.h"
 
 #include <QObject>
 #include <QReadWriteLock>
@@ -38,7 +38,8 @@ public:
     static void addObject(QObject *obj);
     static void removeObject(QObject *obj);
     static QList<QObject *> allObjects();
-    template <typename T> static QList<T *> getObjects()
+    template <typename T>
+    static QList<T *> getObjects()
     {
         QReadLocker lock(&m_instance->m_lock);
         QList<T *> results;
@@ -51,7 +52,8 @@ public:
         }
         return results;
     }
-    template <typename T> static T *getObject()
+    template <typename T>
+    static T *getObject()
     {
         QReadLocker lock(&m_instance->m_lock);
         QList<QObject *> all = allObjects();
@@ -86,12 +88,11 @@ public:
 
     // command line arguments
     static QStringList arguments();
-    static bool parseOptions(const QStringList &args,
-        const QMap<QString, bool> &appOptions,
-        QMap<QString, QString> *foundAppOptions,
-        QString *errorString);
+    static bool parseOptions(const QStringList &args, const QMap<QString, bool> &appOptions,
+                             QMap<QString, QString> *foundAppOptions, QString *errorString);
     static void formatOptions(QTextStream &str, int optionIndentation, int descriptionIndentation);
-    static void formatPluginOptions(QTextStream &str, int optionIndentation, int descriptionIndentation);
+    static void formatPluginOptions(QTextStream &str, int optionIndentation,
+                                    int descriptionIndentation);
     static void formatPluginVersions(QTextStream &str);
 
     static QString serializedArguments();

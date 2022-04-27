@@ -13,7 +13,9 @@ QT_END_NAMESPACE
 namespace ExtensionSystem {
 
 namespace Internal {
-namespace Ui { class PluginErrorOverview; }
+namespace Ui {
+class PluginErrorOverview;
+}
 } // namespace Internal
 
 class EXTENSIONSYSTEM_EXPORT PluginErrorOverview : public QDialog
@@ -31,6 +33,6 @@ private:
     Internal::Ui::PluginErrorOverview *m_ui;
 };
 
-} // ExtensionSystem
+} // namespace ExtensionSystem
 
 #endif // PLUGINERROROVERVIEW_H

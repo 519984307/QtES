@@ -30,11 +30,11 @@
 #ifndef PLUGINDIALOG_H
 #define PLUGINDIALOG_H
 
-#include <extensionsystem/pluginview.h>
 #include <extensionsystem/pluginmanager.h>
+#include <extensionsystem/pluginview.h>
 
-#include <QWidget>
 #include <QPushButton>
+#include <QWidget>
 
 class PluginDialog : public QWidget
 {

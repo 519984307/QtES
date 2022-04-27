@@ -4,11 +4,11 @@
 
 #include "extensionsystem_global.h"
 
-#include <QObject>
-#include <QList>
 #include <QHash>
-#include <QReadWriteLock>
+#include <QList>
+#include <QObject>
 #include <QReadLocker>
+#include <QReadWriteLock>
 
 namespace Aggregation {
 
@@ -23,7 +23,9 @@ public:
     void add(QObject *component);
     void remove(QObject *component);
 
-    template <typename T> T *component() {
+    template <typename T>
+    T *component()
+    {
         QReadLocker(&lock());
         foreach (QObject *component, m_components) {
             if (T *result = qobject_cast<T *>(component))
@@ -32,7 +34,9 @@ public:
         return (T *)0;
     }
 
-    template <typename T> QList<T *> components() {
+    template <typename T>
+    QList<T *> components()
+    {
         QReadLocker(&lock());
         QList<T *> results;
         foreach (QObject *component, m_components) {
@@ -59,14 +63,16 @@ private:
 };
 
 // get a component via global template function
-template <typename T> T *query(Aggregate *obj)
+template <typename T>
+T *query(Aggregate *obj)
 {
     if (!obj)
         return (T *)0;
     return obj->template component<T>();
 }
 
-template <typename T> T *query(QObject *obj)
+template <typename T>
+T *query(QObject *obj)
 {
     if (!obj)
         return (T *)0;
@@ -80,14 +86,16 @@ template <typename T> T *query(QObject *obj)
 }
 
 // get all components of a specific type via template function
-template <typename T> QList<T *> query_all(Aggregate *obj)
+template <typename T>
+QList<T *> query_all(Aggregate *obj)
 {
     if (!obj)
         return QList<T *>();
     return obj->template components<T>();
 }
 
-template <typename T> QList<T *> query_all(QObject *obj)
+template <typename T>
+QList<T *> query_all(QObject *obj)
 {
     if (!obj)
         return QList<T *>();

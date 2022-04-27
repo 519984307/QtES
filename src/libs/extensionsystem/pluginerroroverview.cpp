@@ -1,16 +1,16 @@
 
 #include "pluginerroroverview.h"
-#include "ui_pluginerroroverview.h"
-#include "pluginspec.h"
-#include "pluginmanager.h"
 
-Q_DECLARE_METATYPE(ExtensionSystem::PluginSpec*)
+#include "pluginmanager.h"
+#include "pluginspec.h"
+#include "ui_pluginerroroverview.h"
+
+Q_DECLARE_METATYPE(ExtensionSystem::PluginSpec *)
 
 namespace ExtensionSystem {
 
 PluginErrorOverview::PluginErrorOverview(QWidget *parent) :
-    QDialog(parent),
-    m_ui(new Internal::Ui::PluginErrorOverview)
+    QDialog(parent), m_ui(new Internal::Ui::PluginErrorOverview)
 {
     m_ui->setupUi(this);
     m_ui->buttonBox->addButton(tr("Continue"), QDialogButtonBox::AcceptRole);
@@ -24,8 +24,8 @@ PluginErrorOverview::PluginErrorOverview(QWidget *parent) :
         }
     }
 
-    connect(m_ui->pluginList, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
-            this, SLOT(showDetails(QListWidgetItem*)));
+    connect(m_ui->pluginList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
+            this, SLOT(showDetails(QListWidgetItem *)));
 
     if (m_ui->pluginList->count() > 0)
         m_ui->pluginList->setCurrentRow(0);

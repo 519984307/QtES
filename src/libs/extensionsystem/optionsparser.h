@@ -4,8 +4,8 @@
 
 #include "pluginmanager_p.h"
 
-#include <QStringList>
 #include <QMap>
+#include <QStringList>
 
 namespace ExtensionSystem {
 namespace Internal {
@@ -13,11 +13,9 @@ namespace Internal {
 class OptionsParser
 {
 public:
-    OptionsParser(const QStringList &args,
-        const QMap<QString, bool> &appOptions,
-        QMap<QString, QString> *foundAppOptions,
-        QString *errorString,
-        PluginManagerPrivate *pmPrivate);
+    OptionsParser(const QStringList &args, const QMap<QString, bool> &appOptions,
+                  QMap<QString, QString> *foundAppOptions, QString *errorString,
+                  PluginManagerPrivate *pmPrivate);
 
     bool parse();
 
@@ -25,6 +23,7 @@ public:
     static const char *LOAD_OPTION;
     static const char *TEST_OPTION;
     static const char *PROFILE_OPTION;
+
 private:
     // return value indicates if the option was processed
     // it doesn't indicate success (--> m_hasError)
@@ -37,7 +36,11 @@ private:
     bool checkForProfilingOption();
     bool checkForUnknownOption();
 
-    enum TokenType { OptionalToken, RequiredToken };
+    enum TokenType
+    {
+        OptionalToken,
+        RequiredToken
+    };
     bool nextToken(TokenType type = OptionalToken);
 
     const QStringList &m_args;

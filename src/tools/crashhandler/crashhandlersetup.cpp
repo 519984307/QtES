@@ -3,51 +3,50 @@
 #include <QtGlobal>
 
 #if !defined(QT_NO_DEBUG) && defined(Q_OS_LINUX)
-#define BUILD_CRASH_HANDLER
+#    define BUILD_CRASH_HANDLER
 #endif
 
 #ifdef BUILD_CRASH_HANDLER
 
-#include <QApplication>
-#include <QString>
+#    include <sys/prctl.h>
+#    include <sys/types.h>
+#    include <sys/wait.h>
 
-#include <stdlib.h>
-
-#include <errno.h>
-#include <signal.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <sys/prctl.h>
+#    include <QApplication>
+#    include <QString>
+#    include <errno.h>
+#    include <signal.h>
+#    include <stdlib.h>
+#    include <string.h>
+#    include <unistd.h>
 
 // Enable compilation with older header that doesn't contain this constant
 // for running on newer libraries that do support it
-#ifndef PR_SET_PTRACER
-#define PR_SET_PTRACER 0x59616d61
-#endif
+#    ifndef PR_SET_PTRACER
+#        define PR_SET_PTRACER 0x59616d61
+#    endif
 
-#ifdef Q_WS_X11
-#include <qx11info_x11.h>
-#include <X11/Xlib.h>
-#endif
+#    ifdef Q_WS_X11
+#        include <X11/Xlib.h>
+#        include <qx11info_x11.h>
+#    endif
 
 static const char *crashHandlerPathC;
 static void *signalHandlerStack;
 
 extern "C" void signalHandler(int signal)
 {
-#ifdef Q_WS_X11
+#    ifdef Q_WS_X11
     // Kill window since it's frozen anyway.
     if (QX11Info::display())
         close(ConnectionNumber(QX11Info::display()));
-#endif
+#    endif
     pid_t pid = fork();
     switch (pid) {
     case -1: // error
         break;
     case 0: // child
-        execl(crashHandlerPathC, crashHandlerPathC, strsignal(signal), (char *) 0);
+        execl(crashHandlerPathC, crashHandlerPathC, strsignal(signal), (char *)0);
         _exit(EXIT_FAILURE);
     default: // parent
         prctl(PR_SET_PTRACER, pid, 0, 0, 0);
@@ -61,19 +60,20 @@ extern "C" void signalHandler(int signal)
 void setupCrashHandler()
 {
 #ifdef BUILD_CRASH_HANDLER
-//    if (qgetenv("QTC_USE_CRASH_HANDLER").isEmpty())
-//        return;
+    //    if (qgetenv("QTC_USE_CRASH_HANDLER").isEmpty())
+    //        return;
 
-    const QString crashHandlerPath = qApp->applicationDirPath()
-        + QLatin1String("/crash_handler");
+    const QString crashHandlerPath = qApp->applicationDirPath() + QLatin1String("/crash_handler");
     crashHandlerPathC = qstrdup(qPrintable(crashHandlerPath));
 
     // Setup an alternative stack for the signal handler. This way we are able to handle SIGSEGV
     // even if the normal process stack is exhausted.
     stack_t ss;
-    ss.ss_sp = signalHandlerStack = malloc(SIGSTKSZ); // Usual requirements for alternative signal stack.
+    ss.ss_sp = signalHandlerStack
+        = malloc(SIGSTKSZ); // Usual requirements for alternative signal stack.
     if (ss.ss_sp == 0) {
-        qWarning("Warning: Could not allocate space for alternative signal stack (%s).", Q_FUNC_INFO);
+        qWarning("Warning: Could not allocate space for alternative signal stack (%s).",
+                 Q_FUNC_INFO);
         return;
     }
     ss.ss_size = SIGSTKSZ;
@@ -98,11 +98,11 @@ void setupCrashHandler()
     sa.sa_flags = SA_RESETHAND | SA_NODEFER | SA_ONSTACK;
     // See "man 7 signal" for an overview of signals.
     // Do not add SIGPIPE here, QProcess and QTcpSocket use it.
-    const int signalsToHandle[] = { SIGILL, SIGABRT, SIGFPE, SIGSEGV, SIGBUS, 0 };
+    const int signalsToHandle[] = {SIGILL, SIGABRT, SIGFPE, SIGSEGV, SIGBUS, 0};
     for (int i = 0; signalsToHandle[i]; ++i) {
-        if (sigaction(signalsToHandle[i], &sa, 0) == -1 ) {
+        if (sigaction(signalsToHandle[i], &sa, 0) == -1) {
             qWarning("Warning: Failed to install signal handler for signal \"%s\" (%s).",
-                strsignal(signalsToHandle[i]), Q_FUNC_INFO);
+                     strsignal(signalsToHandle[i]), Q_FUNC_INFO);
         }
     }
 #endif // BUILD_CRASH_HANDLER

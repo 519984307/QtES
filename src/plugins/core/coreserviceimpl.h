@@ -15,7 +15,6 @@ class CoreServiceImpl : public QObject, public Core::Service
 public:
     explicit CoreServiceImpl(QObject *parent = nullptr);
     ~CoreServiceImpl();
-
 };
 
 } // namespace Core

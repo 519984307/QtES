@@ -7,9 +7,9 @@
 #include <QString>
 
 #ifdef Q_OS_WIN
-#define QTC_HOST_EXE_SUFFIX ".exe"
+#    define QTC_HOST_EXE_SUFFIX ".exe"
 #else
-#define QTC_HOST_EXE_SUFFIX ""
+#    define QTC_HOST_EXE_SUFFIX ""
 #endif // Q_OS_WIN
 
 namespace Utils {
@@ -18,11 +18,24 @@ class UTILSSHARED_EXPORT HostOsInfo
 {
 public:
     // Add more as needed.
-    enum HostOs { HostOsWindows, HostOsLinux, HostOsMac, HostOsOtherUnix, HostOsOther };
+    enum HostOs
+    {
+        HostOsWindows,
+        HostOsLinux,
+        HostOsMac,
+        HostOsOtherUnix,
+        HostOsOther
+    };
     static inline HostOs hostOs();
 
-    enum HostArchitecture { HostArchitectureX86, HostArchitectureAMD64, HostArchitectureItanium,
-                            HostArchitectureArm, HostArchitectureUnknown };
+    enum HostArchitecture
+    {
+        HostArchitectureX86,
+        HostArchitectureAMD64,
+        HostArchitectureItanium,
+        HostArchitectureArm,
+        HostArchitectureUnknown
+    };
     static HostArchitecture hostArchitecture();
 
     static bool isWindowsHost() { return hostOs() == HostOsWindows; }
@@ -40,7 +53,7 @@ public:
 
     static Qt::CaseSensitivity fileNameCaseSensitivity()
     {
-        return isWindowsHost() ? Qt::CaseInsensitive: Qt::CaseSensitive;
+        return isWindowsHost() ? Qt::CaseInsensitive : Qt::CaseSensitive;
     }
 
     static QChar pathListSeparator()

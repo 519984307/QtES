@@ -42,8 +42,7 @@ namespace SharedTools {
 
     \sa QFile::QFile()
 */
-QtLockedFile::QtLockedFile()
-    : QFile()
+QtLockedFile::QtLockedFile() : QFile()
 {
 #ifdef Q_OS_WIN
     m_semaphore_hnd = 0;
@@ -58,8 +57,7 @@ QtLockedFile::QtLockedFile()
 
     \sa QFile::QFile()
 */
-QtLockedFile::QtLockedFile(const QString &name)
-    : QFile(name)
+QtLockedFile::QtLockedFile(const QString &name) : QFile(name)
 {
 #ifdef Q_OS_WIN
     m_semaphore_hnd = 0;

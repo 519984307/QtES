@@ -1,6 +1,6 @@
 #include "coreplugin.h"
-#include "coreserviceimpl.h"
 
+#include "coreserviceimpl.h"
 #include "extensionsystem/pluginmanager.h"
 
 #include <QDebug>
@@ -12,6 +12,7 @@ namespace Internal {
 class CorePluginPrivate
 {
     Q_DECLARE_PUBLIC(CorePlugin)
+
 protected:
     CorePlugin *const q_ptr;
 
@@ -67,6 +68,5 @@ bool CorePlugin::delayedInitialize()
 
 } // namespace Internal
 } // namespace Core
-
 
 Q_EXPORT_PLUGIN(Core::Internal::CorePlugin)

@@ -1,16 +1,16 @@
 
 #include "pluginview.h"
+
+#include "plugincollection.h"
 #include "pluginmanager.h"
 #include "pluginspec.h"
-#include "plugincollection.h"
 #include "ui_pluginview.h"
 
+#include <QDebug>
 #include <QDir>
 #include <QHeaderView>
-#include <QTreeWidgetItem>
 #include <QPalette>
-
-#include <QDebug>
+#include <QTreeWidgetItem>
 
 /*!
     \class ExtensionSystem::PluginView
@@ -39,19 +39,16 @@
 
 using namespace ExtensionSystem;
 
-Q_DECLARE_METATYPE(ExtensionSystem::PluginSpec*)
-Q_DECLARE_METATYPE(ExtensionSystem::PluginCollection*)
+Q_DECLARE_METATYPE(ExtensionSystem::PluginSpec *)
+Q_DECLARE_METATYPE(ExtensionSystem::PluginCollection *)
 
 /*!
     \fn PluginView::PluginView(PluginManager *manager, QWidget *parent)
     Constructs a PluginView that gets the list of plugins from the
     given plugin \a manager with a given \a parent widget.
 */
-PluginView::PluginView(QWidget *parent)
-    : QWidget(parent),
-      m_ui(new Internal::Ui::PluginView),
-      m_allowCheckStateUpdate(true),
-      C_LOAD(1)
+PluginView::PluginView(QWidget *parent) :
+    QWidget(parent), m_ui(new Internal::Ui::PluginView), m_allowCheckStateUpdate(true), C_LOAD(1)
 {
     m_ui->setupUi(this);
     QHeaderView *header = m_ui->categoryWidget->header();
@@ -76,10 +73,10 @@ PluginView::PluginView(QWidget *parent)
                 << QString::fromLatin1("Find") << QString::fromLatin1("TextEditor");
 
     connect(PluginManager::instance(), SIGNAL(pluginsChanged()), this, SLOT(updateList()));
-    connect(m_ui->categoryWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
-            this, SLOT(selectPlugin(QTreeWidgetItem*)));
-    connect(m_ui->categoryWidget, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
-            this, SLOT(activatePlugin(QTreeWidgetItem*)));
+    connect(m_ui->categoryWidget, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
+            this, SLOT(selectPlugin(QTreeWidgetItem *)));
+    connect(m_ui->categoryWidget, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this,
+            SLOT(activatePlugin(QTreeWidgetItem *)));
 
     updateList();
 }
@@ -108,8 +105,8 @@ PluginSpec *PluginView::currentPlugin() const
 
 void PluginView::updateList()
 {
-    connect(m_ui->categoryWidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(updatePluginSettings(QTreeWidgetItem*,int)));
+    connect(m_ui->categoryWidget, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(updatePluginSettings(QTreeWidgetItem *, int)));
 
     PluginCollection *defaultCollection = 0;
     foreach (PluginCollection *collection, PluginManager::pluginCollections()) {
@@ -118,12 +115,11 @@ void PluginView::updateList()
             continue;
         }
         // State, name, load, version, vendor.
-        QTreeWidgetItem *collectionItem = new QTreeWidgetItem(QStringList()
-            << collection->name()
-            << QString()    // state
-            << QString()    // load
-            << QString()    // version
-            << QString());  // vendor
+        QTreeWidgetItem *collectionItem
+            = new QTreeWidgetItem(QStringList() << collection->name() << QString() // state
+                                                << QString()                       // load
+                                                << QString()                       // version
+                                                << QString());                     // vendor
         m_items.append(collectionItem);
 
         Qt::CheckState groupState = Qt::Unchecked;
@@ -135,16 +131,14 @@ void PluginView::updateList()
         collectionItem->setData(0, Qt::UserRole, qVariantFromValue(collection));
     }
 
-    QList<PluginSpec *> plugins = defaultCollection ? defaultCollection->plugins() : QList<PluginSpec *>();
+    QList<PluginSpec *> plugins
+        = defaultCollection ? defaultCollection->plugins() : QList<PluginSpec *>();
     if (!plugins.isEmpty()) {
         // add all non-categorized plugins into utilities. could also be added as root items
         // but that makes the tree ugly.
-        QTreeWidgetItem *defaultCollectionItem = new QTreeWidgetItem(QStringList()
-            << QString(tr("Utilities"))
-            << QString()
-            << QString()
-            << QString()
-            << QString());
+        QTreeWidgetItem *defaultCollectionItem
+            = new QTreeWidgetItem(QStringList() << QString(tr("Utilities")) << QString()
+                                                << QString() << QString() << QString());
 
         m_items.append(defaultCollectionItem);
         Qt::CheckState groupState = Qt::Unchecked;
@@ -169,7 +163,8 @@ void PluginView::updateList()
         m_ui->categoryWidget->setCurrentItem(m_ui->categoryWidget->topLevelItem(0));
 }
 
-int PluginView::parsePluginSpecs(QTreeWidgetItem *parentItem, Qt::CheckState &groupState, QList<PluginSpec*> plugins)
+int PluginView::parsePluginSpecs(QTreeWidgetItem *parentItem, Qt::CheckState &groupState,
+                                 QList<PluginSpec *> plugins)
 {
     int ret = 0;
     int checkedCount = 0;
@@ -179,11 +174,11 @@ int PluginView::parsePluginSpecs(QTreeWidgetItem *parentItem, Qt::CheckState &gr
         if (spec->hasError())
             ret |= ParsedWithErrors;
 
-        QTreeWidgetItem *pluginItem = new QTreeWidgetItem(QStringList()
-            << spec->name()
-            << QString()    // load on startup
-            << QString::fromLatin1("%1 (%2)").arg(spec->version(), spec->compatVersion())
-            << spec->vendor());
+        QTreeWidgetItem *pluginItem
+            = new QTreeWidgetItem(QStringList() << spec->name() << QString() // load on startup
+                                                << QString::fromLatin1("%1 (%2)").arg(
+                                                       spec->version(), spec->compatVersion())
+                                                << spec->vendor());
 
         pluginItem->setToolTip(0, QDir::toNativeSeparators(spec->filePath()));
         bool ok = !spec->hasError();
@@ -245,16 +240,15 @@ void PluginView::selectPlugin(QTreeWidgetItem *current)
 {
     if (!current)
         emit currentPluginChanged(0);
-    else if (current->data(0, Qt::UserRole).canConvert<PluginSpec*>())
+    else if (current->data(0, Qt::UserRole).canConvert<PluginSpec *>())
         emit currentPluginChanged(current->data(0, Qt::UserRole).value<PluginSpec *>());
     else
         emit currentPluginChanged(0);
-
 }
 
 void PluginView::activatePlugin(QTreeWidgetItem *item)
 {
-    if (item->data(0, Qt::UserRole).canConvert<PluginSpec*>()) {
+    if (item->data(0, Qt::UserRole).canConvert<PluginSpec *>()) {
         emit pluginActivated(item->data(0, Qt::UserRole).value<PluginSpec *>());
     } else
         emit pluginActivated(0);
@@ -269,7 +263,7 @@ void PluginView::updatePluginSettings(QTreeWidgetItem *item, int column)
 
     bool loadOnStartup = item->data(C_LOAD, Qt::CheckStateRole).toBool();
 
-    if (item->data(0, Qt::UserRole).canConvert<PluginSpec*>()) {
+    if (item->data(0, Qt::UserRole).canConvert<PluginSpec *>()) {
         PluginSpec *spec = item->data(0, Qt::UserRole).value<PluginSpec *>();
 
         if (column == C_LOAD) {
@@ -278,7 +272,8 @@ void PluginView::updatePluginSettings(QTreeWidgetItem *item, int column)
             updatePluginDependencies();
 
             if (item->parent()) {
-                PluginCollection *collection = item->parent()->data(0, Qt::UserRole).value<PluginCollection *>();
+                PluginCollection *collection
+                    = item->parent()->data(0, Qt::UserRole).value<PluginCollection *>();
                 Qt::CheckState state = Qt::PartiallyChecked;
                 int loadCount = 0;
                 for (int i = 0; i < collection->plugins().length(); ++i) {

@@ -1,25 +1,26 @@
 
 #include "pluginmanager.h"
+
+#include "iplugin.h"
+#include "optionsparser.h"
+#include "plugincollection.h"
 #include "pluginmanager_p.h"
 #include "pluginspec.h"
 #include "pluginspec_p.h"
-#include "optionsparser.h"
-#include "iplugin.h"
-#include "plugincollection.h"
 
-#include <QEventLoop>
 #include <QDateTime>
+#include <QDebug>
 #include <QDir>
+#include <QEventLoop>
 #include <QMetaProperty>
 #include <QSettings>
 #include <QTextStream>
 #include <QTime>
-#include <QWriteLocker>
-#include <QDebug>
 #include <QTimer>
+#include <QWriteLocker>
 
 #ifdef WITH_TESTS
-#include <QTest>
+#    include <QTest>
 #endif
 
 static const char C_IGNORED_PLUGINS[] = "Plugins/Ignored";
@@ -28,7 +29,10 @@ static const int DELAYED_INITIALIZE_INTERVAL = 20; // ms
 
 typedef QList<ExtensionSystem::PluginSpec *> PluginSpecSet;
 
-enum { debugLeaks = 0 };
+enum
+{
+    debugLeaks = 0
+};
 
 /*!
     \namespace ExtensionSystem
@@ -228,8 +232,7 @@ PluginManager *PluginManager::instance()
 /*!
     Create a plugin manager. Should be done only once per application.
 */
-PluginManager::PluginManager()
-    : d(new PluginManagerPrivate(this))
+PluginManager::PluginManager() : d(new PluginManagerPrivate(this))
 {
     m_instance = this;
 }
@@ -447,7 +450,7 @@ QString PluginManager::serializedArguments()
             rc += QLatin1Char(':');
             rc += ps->name();
             rc += separator;
-            rc +=  ps->arguments().join(QString(separator));
+            rc += ps->arguments().join(QString(separator));
         }
     }
     if (!m_instance->d->arguments.isEmpty()) {
@@ -502,7 +505,8 @@ void PluginManager::remoteArguments(const QString &serializedArgument, QObject *
     const QStringList arguments = subList(serializedArguments, QLatin1String(argumentKeywordC));
     foreach (const PluginSpec *ps, plugins()) {
         if (ps->state() == PluginSpec::Running) {
-            const QStringList pluginOptions = subList(serializedArguments, QLatin1Char(':') + ps->name());
+            const QStringList pluginOptions
+                = subList(serializedArguments, QLatin1Char(':') + ps->name());
             QObject *socketParent = ps->plugin()->remoteCommand(pluginOptions, arguments);
             if (socketParent && socket) {
                 socket->setParent(socketParent);
@@ -529,27 +533,23 @@ void PluginManager::remoteArguments(const QString &serializedArgument, QObject *
 
     Returns if there was an error.
  */
-bool PluginManager::parseOptions(const QStringList &args,
-    const QMap<QString, bool> &appOptions,
-    QMap<QString, QString> *foundAppOptions,
-    QString *errorString)
+bool PluginManager::parseOptions(const QStringList &args, const QMap<QString, bool> &appOptions,
+                                 QMap<QString, QString> *foundAppOptions, QString *errorString)
 {
     OptionsParser options(args, appOptions, foundAppOptions, errorString, m_instance->d);
     return options.parse();
 }
 
-
-
 static inline void indent(QTextStream &str, int indent)
 {
     const QChar blank = QLatin1Char(' ');
-    for (int i = 0 ; i < indent; i++)
+    for (int i = 0; i < indent; i++)
         str << blank;
 }
 
-static inline void formatOption(QTextStream &str,
-                                const QString &opt, const QString &parm, const QString &description,
-                                int optionIndentation, int descriptionIndentation)
+static inline void formatOption(QTextStream &str, const QString &opt, const QString &parm,
+                                const QString &description, int optionIndentation,
+                                int descriptionIndentation)
 {
     int remainingIndent = descriptionIndentation - optionIndentation - opt.size();
     indent(str, optionIndentation);
@@ -566,24 +566,25 @@ static inline void formatOption(QTextStream &str,
     Format the startup options of the plugin manager for command line help.
 */
 
-void PluginManager::formatOptions(QTextStream &str, int optionIndentation, int descriptionIndentation)
+void PluginManager::formatOptions(QTextStream &str, int optionIndentation,
+                                  int descriptionIndentation)
 {
-    formatOption(str, QLatin1String(OptionsParser::LOAD_OPTION),
-                 QLatin1String("plugin"), QLatin1String("Load <plugin>"),
-                 optionIndentation, descriptionIndentation);
-    formatOption(str, QLatin1String(OptionsParser::NO_LOAD_OPTION),
-                 QLatin1String("plugin"), QLatin1String("Do not load <plugin>"),
-                 optionIndentation, descriptionIndentation);
-    formatOption(str, QLatin1String(OptionsParser::PROFILE_OPTION),
-                 QString(), QLatin1String("Profile plugin loading"),
-                 optionIndentation, descriptionIndentation);
+    formatOption(str, QLatin1String(OptionsParser::LOAD_OPTION), QLatin1String("plugin"),
+                 QLatin1String("Load <plugin>"), optionIndentation, descriptionIndentation);
+    formatOption(str, QLatin1String(OptionsParser::NO_LOAD_OPTION), QLatin1String("plugin"),
+                 QLatin1String("Do not load <plugin>"), optionIndentation, descriptionIndentation);
+    formatOption(str, QLatin1String(OptionsParser::PROFILE_OPTION), QString(),
+                 QLatin1String("Profile plugin loading"), optionIndentation,
+                 descriptionIndentation);
 #ifdef WITH_TESTS
-    formatOption(str, QString::fromLatin1(OptionsParser::TEST_OPTION)
-                 + QLatin1String(" <plugin>[,testfunction[:testdata]]..."), QString(),
-                 QLatin1String("Run plugin's tests"), optionIndentation, descriptionIndentation);
+    formatOption(str,
+                 QString::fromLatin1(OptionsParser::TEST_OPTION)
+                     + QLatin1String(" <plugin>[,testfunction[:testdata]]..."),
+                 QString(), QLatin1String("Run plugin's tests"), optionIndentation,
+                 descriptionIndentation);
     formatOption(str, QString::fromLatin1(OptionsParser::TEST_OPTION) + QLatin1String(" all"),
-                 QString(), QLatin1String("Run tests from all plugins"),
-                 optionIndentation, descriptionIndentation);
+                 QString(), QLatin1String("Run tests from all plugins"), optionIndentation,
+                 descriptionIndentation);
 #endif
 }
 
@@ -591,18 +592,22 @@ void PluginManager::formatOptions(QTextStream &str, int optionIndentation, int d
     Format the plugin  options of the plugin specs for command line help.
 */
 
-void PluginManager::formatPluginOptions(QTextStream &str, int optionIndentation, int descriptionIndentation)
+void PluginManager::formatPluginOptions(QTextStream &str, int optionIndentation,
+                                        int descriptionIndentation)
 {
     typedef PluginSpec::PluginArgumentDescriptions PluginArgumentDescriptions;
     // Check plugins for options
     const PluginSpecSet::const_iterator pcend = m_instance->d->pluginSpecs.constEnd();
-    for (PluginSpecSet::const_iterator pit = m_instance->d->pluginSpecs.constBegin(); pit != pcend; ++pit) {
+    for (PluginSpecSet::const_iterator pit = m_instance->d->pluginSpecs.constBegin(); pit != pcend;
+         ++pit) {
         const PluginArgumentDescriptions pargs = (*pit)->argumentDescriptions();
         if (!pargs.empty()) {
-            str << "\nPlugin: " <<  (*pit)->name() << '\n';
+            str << "\nPlugin: " << (*pit)->name() << '\n';
             const PluginArgumentDescriptions::const_iterator acend = pargs.constEnd();
-            for (PluginArgumentDescriptions::const_iterator ait =pargs.constBegin(); ait != acend; ++ait)
-                formatOption(str, ait->name, ait->parameter, ait->description, optionIndentation, descriptionIndentation);
+            for (PluginArgumentDescriptions::const_iterator ait = pargs.constBegin(); ait != acend;
+                 ++ait)
+                formatOption(str, ait->name, ait->parameter, ait->description, optionIndentation,
+                             descriptionIndentation);
         }
     }
 }
@@ -613,9 +618,10 @@ void PluginManager::formatPluginOptions(QTextStream &str, int optionIndentation,
 void PluginManager::formatPluginVersions(QTextStream &str)
 {
     const PluginSpecSet::const_iterator cend = m_instance->d->pluginSpecs.constEnd();
-    for (PluginSpecSet::const_iterator it = m_instance->d->pluginSpecs.constBegin(); it != cend; ++it) {
+    for (PluginSpecSet::const_iterator it = m_instance->d->pluginSpecs.constBegin(); it != cend;
+         ++it) {
         const PluginSpec *ps = *it;
-        str << "  " << ps->name() << ' ' << ps->version() << ' ' << ps->description() <<  '\n';
+        str << "  " << ps->name() << ' ' << ps->version() << ' ' << ps->description() << '\n';
     }
 }
 
@@ -623,7 +629,7 @@ void PluginManager::startTests()
 {
 #ifdef WITH_TESTS
     foreach (const PluginManagerPrivate::TestSpec &testSpec, d->testSpecs) {
-        const PluginSpec * const pluginSpec = testSpec.pluginSpec;
+        const PluginSpec *const pluginSpec = testSpec.pluginSpec;
         if (!pluginSpec->plugin())
             continue;
 
@@ -632,11 +638,11 @@ void PluginManager::startTests()
         const QMetaObject *metaObject = pluginSpec->plugin()->metaObject();
 
         for (int i = metaObject->methodOffset(); i < metaObject->methodCount(); ++i) {
-#if QT_VERSION >= 0x050000
+#    if QT_VERSION >= 0x050000
             const QByteArray signature = metaObject->method(i).methodSignature();
-#else
+#    else
             const QByteArray signature = metaObject->method(i).signature();
-#endif
+#    endif
             if (signature.startsWith("test") && !signature.endsWith("_data()")) {
                 const QString method = QString::fromLatin1(signature);
                 const QString methodName = method.left(method.size() - 2);
@@ -650,7 +656,7 @@ void PluginManager::startTests()
         if (testSpec.testFunctions.isEmpty()) {
             testFunctionsToExecute = allTestFunctions;
 
-        // User specified test functions. Add them if they are valid.
+            // User specified test functions. Add them if they are valid.
         } else {
             foreach (const QString &userTestFunction, testSpec.testFunctions) {
                 // There might be a test data suffix like in "testfunction:testdata1".
@@ -665,8 +671,8 @@ void PluginManager::startTests()
                     testFunctionsToExecute.append(userTestFunction);
                 } else {
                     QTextStream out(stdout);
-                    out << "Unknown test function \"" << testFunctionName
-                        << "\" for plugin \"" << pluginSpec->name() << "\"." << endl
+                    out << "Unknown test function \"" << testFunctionName << "\" for plugin \""
+                        << pluginSpec->name() << "\"." << endl
                         << "  Available test functions for plugin \"" << pluginSpec->name()
                         << "\" are:" << endl;
                     foreach (const QString &testFunction, allTestFunctions)
@@ -680,8 +686,9 @@ void PluginManager::startTests()
         if (!testFunctionsToExecute.isEmpty()) {
             // QTest::qExec() expects basically QCoreApplication::arguments(),
             QStringList qExecArguments = QStringList()
-                << QLatin1String("arg0") // fake application name
-                << QLatin1String("-maxwarnings") << QLatin1String("0"); // unlimit output
+                                         << QLatin1String("arg0") // fake application name
+                                         << QLatin1String("-maxwarnings")
+                                         << QLatin1String("0"); // unlimit output
             qExecArguments << testFunctionsToExecute;
             QTest::qExec(pluginSpec->plugin(), qExecArguments);
         }
@@ -722,7 +729,6 @@ void PluginManager::profilingReport(const char *what, const PluginSpec *spec)
 {
     m_instance->d->profilingReport(what, spec);
 }
-
 
 /*!
     Returns a list of plugins in load order.
@@ -810,9 +816,7 @@ PluginManagerPrivate::PluginManagerPrivate(PluginManager *pluginManager) :
     settings(0),
     globalSettings(0),
     q(pluginManager)
-{
-}
-
+{}
 
 /*!
     \internal
@@ -849,7 +853,8 @@ void PluginManagerPrivate::writeSettings()
 void PluginManagerPrivate::readSettings()
 {
     if (globalSettings)
-        defaultDisabledPlugins = globalSettings->value(QLatin1String(C_IGNORED_PLUGINS)).toStringList();
+        defaultDisabledPlugins
+            = globalSettings->value(QLatin1String(C_IGNORED_PLUGINS)).toStringList();
     if (settings) {
         disabledPlugins = settings->value(QLatin1String(C_IGNORED_PLUGINS)).toStringList();
         forceEnabledPlugins = settings->value(QLatin1String(C_FORCEENABLED_PLUGINS)).toStringList();
@@ -927,8 +932,8 @@ void PluginManagerPrivate::removeObject(QObject *obj)
     }
 
     if (!allObjects.contains(obj)) {
-        qWarning() << "PluginManagerPrivate::removeObject(): object not in list:"
-            << obj << obj->objectName();
+        qWarning() << "PluginManagerPrivate::removeObject(): object not in list:" << obj
+                   << obj->objectName();
         return;
     }
     if (debugLeaks)
@@ -964,8 +969,7 @@ void PluginManagerPrivate::loadPlugins()
     delayedInitializeTimer = new QTimer;
     delayedInitializeTimer->setInterval(DELAYED_INITIALIZE_INTERVAL);
     delayedInitializeTimer->setSingleShot(true);
-    connect(delayedInitializeTimer, SIGNAL(timeout()),
-            this, SLOT(nextDelayedInitialize()));
+    connect(delayedInitializeTimer, SIGNAL(timeout()), this, SLOT(nextDelayedInitialize()));
     delayedInitializeTimer->start();
 }
 
@@ -981,7 +985,8 @@ void PluginManagerPrivate::shutdown()
     }
     deleteAll();
     if (!allObjects.isEmpty())
-        qDebug() << "There are" << allObjects.size() << "objects left in the plugin manager pool: " << allObjects;
+        qDebug() << "There are" << allObjects.size()
+                 << "objects left in the plugin manager pool: " << allObjects;
 }
 
 /*!
@@ -1013,7 +1018,7 @@ QList<PluginSpec *> PluginManagerPrivate::loadQueue()
     \internal
 */
 bool PluginManagerPrivate::loadQueue(PluginSpec *spec, QList<PluginSpec *> &queue,
-        QList<PluginSpec *> &circularityCheckQueue)
+                                     QList<PluginSpec *> &circularityCheckQueue)
 {
     if (queue.contains(spec))
         return true;
@@ -1024,9 +1029,11 @@ bool PluginManagerPrivate::loadQueue(PluginSpec *spec, QList<PluginSpec *> &queu
         int index = circularityCheckQueue.indexOf(spec);
         for (int i = index; i < circularityCheckQueue.size(); ++i) {
             spec->d->errorString.append(PluginManager::tr("%1(%2) depends on\n")
-                .arg(circularityCheckQueue.at(i)->name()).arg(circularityCheckQueue.at(i)->version()));
+                                            .arg(circularityCheckQueue.at(i)->name())
+                                            .arg(circularityCheckQueue.at(i)->version()));
         }
-        spec->d->errorString.append(PluginManager::tr("%1(%2)").arg(spec->name()).arg(spec->version()));
+        spec->d->errorString.append(
+            PluginManager::tr("%1(%2)").arg(spec->name()).arg(spec->version()));
         return false;
     }
     circularityCheckQueue.append(spec);
@@ -1040,9 +1047,12 @@ bool PluginManagerPrivate::loadQueue(PluginSpec *spec, QList<PluginSpec *> &queu
     foreach (PluginSpec *depSpec, spec->dependencySpecs()) {
         if (!loadQueue(depSpec, queue, circularityCheckQueue)) {
             spec->d->hasError = true;
-            spec->d->errorString =
-                PluginManager::tr("Cannot load plugin because dependency failed to load: %1(%2)\nReason: %3")
-                    .arg(depSpec->name()).arg(depSpec->version()).arg(depSpec->errorString());
+            spec->d->errorString
+                = PluginManager::tr(
+                      "Cannot load plugin because dependency failed to load: %1(%2)\nReason: %3")
+                      .arg(depSpec->name())
+                      .arg(depSpec->version())
+                      .arg(depSpec->errorString());
             return false;
         }
     }
@@ -1056,7 +1066,7 @@ bool PluginManagerPrivate::loadQueue(PluginSpec *spec, QList<PluginSpec *> &queu
 */
 void PluginManagerPrivate::loadPlugin(PluginSpec *spec, PluginSpec::State destState)
 {
-    if (spec->hasError() || spec->state() != destState-1)
+    if (spec->hasError() || spec->state() != destState - 1)
         return;
 
     // don't load disabled plugins.
@@ -1086,9 +1096,12 @@ void PluginManagerPrivate::loadPlugin(PluginSpec *spec, PluginSpec::State destSt
         PluginSpec *depSpec = it.value();
         if (depSpec->state() != destState) {
             spec->d->hasError = true;
-            spec->d->errorString =
-                PluginManager::tr("Cannot load plugin because dependency failed to load: %1(%2)\nReason: %3")
-                    .arg(depSpec->name()).arg(depSpec->version()).arg(depSpec->errorString());
+            spec->d->errorString
+                = PluginManager::tr(
+                      "Cannot load plugin because dependency failed to load: %1(%2)\nReason: %3")
+                      .arg(depSpec->name())
+                      .arg(depSpec->version())
+                      .arg(depSpec->errorString());
             return;
         }
     }
@@ -1107,8 +1120,8 @@ void PluginManagerPrivate::loadPlugin(PluginSpec *spec, PluginSpec::State destSt
         profilingReport(">stop", spec);
         if (spec->d->stop() == IPlugin::AsynchronousShutdown) {
             asynchronousPlugins << spec;
-            connect(spec->plugin(), SIGNAL(asynchronousShutdownFinished()),
-                    this, SLOT(asyncShutdownFinished()));
+            connect(spec->plugin(), SIGNAL(asynchronousShutdownFinished()), this,
+                    SLOT(asyncShutdownFinished()));
         }
         profilingReport("<stop", spec);
         break;
@@ -1145,7 +1158,7 @@ void PluginManagerPrivate::readPluginPaths()
         const QFileInfoList files = dir.entryInfoList(QStringList(pattern), QDir::Files);
         foreach (const QFileInfo &file, files)
             specFiles << file.absoluteFilePath();
-        const QFileInfoList dirs = dir.entryInfoList(QDir::Dirs|QDir::NoDotAndDotDot);
+        const QFileInfoList dirs = dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
         foreach (const QFileInfo &subdir, dirs)
             searchPaths << subdir.absoluteFilePath();
     }
@@ -1197,8 +1210,9 @@ void PluginManagerPrivate::resolveDependencies()
     }
 }
 
- // Look in argument descriptions of the specs for the option.
-PluginSpec *PluginManagerPrivate::pluginForOption(const QString &option, bool *requiresArgument) const
+// Look in argument descriptions of the specs for the option.
+PluginSpec *PluginManagerPrivate::pluginForOption(const QString &option,
+                                                  bool *requiresArgument) const
 {
     // Look in the plugins for an option
     typedef PluginSpec::PluginArgumentDescriptions PluginArgumentDescriptions;
@@ -1210,7 +1224,8 @@ PluginSpec *PluginManagerPrivate::pluginForOption(const QString &option, bool *r
         const PluginArgumentDescriptions pargs = ps->argumentDescriptions();
         if (!pargs.empty()) {
             const PluginArgumentDescriptions::const_iterator acend = pargs.constEnd();
-            for (PluginArgumentDescriptions::const_iterator ait = pargs.constBegin(); ait != acend; ++ait) {
+            for (PluginArgumentDescriptions::const_iterator ait = pargs.constBegin(); ait != acend;
+                 ++ait) {
                 if (ait->name == option) {
                     *requiresArgument = !ait->parameter.isEmpty();
                     return ps;
@@ -1255,7 +1270,8 @@ void PluginManagerPrivate::profilingReport(const char *what, const PluginSpec *s
         if (spec)
             m_profileTotal[spec] += elapsedMS;
         if (spec)
-            qDebug("%-22s %-22s %8dms (%8dms)", what, qPrintable(spec->name()), absoluteElapsedMS, elapsedMS);
+            qDebug("%-22s %-22s %8dms (%8dms)", what, qPrintable(spec->name()), absoluteElapsedMS,
+                   elapsedMS);
         else
             qDebug("%-45s %8dms (%8dms)", what, absoluteElapsedMS, elapsedMS);
     }
@@ -1278,9 +1294,9 @@ void PluginManagerPrivate::profilingSummary() const
         Sorter::ConstIterator it2 = sorter.begin();
         Sorter::ConstIterator et2 = sorter.end();
         for (; it2 != et2; ++it2)
-            qDebug("%-22s %8dms   ( %5.2f%% )", qPrintable(it2.value()->name()),
-                it2.key(), 100.0 * it2.key() / total);
-         qDebug("Total: %8dms", total);
+            qDebug("%-22s %8dms   ( %5.2f%% )", qPrintable(it2.value()->name()), it2.key(),
+                   100.0 * it2.key() / total);
+        qDebug("Total: %8dms", total);
     }
 }
 

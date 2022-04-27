@@ -4,10 +4,10 @@
 
 #include "pluginspec.h"
 
-#include <QSet>
-#include <QStringList>
 #include <QObject>
 #include <QScopedPointer>
+#include <QSet>
+#include <QStringList>
 
 QT_BEGIN_NAMESPACE
 class QTime;
@@ -28,6 +28,7 @@ class PluginSpecPrivate;
 class EXTENSIONSYSTEM_EXPORT PluginManagerPrivate : QObject
 {
     Q_OBJECT
+
 public:
     PluginManagerPrivate(PluginManager *pluginManager);
     virtual ~PluginManagerPrivate();
@@ -52,10 +53,12 @@ public:
     void writeSettings();
     void disablePluginIndirectly(PluginSpec *spec);
 
-    class TestSpec {
+    class TestSpec
+    {
     public:
-        TestSpec(PluginSpec *pluginSpec, const QStringList &testFunctions = QStringList())
-            : pluginSpec(pluginSpec), testFunctions(testFunctions) {}
+        TestSpec(PluginSpec *pluginSpec, const QStringList &testFunctions = QStringList()) :
+            pluginSpec(pluginSpec), testFunctions(testFunctions)
+        {}
         PluginSpec *pluginSpec;
         QStringList testFunctions;
     };
@@ -83,7 +86,7 @@ public:
     QList<PluginSpec *> delayedInitializeQueue;
     // ansynchronous shutdown
     QList<PluginSpec *> asynchronousPlugins; // plugins that have requested async shutdown
-    QEventLoop *shutdownEventLoop; // used for async shutdown
+    QEventLoop *shutdownEventLoop;           // used for async shutdown
 
     QStringList arguments;
     QScopedPointer<QTime> m_profileTimer;
@@ -110,9 +113,8 @@ private:
     PluginManager *q;
 
     void readPluginPaths();
-    bool loadQueue(PluginSpec *spec,
-            QList<PluginSpec *> &queue,
-            QList<PluginSpec *> &circularityCheckQueue);
+    bool loadQueue(PluginSpec *spec, QList<PluginSpec *> &queue,
+                   QList<PluginSpec *> &circularityCheckQueue);
     void stopAll();
     void deleteAll();
 };

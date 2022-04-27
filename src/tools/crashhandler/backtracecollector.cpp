@@ -5,11 +5,10 @@
 #include <QScopedPointer>
 #include <QTemporaryFile>
 
-const char GdbBatchCommands[] =
-        "set height 0\n"
-        "set width 0\n"
-        "thread\n"
-        "thread apply all backtrace full\n";
+const char GdbBatchCommands[] = "set height 0\n"
+                                "set width 0\n"
+                                "thread\n"
+                                "thread apply all backtrace full\n";
 
 class BacktraceCollectorPrivate
 {
@@ -25,8 +24,8 @@ public:
 BacktraceCollector::BacktraceCollector(QObject *parent) :
     QObject(parent), d(new BacktraceCollectorPrivate)
 {
-    connect(&d->debugger, SIGNAL(finished(int,QProcess::ExitStatus)),
-            SLOT(onDebuggerFinished(int,QProcess::ExitStatus)));
+    connect(&d->debugger, SIGNAL(finished(int, QProcess::ExitStatus)),
+            SLOT(onDebuggerFinished(int, QProcess::ExitStatus)));
     connect(&d->debugger, SIGNAL(error(QProcess::ProcessError)),
             SLOT(onDebuggerError(QProcess::ProcessError)));
     connect(&d->debugger, SIGNAL(readyRead()), SLOT(onDebuggerOutputAvailable()));
@@ -40,13 +39,12 @@ BacktraceCollector::~BacktraceCollector()
 
 void BacktraceCollector::run(Q_PID pid)
 {
-    d->debugger.start(QLatin1String("gdb"), QStringList()
-        << QLatin1String("--nw") // Do not use a window interface.
-        << QLatin1String("--nx") // Do not read .gdbinit file.
-        << QLatin1String("--batch") // Exit after processing options.
-        << QLatin1String("--command") << createTemporaryCommandFile()
-        << QLatin1String("--pid") << QString::number(pid)
-    );
+    d->debugger.start(QLatin1String("gdb"),
+                      QStringList() << QLatin1String("--nw")    // Do not use a window interface.
+                                    << QLatin1String("--nx")    // Do not read .gdbinit file.
+                                    << QLatin1String("--batch") // Exit after processing options.
+                                    << QLatin1String("--command") << createTemporaryCommandFile()
+                                    << QLatin1String("--pid") << QString::number(pid));
 }
 
 bool BacktraceCollector::isRunning() const

@@ -2,8 +2,8 @@
 #ifndef PLUGINSPEC_P_H
 #define PLUGINSPEC_P_H
 
-#include "pluginspec.h"
 #include "iplugin.h"
+#include "pluginspec.h"
 
 #include <QObject>
 #include <QStringList>
@@ -66,7 +66,6 @@ public:
     static int versionCompare(const QString &version1, const QString &version2);
 
     void disableIndirectlyIfDependencyDisabled();
-
 
 private:
     PluginSpec *q;

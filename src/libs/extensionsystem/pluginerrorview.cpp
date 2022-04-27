@@ -1,7 +1,8 @@
 
 #include "pluginerrorview.h"
-#include "ui_pluginerrorview.h"
+
 #include "pluginspec.h"
+#include "ui_pluginerrorview.h"
 
 #include <QString>
 
@@ -21,9 +22,8 @@ using namespace ExtensionSystem;
 /*!
     Constructs a new error view with given \a parent widget.
 */
-PluginErrorView::PluginErrorView(QWidget *parent)
-    : QWidget(parent),
-      m_ui(new Internal::Ui::PluginErrorView())
+PluginErrorView::PluginErrorView(QWidget *parent) :
+    QWidget(parent), m_ui(new Internal::Ui::PluginErrorView())
 {
     m_ui->setupUi(this);
 }

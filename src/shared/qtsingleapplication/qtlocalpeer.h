@@ -1,9 +1,9 @@
 
 #include "qtlockedfile.h"
 
+#include <QDir>
 #include <QLocalServer>
 #include <QLocalSocket>
-#include <QDir>
 
 namespace SharedTools {
 
@@ -15,8 +15,7 @@ public:
     explicit QtLocalPeer(QObject *parent = 0, const QString &appId = QString());
     bool isClient();
     bool sendMessage(const QString &message, int timeout, bool block);
-    QString applicationId() const
-        { return id; }
+    QString applicationId() const { return id; }
     static QString appSessionId(const QString &appId);
 
 Q_SIGNALS:
@@ -28,7 +27,7 @@ protected Q_SLOTS:
 protected:
     QString id;
     QString socketName;
-    QLocalServer* server;
+    QLocalServer *server;
     QtLockedFile lockFile;
 };
 

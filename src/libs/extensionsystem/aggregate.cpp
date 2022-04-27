@@ -1,8 +1,8 @@
 
 #include "aggregate.h"
 
-#include <QWriteLocker>
 #include <QDebug>
+#include <QWriteLocker>
 
 /*!
     \namespace Aggregation
@@ -161,8 +161,7 @@ QReadWriteLock &Aggregate::lock()
     The \a parent is passed directly passed to the QObject part
     of the class and is not used beside that.
 */
-Aggregate::Aggregate(QObject *parent)
-    : QObject(parent)
+Aggregate::Aggregate(QObject *parent) : QObject(parent)
 {
     QWriteLocker locker(&lock());
     aggregateMap().insert(this, this);
@@ -179,7 +178,7 @@ Aggregate::~Aggregate()
     {
         QWriteLocker locker(&lock());
         foreach (QObject *component, m_components) {
-            disconnect(component, SIGNAL(destroyed(QObject*)), this, SLOT(deleteSelf(QObject*)));
+            disconnect(component, SIGNAL(destroyed(QObject *)), this, SLOT(deleteSelf(QObject *)));
             aggregateMap().remove(component);
         }
         components = m_components;
@@ -218,11 +217,12 @@ void Aggregate::add(QObject *component)
         if (parentAggregation == this)
             return;
         if (parentAggregation) {
-            qWarning() << "Cannot add a component that belongs to a different aggregate" << component;
+            qWarning() << "Cannot add a component that belongs to a different aggregate"
+                       << component;
             return;
         }
         m_components.append(component);
-        connect(component, SIGNAL(destroyed(QObject*)), this, SLOT(deleteSelf(QObject*)));
+        connect(component, SIGNAL(destroyed(QObject *)), this, SLOT(deleteSelf(QObject *)));
         aggregateMap().insert(component, this);
     }
     emit changed();
@@ -243,7 +243,7 @@ void Aggregate::remove(QObject *component)
         QWriteLocker locker(&lock());
         aggregateMap().remove(component);
         m_components.removeAll(component);
-        disconnect(component, SIGNAL(destroyed(QObject*)), this, SLOT(deleteSelf(QObject*)));
+        disconnect(component, SIGNAL(destroyed(QObject *)), this, SLOT(deleteSelf(QObject *)));
     }
     emit changed();
 }

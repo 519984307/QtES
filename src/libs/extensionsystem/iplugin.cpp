@@ -1,5 +1,6 @@
 
 #include "iplugin.h"
+
 #include "iplugin_p.h"
 #include "pluginmanager.h"
 #include "pluginspec.h"
@@ -156,10 +157,7 @@ using namespace ExtensionSystem;
     \fn IPlugin::IPlugin()
     \internal
 */
-IPlugin::IPlugin()
-    : d(new Internal::IPluginPrivate())
-{
-}
+IPlugin::IPlugin() : d(new Internal::IPluginPrivate()) {}
 
 /*!
     \fn IPlugin::~IPlugin()
@@ -220,4 +218,3 @@ void IPlugin::removeObject(QObject *obj)
 {
     PluginManager::removeObject(obj);
 }
-

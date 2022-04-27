@@ -1,10 +1,12 @@
 
 #include "crashhandler.h"
-#include "crashhandlerdialog.h"
-#include "backtracecollector.h"
-#include "utils.h"
 
+#include "backtracecollector.h"
+#include "crashhandlerdialog.h"
+#include "utils.h"
 #include <../../libs/utils/environment.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include <QApplication>
 #include <QDebug>
@@ -15,15 +17,10 @@
 #include <QTextStream>
 #include <QUrl>
 #include <QVector>
-
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#include <errno.h>
 #include <unistd.h>
-
-#include <sys/types.h>
-#include <sys/wait.h>
 
 static const char FileDistroInformation[] = "/etc/lsb-release";
 static const char FileKernelVersion[] = "/proc/version";
@@ -60,10 +57,12 @@ public:
 class CrashHandlerPrivate
 {
 public:
-    CrashHandlerPrivate(pid_t pid, const QString &signalName, CrashHandler *crashHandler)
-        : pid(pid),
-          creatorInPath(Utils::Environment::systemEnvironment().searchInPath(QLatin1String(QtCreatorExecutable))),
-          dialog(crashHandler, signalName) {}
+    CrashHandlerPrivate(pid_t pid, const QString &signalName, CrashHandler *crashHandler) :
+        pid(pid),
+        creatorInPath(Utils::Environment::systemEnvironment().searchInPath(
+            QLatin1String(QtCreatorExecutable))),
+        dialog(crashHandler, signalName)
+    {}
 
     const pid_t pid;
     const QString creatorInPath; // Backup debugger.
@@ -75,11 +74,12 @@ public:
     QStringList restartAppEnvironment;
 };
 
-CrashHandler::CrashHandler(pid_t pid, const QString &signalName, QObject *parent)
-    : QObject(parent), d(new CrashHandlerPrivate(pid, signalName, this))
+CrashHandler::CrashHandler(pid_t pid, const QString &signalName, QObject *parent) :
+    QObject(parent), d(new CrashHandlerPrivate(pid, signalName, this))
 {
     connect(&d->backtraceCollector, SIGNAL(error(QString)), SLOT(onError(QString)));
-    connect(&d->backtraceCollector, SIGNAL(backtraceChunk(QString)), SLOT(onBacktraceChunk(QString)));
+    connect(&d->backtraceCollector, SIGNAL(backtraceChunk(QString)),
+            SLOT(onBacktraceChunk(QString)));
     connect(&d->backtraceCollector, SIGNAL(backtrace(QString)), SLOT(onBacktraceFinished(QString)));
 
     d->dialog.appendDebugInfo(collectKernelVersionInfo());
@@ -109,8 +109,9 @@ void CrashHandler::onError(const QString &errorMessage)
     d->dialog.setToFinalState();
 
     QTextStream(stderr) << errorMessage;
-    const QString text = QLatin1String("A problem occurred providing the backtrace. "
-        "Please make sure to have the debugger \"gdb\" installed.\n");
+    const QString text
+        = QLatin1String("A problem occurred providing the backtrace. "
+                        "Please make sure to have the debugger \"gdb\" installed.\n");
     d->dialog.appendDebugInfo(text);
     d->dialog.appendDebugInfo(errorMessage);
 }
@@ -222,7 +223,8 @@ void CrashHandler::runCommand(QStringList commandLine, QStringList environment, 
         else
             execvpe(argv[0], argv.data(), envp.data());
         _exit(EXIT_FAILURE);
-    } default: // parent
+    }
+    default: // parent
         if (waitMode == WaitForExit) {
             while (true) {
                 int status;
@@ -268,10 +270,8 @@ void CrashHandler::debugApplication()
     QString executable = d->creatorInPath;
     if (!d->restartAppCommandLine.isEmpty())
         executable = d->restartAppCommandLine.at(0);
-    const QStringList commandLine = QStringList()
-            << executable
-            << QLatin1String("-debug")
-            << QString::number(d->pid);
+    const QStringList commandLine = QStringList() << executable << QLatin1String("-debug")
+                                                  << QString::number(d->pid);
 
     QStringList environment;
     if (!d->restartAppEnvironment.isEmpty())

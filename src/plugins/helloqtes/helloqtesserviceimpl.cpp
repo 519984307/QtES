@@ -4,11 +4,9 @@
 
 using namespace HelloQtES;
 
-HelloQtESServiceImpl::HelloQtESServiceImpl(QObject *parent) : QObject(parent)
-{}
+HelloQtESServiceImpl::HelloQtESServiceImpl(QObject *parent) : QObject(parent) {}
 
-HelloQtESServiceImpl::~HelloQtESServiceImpl()
-{}
+HelloQtESServiceImpl::~HelloQtESServiceImpl() {}
 
 void HelloQtESServiceImpl::sayHello()
 {

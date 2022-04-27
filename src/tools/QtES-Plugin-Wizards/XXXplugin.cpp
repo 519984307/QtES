@@ -68,5 +68,4 @@ bool %{PluginClass}::delayedInitialize()
 } // namespace Internal
 } // namespace %{PluginName}
 
-
 Q_EXPORT_PLUGIN(%{PluginName}::Internal::%{PluginClass})

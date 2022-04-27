@@ -1,7 +1,8 @@
 
 #include "plugindetailsview.h"
-#include "ui_plugindetailsview.h"
+
 #include "pluginspec.h"
+#include "ui_plugindetailsview.h"
 
 #include <QDir>
 
@@ -21,9 +22,8 @@ using namespace ExtensionSystem;
 /*!
     Constructs a new view with given \a parent widget.
 */
-PluginDetailsView::PluginDetailsView(QWidget *parent)
-    : QWidget(parent),
-          m_ui(new Internal::Ui::PluginDetailsView())
+PluginDetailsView::PluginDetailsView(QWidget *parent) :
+    QWidget(parent), m_ui(new Internal::Ui::PluginDetailsView())
 {
     m_ui->setupUi(this);
 }

@@ -1,19 +1,13 @@
 
 #include "plugincollection.h"
+
 #include "pluginspec.h"
 
 namespace ExtensionSystem {
 
-PluginCollection::PluginCollection(const QString& name) :
-    m_name(name)
-{
+PluginCollection::PluginCollection(const QString &name) : m_name(name) {}
 
-}
-
-PluginCollection::~PluginCollection()
-{
-
-}
+PluginCollection::~PluginCollection() {}
 
 QString PluginCollection::name() const
 {
@@ -35,4 +29,4 @@ QList<PluginSpec *> PluginCollection::plugins() const
     return m_plugins;
 }
 
-}
+} // namespace ExtensionSystem

@@ -12,10 +12,9 @@ class PluginSpec;
 
 namespace Internal {
 namespace Ui {
-    class PluginDetailsView;
+class PluginDetailsView;
 } // namespace Ui
 } // namespace Internal
-
 
 class EXTENSIONSYSTEM_EXPORT PluginDetailsView : public QWidget
 {
