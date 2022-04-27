@@ -4,6 +4,7 @@ QT += core
 
 TEMPLATE = lib
 CONFIG += plugin
+TARGET = %{PluginName}
 
 HEADERS += \\
     %{ServiceHdrFileName} \\

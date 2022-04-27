@@ -102,7 +102,7 @@
                     "type": "TextEdit",
                     "data" :
                     {
-                        "trText": "" ,
+                        "trText": "The %{PluginName} Plugin." ,
                         "richText": true
                     }
                 },
@@ -183,7 +183,7 @@
                 {
                     "source": "XXX.xml",
                     "target": "%{XmlFile}",
-                    "openAsProject": true
+                    "openInEditor": true
                 },
                 {
                     "source": "resource.qrc",

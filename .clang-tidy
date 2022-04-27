@@ -1,0 +1,7 @@
+<!-- ---
+# https://inktea.xyz/2022/b47a.html
+
+Checks: "clang-analyzer-*"
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+FormatStyle: none -->

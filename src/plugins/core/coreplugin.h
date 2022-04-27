@@ -1,26 +1,35 @@
-#ifndef CORE_PLUGIN_H
-#define CORE_PLUGIN_H
+#ifndef COREPLUGIN_H
+#define COREPLUGIN_H
 
 #include <extensionsystem/iplugin.h>
 
 namespace Core {
 namespace Internal {
 
+class CorePluginPrivate;
+
 class CorePlugin : public ExtensionSystem::IPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin.CorePlugin" FILE "coreplugin.xml")
+    Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin.Core" FILE "Core.xml")
 
 public:
-    CorePlugin();
+    explicit CorePlugin();
     ~CorePlugin();
 
     bool initialize(const QStringList &arguments, QString *errorMessage);
     void extensionsInitialized();
     bool delayedInitialize();
+
+private:
+    std::unique_ptr<Internal::CorePluginPrivate> d_ptr_;
+
+private:
+    Q_DISABLE_COPY(CorePlugin)
+    Q_DECLARE_PRIVATE_D(d_ptr_.get(), Internal::CorePlugin)
 };
 
 } // namespace Internal
 } // namespace Core
 
-#endif // CORE_PLUGIN_H
+#endif // COREPLUGIN_H

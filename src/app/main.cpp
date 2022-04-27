@@ -9,7 +9,7 @@
 #include <extensionsystem/pluginview.h>
 #include <extensionsystem/pluginerroroverview.h>
 
-#include "../plugins/helloworld/helloservice.h"
+#include "../plugins/helloqtes/helloqtesservice.h"
 
 #include <QApplication>
 #include <QFileInfo>
@@ -20,7 +20,7 @@
 using namespace ExtensionSystem;
 
 static const char appNameC[] = "App";
-static const char corePluginNameC[] = "coreplugin";
+static const char corePluginNameC[] = "Core";
 
 static void printSpecs(QList<PluginSpec *> plugins)
 {
@@ -98,13 +98,13 @@ int main(int argc, char **argv)
 
     PluginManager::loadPlugins();
     if (coreplugin->hasError()) {
-        qWarning() << "Failed to load core:" << coreplugin->errorString();
+        qWarning() << "Failed to load Core:" << coreplugin->errorString();
         return 1;
     }
 
-    Hello::Service *helloService = PluginManager::getObject<Hello::Service>();
-    if (helloService != nullptr)
-        helloService->sayHello();
+    HelloQtES::Service *helloQtESService = PluginManager::getObject<HelloQtES::Service>();
+    if (helloQtESService != nullptr)
+        helloQtESService->sayHello();
 
     QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
     QObject::connect(&app, SIGNAL(aboutToQuit()), &pluginManager, SLOT(shutdown()));

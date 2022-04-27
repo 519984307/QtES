@@ -1,0 +1,284 @@
+#------------------------------- GuoBin's Clang-Format Style Options -------------------------------
+#
+#LLVM版本: 13.0
+#创建时间: 2019-05-08
+#修改时间: 2022-04-18
+#说明: 
+# 字段属性参照: clang-format官方文档: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+#             中文注释参照: https://www.jianshu.com/p/5dea6bdbbabb
+#
+# Google Style: https://google.github.io/styleguide/cppguide.html
+#
+#---------------------------------------------------------------------------------------------------
+
+---
+# 语言: None, Cpp, Java, JavaScript, ObjC, Proto, TableGen, TextProto
+Language: Cpp
+# 基于风格
+BasedOnStyle: Google
+# 访问修饰符的缩进(public,private等)
+AccessModifierOffset: -4
+# 设置括号内参数水平分布方式 三种样式 Align,DontAlign,AlwaysBreak
+AlignAfterOpenBracket: Align
+# 连续赋值时,对齐所有等号
+AlignConsecutiveAssignments: false
+# 连续声明时,对齐所有声明的变量名
+AlignConsecutiveDeclarations: false
+# define 换行时反斜杠位置 DontAlign,Left,Right
+AlignEscapedNewlines: Left
+# 如果为true,水平对齐二元和三元运算表达式
+AlignOperands: true
+# 如果为真,对连续多行代码尾部注释对齐
+AlignTrailingComments: true
+# 如果函数声明不适合一行,允许将函数声明的所有参数放到下一行
+AllowAllParametersOfDeclarationOnNextLine: false
+# 允许将简单的语句块放到一个单行
+AllowShortBlocksOnASingleLine: false
+# 允许短的case标签放在同一行
+AllowShortCaseLabelsOnASingleLine: false
+# 根据ShortFunctionStyle 判断简单的方法 int f() { return 0; } 是否被压缩到一行
+#    None: 永不将函数合并为一行
+#    InlineOnly: 只合并定义在class中的短方法
+#    Empty: 只合并空函数
+#    Inline: 只合并定义在class中的短方法,和空方法
+#    All:all
+AllowShortFunctionsOnASingleLine: Inline
+# 允许短的if语句保持在同一行
+AllowShortIfStatementsOnASingleLine: false
+# 允许短的循环保持在同一行
+AllowShortLoopsOnASingleLine: false
+# 总是在返回类型后换行
+#    None, All
+#    TopLevel:顶级函数,不包括在类中的函数
+#    AllDefinitions:所有的定义,不包括声明
+#    TopLevelDefinitions:所有的顶级函数的定义
+AlwaysBreakAfterReturnType: None
+# 总是在多行定义字符串之前换行
+AlwaysBreakBeforeMultilineStrings: false
+# 总是在template声明后换行 No MultiLine Yes
+AlwaysBreakTemplateDeclarations: Yes
+
+
+# true 不处理.如果为false,函数调用的参数将在同一行上,或者每个都有一行.
+BinPackArguments: true
+# true 不处理.如果为false,则函数声明或函数定义的参数将全部在同一行上,或者每行都有一行.
+BinPackParameters: true
+# 在大括号前换行: Attach(始终将大括号附加到周围的上下文), Linux(除函数、命名空间和类定义,与Attach类似),
+#   Mozilla(除枚举、函数、记录定义,与Attach类似), Stroustrup(除函数定义、catch、else,与Attach类似),
+#   Allman(总是在大括号前换行), GNU(总是在大括号前换行,并对于控制语句的大括号增加额外的缩进), WebKit(在函数前换行), Custom
+#   注: 这里认为语句块也属于函数
+BreakBeforeBraces: Custom
+# 大括号换行,只有当BreakBeforeBraces设置为Custom时才有效
+BraceWrapping:
+  # Class定义后面
+  AfterClass: true
+  # 控制语句后面
+  AfterControlStatement: false
+  # enum定义后面
+  AfterEnum: true
+  # 函数定义后面
+  AfterFunction: true
+  # 命名空间定义后面
+  AfterNamespace: true
+  # ObjC定义后面
+  AfterObjCDeclaration: true
+  # struct定义后面
+  AfterStruct: true
+  # Union后面
+  AfterUnion: true
+  # entern定义后面
+  AfterExternBlock: true
+  # catch之前
+  BeforeCatch: false
+  # else之前
+  BeforeElse: false
+  # 缩进大括号
+  IndentBraces: false
+  # false 时,空方法体 {} 放在一行
+  SplitEmptyFunction: false
+  # false 时,空记录(例如,类,结构或联合) {} 放在一行
+  SplitEmptyRecord: false
+  # false 且 AfterNamespace == true 时 空命名空间体可放到一行: {}
+  SplitEmptyNamespace: false
+# 在二元运算符前换行:None(在操作符后换行),NoneAssignment(在非赋值的操作符前换行),All(在操作符前换行)
+BreakBeforeBinaryOperators: All
+# 三元运算符 true 符号前换行 false 符号后换行
+BreakBeforeTernaryOperators: true
+# BeforeColon: 在冒号之前逗号之后换行; BeforeComma: 在冒号和逗号之前换行,并对其逗号和冒号; AfterColon:  在冒号和逗号之前换行
+# 控制构造初始化函数样式
+BreakConstructorInitializers: AfterColon
+# 控制多继承样式 
+BreakInheritanceList: AfterColon
+# 是否允许在字符串常量中换行
+BreakStringLiterals: true
+
+
+# 每行字符的限制, 0表识没有限制
+ColumnLimit: 100
+# 描述具有特殊意义的注释的正则表达式,它不应该被分割为多行或以其他方式改变
+CommentPragmas: '^ IWYU pragma:'
+# true,连续的名称空间声明将位于同一行.如果为false,则在新行上声明每个名称空间
+CompactNamespaces: false
+# 构造函数的初始化列表要么在同一行,要么都各自一行
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+# 用于设定构造函数和多继承的缩进长度
+ConstructorInitializerIndentWidth: 4
+# 连续行的缩进长度
+ContinuationIndentWidth: 4
+# 去除C++11的列表初始化的大括号{后和}前的空格
+Cpp11BracedListStyle: true
+
+
+# 继承最常用的指针和引用的对齐方式
+DerivePointerAlignment: false
+# 关闭格式化
+DisableFormat: false
+
+
+# 在访问修饰符后添加一个空白行
+EmptyLineAfterAccessModifier: Never
+# 在访问修饰符前添加一个空白行
+EmptyLineBeforeAccessModifier: Always
+
+
+# true 自动检测补全命名空间尾部的大括号
+FixNamespaceComments: true
+# 需要被解读为foreach循环而不是函数调用的宏
+ForEachMacros:
+  - foreach
+  - Q_FOREACH
+  - BOOST_FOREACH
+
+
+#include 分组排序方式 
+#Preserve(按组排序), Merge(合并成一组排序), Regroup(按 IncludeCategories 重新分组排序)
+IncludeBlocks: Regroup
+# 对#include进行排序,匹配了某则正则表达式的#include拥有对应的优先级,匹配不到的则默认优先级为INT_MAX(优先级越小排序越靠前),可以定义负数优先
+# 级从而保证某些#include永远在最前面
+IncludeCategories:
+  - Regex:           '^"(llvm|llvm-c|clang|clang-c)/'
+    Priority:        2
+    SortPriority:    2
+    CaseSensitive:   true
+  - Regex:           '^((<|")(gtest|gmock|isl|json)/)'
+    Priority:        3
+  - Regex:           '<[[:alnum:].]+>'
+    Priority:        4
+  - Regex:           '.*'
+    Priority:        1
+    SortPriority:    0
+#
+IncludeIsMainRegex: '(_test)?$'
+# 缩进case标签
+IndentCaseLabels: false
+# 预处理代码缩进样式.None(不缩进)AfterHash(缩进) BeforeHash
+IndentPPDirectives: AfterHash
+# 缩进宽度
+IndentWidth: 4
+# 函数返回类型换行时,缩进函数声明或函数定义的函数名
+IndentWrappedFunctionNames: true
+
+
+# JS 引号样式 Leave("",'') Single("") Double("")
+JavaScriptQuotes: Leave
+# JS import 是否需要换行
+JavaScriptWrapImports: true
+
+
+# 保留在块开始处的空行
+KeepEmptyLinesAtTheStartOfBlocks: true
+
+
+# 开始一个块的宏的正则表达式
+MacroBlockBegin: ''
+# 结束一个块的宏的正则表达式
+MacroBlockEnd: ''
+# 连续空行的最大数量
+MaxEmptyLinesToKeep: 1
+
+
+# 命名空间的缩进:None,Inner(缩进嵌套的命名空间中的内容),All
+NamespaceIndentation: None
+
+
+# ObjC 协议根据 ColumnLimit 长度换行
+ObjCBinPackProtocolList: Auto
+# 使用 ObjC block 函数实现内部缩进宽度
+ObjCBlockIndentWidth: 4
+# 在 ObjC 的@property后添加一个空格
+ObjCSpaceAfterProperty: true
+# 在 ObjC 的 protocol 列表前添加一个空格
+ObjCSpaceBeforeProtocolList: true
+
+
+#
+PenaltyBreakAssignment: 2
+# 在call(对函数调用换行的penalty)
+PenaltyBreakBeforeFirstCallParameter: 19
+# 在一个注释中引入换行的penalty
+PenaltyBreakComment: 300
+# 第一次在<<前换行的penalty
+PenaltyBreakFirstLessLess: 120
+# 在一个字符串字面量中引入换行的penalty
+PenaltyBreakString: 1000
+#
+PenaltyBreakTemplateDeclaration: 10
+# 对于每个在行字符数限制之外的字符的panalty
+PenaltyExcessCharacter: 1000000
+# 将函数的返回类型放到它自己的行的penalty
+PenaltyReturnTypeOnItsOwnLine: 60
+# 指针和引用的对齐: Left(int* a;), Right(int *a;), Middle(int * a;)
+PointerAlignment: Right
+
+# 允许重新排版注释
+ReflowComments: false
+
+# 允许排序#include,首字母排序
+SortIncludes: true
+# true using 自动排序
+SortUsingDeclarations: true
+# 在C风格类型转换后添加空格
+SpaceAfterCStyleCast: false
+# template 关键字后添加空格
+SpaceAfterTemplateKeyword: true
+# 在赋值运算符之前添加空格, false 移除 = +=  两侧的空格
+SpaceBeforeAssignmentOperators: true
+# 初始化 c++ 11 对象的前面空格
+SpaceBeforeCpp11BracedList: true
+# 构造函数 : 前加空格
+SpaceBeforeCtorInitializerColon: true
+# 继承的 : 前面加空格
+SpaceBeforeInheritanceColon: true
+# 开圆括号之前添加一个空格:Never,ContgrolStatements,Always
+SpaceBeforeParens: ControlStatements
+# false 清除 for 循环:前面的空格 for (auto v : values) {}
+SpaceBeforeRangeBasedForLoopColon: true
+# 在空的圆括号中添加空格
+SpaceInEmptyParentheses: false
+# 尾随行注释(//)之前的空格数(只适用于//)
+SpacesBeforeTrailingComments: 1
+# 在尖括号内部前后添加空格 < int >
+SpacesInAngles: false
+# 在C风格类型转换的括号中添加空格
+SpacesInCStyleCastParentheses: false
+# 快捷数组 内部加空格 [ 1, 2, 3 ]; : 前加空格 f({a : 1, b : 2, c : 3});
+SpacesInContainerLiterals: true
+# 在圆括号的(后和)前添加空格
+SpacesInParentheses: false
+# 在放括号的[后和]前添加空格,lamda表达式和未指明大小的数组的声明不受影响
+SpacesInSquareBrackets: false
+# 标准: Cpp03, Cpp11, Auto
+Standard: Cpp11
+# 应该被解释为完整语句的宏
+StatementMacros:
+  - Q_UNUSED
+  - QT_REQUIRE_VERSION
+  - Q_OBJECT
+
+# tab宽度
+TabWidth: 4
+
+# 使用tab字符,Never,ForIndentation,ForConinuationAndIndentation,Always
+UseTab: Never
+...
+
