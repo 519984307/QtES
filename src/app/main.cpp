@@ -1,18 +1,17 @@
 
 #include "../plugins/helloqtes/helloqtesservice.h"
 #include "../tools/crashhandler/crashhandlersetup.h"
+#include "app_version.h"
 #include "qtsingleapplication.h"
-#include <app/app_version.h>
 #include <extensionsystem/iplugin.h>
-#include <extensionsystem/pluginerroroverview.h>
 #include <extensionsystem/pluginmanager.h>
 #include <extensionsystem/pluginspec.h>
 #include <extensionsystem/pluginview.h>
 
-#include <QApplication>
 #include <QDebug>
 #include <QFileInfo>
 #include <QList>
+#include <QMessageBox>
 #include <QThreadPool>
 
 using namespace ExtensionSystem;
@@ -22,7 +21,7 @@ static const char corePluginNameC[] = "Core";
 
 static void printSpecs(QList<PluginSpec *> plugins)
 {
-    qDebug() << "==================== get specs started ====================";
+    qDebug() << " ==================== Get Plugins Info Started ==================== ";
 
     for (int i = 0; i < plugins.count(); ++i) {
         PluginSpec *spec = plugins[i];
@@ -48,12 +47,24 @@ static void printSpecs(QList<PluginSpec *> plugins)
         qDebug() << "errorString:" << spec->errorString();
     }
 
-    qDebug() << "==================== get specs finished ====================";
+    qDebug() << " ==================== Get Plugins Info finished ==================== ";
+}
+
+void crashtest()
+{
+    char *p = (char *)100;
+    *p = 100;
 }
 
 int main(int argc, char **argv)
 {
     SharedTools::QtSingleApplication app((QLatin1String(appNameC)), argc, argv);
+    if (app.isRunning()) {
+        QString log = QString("%1 is running.").arg(QLatin1String(appNameC));
+        qWarning() << log;
+        QMessageBox::warning(nullptr, "warning", log);
+        return 0;
+    }
 
     const int threadCount = QThreadPool::globalInstance()->maxThreadCount();
     QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));
@@ -106,7 +117,12 @@ int main(int argc, char **argv)
     QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
     QObject::connect(&app, SIGNAL(aboutToQuit()), &pluginManager, SLOT(shutdown()));
 
-    PluginManager::instance()->shutdown();
+    // crashtest();
+
+    // PluginManager::instance()->shutdown();
+
+    PluginView view;
+    view.show();
 
     const int r = app.exec();
     cleanupCrashHandler();

@@ -24,3 +24,6 @@ HEADERS += \
 SOURCES += \
     main.cpp \
     ../tools/crashhandler/crashhandlersetup.cpp
+
+OTHER_FILES += \
+    CMakeLists.txt \

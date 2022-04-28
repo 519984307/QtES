@@ -7,4 +7,6 @@ SUBDIRS = \
     tools \
     app \
 
+OTHER_FILES += \
+    CMakeLists.txt \
 

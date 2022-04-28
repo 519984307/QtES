@@ -5,3 +5,5 @@ SUBDIRS = \
     extensionsystem \
     utils
 
+OTHER_FILES += \
+    CMakeLists.txt \

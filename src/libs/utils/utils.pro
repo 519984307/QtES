@@ -19,4 +19,5 @@ HEADERS += \
     environment.h \
     hostosinfo.h
 
-
+OTHER_FILES += \
+    CMakeLists.txt \

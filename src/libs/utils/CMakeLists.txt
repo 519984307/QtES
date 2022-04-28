@@ -1,44 +1,36 @@
-set(Target_Name crash_handler)
+# Target name
+set(Target_Name utils)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # Header files
 set(HDRS_FILES 
-    backtracecollector.h
-    crashhandlerdialog.h
-    crashhandler.h
-    utils.h
-    ../../libs/utils/checkablemessagebox.h
-    ../../libs/utils/environment.h
+    utils_global.h
+    checkablemessagebox.h 
+    environment.h
+    hostosinfo.h
 )
 
 # Source files
 set(SRCS_FILES 
-    main.cpp
-    backtracecollector.cpp 
-    crashhandlerdialog.cpp
-    crashhandler.cpp
-    utils.cpp
-    ../../libs/utils/checkablemessagebox.cpp
-    ../../libs/utils/environment.cpp
+    checkablemessagebox.cpp
+    environment.cpp
+    hostosinfo.cpp
 )
 
 # UI files
 set(UI_FILES 
-    crashhandlerdialog.ui
+
 )
 
 # Resources files
 set(RCS_FILES 
-
+  
 )
 
 # Headers that should run through moc
 set(MOC_FILES 
-  backtracecollector.h
-  crashhandlerdialog.h
-  crashhandler.h
-  ../../libs/utils/checkablemessagebox.h
+    checkablemessagebox.h 
 )
 
 qt4_wrap_cpp(MOC_SRCS ${MOC_FILES})
@@ -49,7 +41,9 @@ source_group("UI Files" FILES ${UI_FILES})
 source_group("Generated Files" FILES ${MOC_SRCS} ${UI_HDRS})
 source_group("Resources Files" FILES ${RCS})
 
-add_executable(${Target_Name} 
+ADD_DEFINITIONS(-DUTILS_LIBRARY)
+
+add_library(${Target_Name} SHARED 
     ${SRCS_FILES}
     ${HDRS_FILES} 
     ${UI_FILES} 
@@ -58,5 +52,9 @@ add_executable(${Target_Name}
     ${RCS}
 )
 target_link_libraries(${Target_Name} ${QT_LIBRARIES})
+set_target_properties(${Target_Name} PROPERTIES VERSION 1.0.0 SOVERSION 1)
 
-install(TARGETS ${Target_Name} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
+target_include_directories(${Target_Name} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../")
+
+INSTALL(TARGETS ${Target_Name} 
+        LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX})

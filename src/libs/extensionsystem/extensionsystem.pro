@@ -10,15 +10,10 @@ DEFINES += EXTENSIONSYSTEM_LIBRARY
 
 unix:!macx:!freebsd*:LIBS += -ldl
 
-!isEmpty(vcproj) {
-    DEFINES += IDE_TEST_DIR=\"$$SRC_DIR\"
-} else {
-    DEFINES += IDE_TEST_DIR=\\\"$$SRC_DIR\\\"
-}
-
 INCLUDEPATH += $$PWD/../
 
-HEADERS += pluginerrorview.h \
+HEADERS += \
+    pluginerrorview.h \
     plugindetailsview.h \
     invoker.h \
     iplugin.h \
@@ -34,7 +29,8 @@ HEADERS += pluginerrorview.h \
     pluginerroroverview.h \
     aggregate.h
 
-SOURCES += pluginerrorview.cpp \
+SOURCES += \
+    pluginerrorview.cpp \
     plugindetailsview.cpp \
     invoker.cpp \
     iplugin.cpp \
@@ -46,9 +42,13 @@ SOURCES += pluginerrorview.cpp \
     pluginerroroverview.cpp \
     aggregate.cpp
 
-FORMS += pluginview.ui \
+FORMS += \
+    pluginview.ui \
     pluginerrorview.ui \
     plugindetailsview.ui \
     pluginerroroverview.ui
 
 RESOURCES += pluginview.qrc
+
+OTHER_FILES += \
+    CMakeLists.txt \

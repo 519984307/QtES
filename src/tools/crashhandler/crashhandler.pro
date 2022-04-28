@@ -15,7 +15,6 @@ SOURCES += \
     ../../libs/utils/checkablemessagebox.cpp \
     ../../libs/utils/environment.cpp
 
-
 HEADERS += \
     backtracecollector.h \
     crashhandlerdialog.h \
@@ -26,3 +25,6 @@ HEADERS += \
 
 FORMS += \
     crashhandlerdialog.ui
+
+OTHER_FILES += \
+    CMakeLists.txt \

@@ -18,6 +18,9 @@ SOURCES += \
 RESOURCES += \
     resource.qrc
 
+OTHER_FILES += \
+    CMakeLists.txt \
+
 DISTFILES += Core.xml
 
 deployModule(Core.xml, $$PLUGINS_DIR)

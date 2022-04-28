@@ -707,24 +707,8 @@ bool PluginManager::testRunRequested()
 }
 
 /*!
- * \internal
- */
-QString PluginManager::testDataDirectory()
-{
-    QByteArray ba = qgetenv("QTCREATOR_TEST_DIR");
-    QString s = QString::fromLocal8Bit(ba.constData(), ba.size());
-    if (s.isEmpty()) {
-        s = QLatin1String(IDE_TEST_DIR);
-        s.append(QLatin1String("/tests"));
-    }
-    s = QDir::cleanPath(s);
-    return s;
-}
-
-/*!
     Create a profiling entry showing the elapsed time if profiling is activated.
 */
-
 void PluginManager::profilingReport(const char *what, const PluginSpec *spec)
 {
     m_instance->d->profilingReport(what, spec);

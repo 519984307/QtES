@@ -1,31 +1,22 @@
-set(Target_Name crash_handler)
+set(Target_Name app)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # Header files
 set(HDRS_FILES 
-    backtracecollector.h
-    crashhandlerdialog.h
-    crashhandler.h
-    utils.h
-    ../../libs/utils/checkablemessagebox.h
-    ../../libs/utils/environment.h
+    ../tools/crashhandler/crashhandlersetup.h
+    app_version.h
 )
 
 # Source files
 set(SRCS_FILES 
     main.cpp
-    backtracecollector.cpp 
-    crashhandlerdialog.cpp
-    crashhandler.cpp
-    utils.cpp
-    ../../libs/utils/checkablemessagebox.cpp
-    ../../libs/utils/environment.cpp
+    ../tools/crashhandler/crashhandlersetup.cpp
 )
 
 # UI files
 set(UI_FILES 
-    crashhandlerdialog.ui
+
 )
 
 # Resources files
@@ -35,11 +26,9 @@ set(RCS_FILES
 
 # Headers that should run through moc
 set(MOC_FILES 
-  backtracecollector.h
-  crashhandlerdialog.h
-  crashhandler.h
-  ../../libs/utils/checkablemessagebox.h
+
 )
+
 
 qt4_wrap_cpp(MOC_SRCS ${MOC_FILES})
 qt4_wrap_ui(UI_HDRS ${UI_FILES})
@@ -57,6 +46,6 @@ add_executable(${Target_Name}
     ${UI_HDRS} 
     ${RCS}
 )
-target_link_libraries(${Target_Name} ${QT_LIBRARIES})
+target_link_libraries(${Target_Name} ${QT_LIBRARIES} shared_qtsingleapplication extensionsystem utils)
 
 install(TARGETS ${Target_Name} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})

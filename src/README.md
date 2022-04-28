@@ -1,2 +1,0 @@
-# qes
-qt extension system

@@ -4,6 +4,7 @@
 #include <sys/types.h>
 
 #include <QApplication>
+#include <QDebug>
 #include <QFile>
 #include <QProcess>
 #include <QString>
@@ -32,8 +33,14 @@ int main(int argc, char *argv[])
     //    }
 
     // Run.
-    CrashHandler *crashHandler = new CrashHandler(parentPid, app.arguments().at(1));
-    crashHandler->run();
+    if (app.arguments().size() > 1) {
+        QString signalName = app.arguments().at(1);
+        CrashHandler *crashHandler = new CrashHandler(parentPid, signalName);
+        crashHandler->run();
+    } else {
+        qDebug() << "No input param, CrashHandler closed.";
+        return 0;
+    }
 
     return app.exec();
 }
