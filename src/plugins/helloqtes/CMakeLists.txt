@@ -23,6 +23,7 @@ set(UI_FILES
 # Resources files
 set(RCS_FILES 
     resource.qrc
+    HelloQtES.xml
 )
 
 qt4_wrap_ui(UI_HDRS ${UI_FILES})

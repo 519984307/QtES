@@ -7,27 +7,27 @@
 namespace %{PluginName} {
 namespace Internal {
 
-class %{PluginCN}Private;
+class %{PluginClassCN}Private;
 
-class %{PluginClass} : public ExtensionSystem::IPlugin
+class %{PluginClassCN} : public ExtensionSystem::IPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin.%{PluginName}" FILE "%{PluginName}.xml")
 
 public:
-    explicit %{PluginClass}();
-    ~%{PluginClass}();
+    explicit %{PluginClassCN}();
+    ~%{PluginClassCN}();
 
     bool initialize(const QStringList &arguments, QString *errorMessage);
     void extensionsInitialized();
     bool delayedInitialize();
 
 private:
-    std::unique_ptr<Internal::%{PluginCN}Private> d_ptr_;
+    std::unique_ptr<Internal::%{PluginClassCN}Private> const d_ptr_;
 
 private:
-    Q_DISABLE_COPY(%{PluginCN})
-    Q_DECLARE_PRIVATE_D(d_ptr_.get(), Internal::%{PluginCN})
+    Q_DISABLE_COPY(%{PluginClassCN})
+    Q_DECLARE_PRIVATE_D(d_ptr_.get(), Internal::%{PluginClassCN})
 };
 
 } // namespace Internal

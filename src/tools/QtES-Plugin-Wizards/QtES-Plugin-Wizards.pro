@@ -6,6 +6,7 @@ Wizards_Name = QtES-Plugin-Wizards
 TEMPLATE = subdirs
 
 DISTFILES += \
+    CMakeLists.txt \
     XXX.pro \
     XXXserviceimpl.cpp \
     XXXserviceimpl.h \

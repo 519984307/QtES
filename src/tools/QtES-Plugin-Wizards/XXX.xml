@@ -4,7 +4,7 @@
     <license>
     Programmer GuoBin
     </license>
-    <category>Core</category>
+    <category>%{Plugin_Name}</category>
     <description>%{Plugin_Description}</description>
     <url></url>
     <dependencyList>

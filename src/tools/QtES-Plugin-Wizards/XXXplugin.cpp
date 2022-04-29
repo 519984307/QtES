@@ -9,41 +9,41 @@
 namespace %{PluginName} {
 namespace Internal {
 
-class %{PluginCN}Private
+class %{PluginClassCN}Private
 {
-    Q_DECLARE_PUBLIC(%{PluginCN})
+    Q_DECLARE_PUBLIC(%{PluginClassCN})
 protected:
-    %{PluginCN} *const q_ptr;
+    %{PluginClassCN} *const q_ptr;
 
 public:
-    %{PluginCN}Private(%{PluginCN} &object);
-    virtual ~%{PluginCN}Private();
+    %{PluginClassCN}Private(%{PluginClassCN} &object);
+    virtual ~%{PluginClassCN}Private();
 
 private:
     %{ServiceImpl} service;
 };
 
-%{PluginClass}Private::%{PluginClass}Private(%{PluginCN} &object) : q_ptr(&object)
+%{PluginClassCN}Private::%{PluginClassCN}Private(%{PluginClassCN} &object) : q_ptr(&object)
 {
     ExtensionSystem::PluginManager::addObject(&service);
 }
 
-%{PluginClass}Private::~%{PluginClass}Private()
+%{PluginClassCN}Private::~%{PluginClassCN}Private()
 {
     ExtensionSystem::PluginManager::removeObject(&service);
 }
 
-%{PluginClass}::%{PluginClass}() : d_ptr_(new %{PluginCN}Private(*this))
+%{PluginClassCN}::%{PluginClassCN}() : d_ptr_(new %{PluginClassCN}Private(*this))
 {
     qDebug() << __func__;
 }
 
-%{PluginClass}::~%{PluginClass}()
+%{PluginClassCN}::~%{PluginClassCN}()
 {
     qDebug() << __func__;
 }
 
-bool %{PluginClass}::initialize(const QStringList &arguments, QString *errorMessage)
+bool %{PluginClassCN}::initialize(const QStringList &arguments, QString *errorMessage)
 {
     Q_UNUSED(arguments)
     Q_UNUSED(errorMessage)
@@ -53,12 +53,12 @@ bool %{PluginClass}::initialize(const QStringList &arguments, QString *errorMess
     return true;
 }
 
-void %{PluginClass}::extensionsInitialized()
+void %{PluginClassCN}::extensionsInitialized()
 {
     qDebug() << "extensions initialized %{PluginName} Plugin";
 }
 
-bool %{PluginClass}::delayedInitialize()
+bool %{PluginClassCN}::delayedInitialize()
 {
     qDebug() << "delayed initialize %{PluginName} Plugin";
 
@@ -68,4 +68,4 @@ bool %{PluginClass}::delayedInitialize()
 } // namespace Internal
 } // namespace %{PluginName}
 
-Q_EXPORT_PLUGIN(%{PluginName}::Internal::%{PluginClass})
+Q_EXPORT_PLUGIN(%{PluginName}::Internal::%{PluginClassCN})

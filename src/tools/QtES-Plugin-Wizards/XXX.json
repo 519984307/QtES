@@ -5,9 +5,9 @@
     "DisabledByDefault" : false,
     "HiddenByDefault" : false,
     "Vendor" : "%{Plugin_Vendor}",
-    "Copyright" : "Copyright (C) 2022 The Programmer Plcreed",
-    "License" : ["Programmer Plcreed"],
-    "Category" : "Core",
+    "Copyright" : "Copyright (C) 2022 The Programmer GuoBin",
+    "License" : ["Programmer GuoBin"],
+    "Category" : "%{Plugin_Name}",
     "Description" : "%{Plugin_Description}",
     "Url" : "",
     "Dependencies" : [

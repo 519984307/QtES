@@ -22,7 +22,7 @@ public:
     bool delayedInitialize();
 
 private:
-    std::unique_ptr<Internal::CorePluginPrivate> d_ptr_;
+    std::unique_ptr<Internal::CorePluginPrivate> const d_ptr_;
 
 private:
     Q_DISABLE_COPY(CorePlugin)

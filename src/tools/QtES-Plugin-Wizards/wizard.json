@@ -42,10 +42,11 @@
 
         { "key": "PluginHdrPath", "value": "%{ProjectDirectory}/%{PluginHdrFileName}" },
         { "key": "PluginSrcPath", "value": "%{ProjectDirectory}/%{PluginSrcFileName}" },
-        { "key": "PluginCN", "value": "%{JS: Cpp.className('%{PluginClass}')}" },
+        { "key": "PluginClassCN", "value": "%{JS: Cpp.className('%{PluginClass}')}" },
 
         { "key": "JsonFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{PluginName}', 'json')}" },
-        { "key": "XmlFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{PluginName}', 'xml')}" }
+        { "key": "XmlFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{PluginName}', 'xml')}" },
+        { "key": "CMakeListsFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/CMakeLists.txt', 'txt')}" }
     ],
 
     "pages":
@@ -168,7 +169,7 @@
                     "openInEditor": true,
                     "options": [
                         { "key": "Cpp:License:FileName", "value": "%{PluginHdrFileName}" },
-                        { "key": "Cpp:License:ClassName", "value": "%{PluginCN}" }
+                        { "key": "Cpp:License:ClassName", "value": "%{PluginClassCN}" }
                     ]
                 },
                 {
@@ -177,12 +178,17 @@
                     "openInEditor": true,
                     "options": [
                         { "key": "Cpp:License:FileName", "value": "%{PluginSrcFileName}" },
-                        { "key": "Cpp:License:ClassName", "value": "%{PluginCN}" }
+                        { "key": "Cpp:License:ClassName", "value": "%{PluginClassCN}" }
                     ]
                 },
                 {
                     "source": "XXX.xml",
                     "target": "%{XmlFile}",
+                    "openInEditor": true
+                },
+                {
+                    "source": "CMakeLists.txt",
+                    "target": "%{CMakeListsFile}",
                     "openInEditor": true
                 },
                 {

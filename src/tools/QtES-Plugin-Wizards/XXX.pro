@@ -18,6 +18,9 @@ SOURCES += \\
 RESOURCES += \\
     resource.qrc
 
+OTHER_FILES += \
+    CMakeLists.txt \
+
 DISTFILES += %{PluginName}.xml
 
 deployModule(%{PluginName}.xml, $$PLUGINS_DIR)
