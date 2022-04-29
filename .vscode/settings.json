@@ -1,0 +1,19 @@
+{
+    "C/C++ Include Guard.Macro Type": "Filename",
+    "C/C++ Include Guard.Suffix": "_H__",
+    "C/C++ Include Guard.Comment Style": "Line",
+    "C/C++ Include Guard.Prefix": "__",
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    // "clang-format.executable": "/home/guobin/.vscode/extensions/ms-vscode.cpptools-1.9.7-linux-x64/LLVM/bin/clang-format",
+    "editor.formatOnSave": true,
+    // "editor.fontFamily": "'CaskaydiaCove NF', 'CaskaydiaCove NF', CaskaydiaCove NF",
+    "files.exclude": {
+        "build": false,
+        "install": true,
+        "bin": true,
+    },
+    "files.watcherExclude": {
+        "build": true,
+        "install": true,
+    }
+}
