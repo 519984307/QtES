@@ -9,7 +9,7 @@
     // "editor.fontFamily": "'CaskaydiaCove NF', 'CaskaydiaCove NF', CaskaydiaCove NF",
     "files.exclude": {
         "build": false,
-        "install": true,
+        "install": false,
         "bin": true,
     },
     "files.watcherExclude": {
