@@ -345,3 +345,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/yaml-cpp-config-version.cmake.in
 # 	configure_file("yaml-cpp.pc.cmake" ${PC_FILE} @ONLY)
 # 	install(FILES ${PC_FILE} DESTINATION ${LIB_INSTALL_DIR}/pkgconfig)
 # endif()
+
+
+target_include_directories(yaml-cpp PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
