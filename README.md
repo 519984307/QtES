@@ -1,2 +1,2 @@
-# qes
+# QtES
 qt extension system

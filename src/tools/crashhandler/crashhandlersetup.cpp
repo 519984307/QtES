@@ -6,6 +6,8 @@
 #    define BUILD_CRASH_HANDLER
 #endif
 
+#define BUILD_CRASH_HANDLER
+
 #ifdef BUILD_CRASH_HANDLER
 
 #    include <sys/prctl.h>

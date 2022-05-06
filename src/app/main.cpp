@@ -117,7 +117,7 @@ int main(int argc, char **argv)
     QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
     QObject::connect(&app, SIGNAL(aboutToQuit()), &pluginManager, SLOT(shutdown()));
 
-    // crashtest();
+    crashtest();
 
     // PluginManager::instance()->shutdown();
 

@@ -25,7 +25,9 @@ AlignConsecutiveAssignments: false
 # 连续声明时,对齐所有声明的变量名
 AlignConsecutiveDeclarations: false
 # define 换行时反斜杠位置 DontAlign,Left,Right
-AlignEscapedNewlines: Left
+AlignEscapedNewlines: Right
+# define 宏定义值对齐
+AlignConsecutiveMacros: AcrossEmptyLines
 # 如果为true,水平对齐二元和三元运算表达式
 AlignOperands: true
 # 如果为真,对连续多行代码尾部注释对齐
