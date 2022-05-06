@@ -6,7 +6,7 @@
 #include <QString>
 
 const char APPLICATION_NAME[] = "Crash Handler";
-const char URL_BUGTRACKER[] = "https://bugreports.qt-project.org/";
+const char URL_BUGTRACKER[] = "http://www.dfjy-jx.com/";
 
 QByteArray fileContents(const QString &filePath);
 

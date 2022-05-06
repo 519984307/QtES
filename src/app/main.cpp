@@ -70,7 +70,7 @@ int main(int argc, char **argv)
     QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));
 
     // Display a backtrace once a serious signal is delivered.
-    setupCrashHandler();
+    CrashHandlerSetup setupCrashHandler(Core::Constants::APP_NAME);
 
     QString pluginPath = QApplication::applicationDirPath() + "/plugins/";
 
@@ -117,7 +117,7 @@ int main(int argc, char **argv)
     QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
     QObject::connect(&app, SIGNAL(aboutToQuit()), &pluginManager, SLOT(shutdown()));
 
-    crashtest();
+    // crashtest();
 
     // PluginManager::instance()->shutdown();
 
@@ -125,7 +125,5 @@ int main(int argc, char **argv)
     view.show();
 
     const int r = app.exec();
-    cleanupCrashHandler();
-
     return r;
 }
