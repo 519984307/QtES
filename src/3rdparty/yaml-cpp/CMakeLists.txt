@@ -46,16 +46,16 @@ option(YAML_CPP_BUILD_CONTRIB "Enable contrib stuff in library" ON)
 # --> General
 # see http://www.cmake.org/cmake/help/cmake2.6docs.html#variable:BUILD_SHARED_LIBS
 #     http://www.cmake.org/cmake/help/cmake2.6docs.html#command:add_library
-option(BUILD_SHARED_LIBS "Build Shared Libraries" OFF)
+option(BUILD_SHARED_LIBS "YAML Build Shared Libraries" OFF)
 
 # --> Apple
-option(APPLE_UNIVERSAL_BIN "Apple: Build universal binary" OFF)
+option(APPLE_UNIVERSAL_BIN "Apple: YAML build universal binary" OFF)
 
 # --> Microsoft Visual C++
 # see http://msdn.microsoft.com/en-us/library/aa278396(v=VS.60).aspx
 #     http://msdn.microsoft.com/en-us/library/2kzt1wy3(v=VS.71).aspx
-option(MSVC_SHARED_RT "MSVC: Build with shared runtime libs (/MD)" ON)
-option(MSVC_STHREADED_RT "MSVC: Build with single-threaded static runtime libs (/ML until VS .NET 2003)" OFF)
+option(MSVC_SHARED_RT "MSVC: YAML Build with shared runtime libs (/MD)" ON)
+option(MSVC_STHREADED_RT "MSVC: YAML Build with single-threaded static runtime libs (/ML until VS .NET 2003)" OFF)
 
 ###
 ### Sources, headers, directories and libs

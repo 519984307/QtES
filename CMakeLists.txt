@@ -21,7 +21,7 @@ add_definitions(${QT_DEFINITIONS})
 # they won't work in Windows.
 # If no build type is specified, default to "Release"
 if (NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release CACHE STRING
+  set(CMAKE_BUILD_TYPE Debug CACHE STRING
       "None Debug Release RelWithDebInfo MinSizeRel"
       FORCE)
 endif()
