@@ -9,6 +9,7 @@ set(HDRS_FILES
     checkablemessagebox.h 
     environment.h
     hostosinfo.h
+    singleton.hpp
 )
 
 # Source files
