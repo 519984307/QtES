@@ -7,7 +7,7 @@ SUBDIRS += \
 OTHER_FILES += \
     CMakeLists.txt \
 
-linux-* {
-    SUBDIRS += qtcreatorcrashhandler
+unix {
+    SUBDIRS += crashhandler
 }
 
