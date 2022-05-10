@@ -2,7 +2,8 @@
 #define QTMATERIALPROGRESS_H
 
 #include "lib/qtmaterialtheme.h"
-#include <QtWidgets/QProgressBar>
+
+#include <QProgressBar>
 
 class QtMaterialProgressPrivate;
 
@@ -30,7 +31,7 @@ public:
     QColor backgroundColor() const;
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) override;
 
     const QScopedPointer<QtMaterialProgressPrivate> d_ptr;
 

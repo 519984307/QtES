@@ -1,7 +1,7 @@
 #ifndef QTMATERIALOVERLAYWIDGET_H
 #define QTMATERIALOVERLAYWIDGET_H
 
-#include <QtWidgets/QWidget>
+#include <QWidget>
 
 class QtMaterialOverlayWidget : public QWidget
 {
@@ -12,8 +12,8 @@ public:
     ~QtMaterialOverlayWidget();
 
 protected:
-    bool event(QEvent *event) Q_DECL_OVERRIDE;
-    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+    bool event(QEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
     virtual QRect overlayGeometry() const;
 

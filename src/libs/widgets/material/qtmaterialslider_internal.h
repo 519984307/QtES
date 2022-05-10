@@ -75,8 +75,8 @@ public:
     inline int offset() const;
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     Q_DISABLE_COPY(QtMaterialSliderThumb)
@@ -185,8 +185,8 @@ public:
     inline int trackWidth() const;
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     Q_DISABLE_COPY(QtMaterialSliderTrack)

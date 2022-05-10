@@ -1,39 +1,34 @@
 # Target name
 set(Target_Name widgets)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+set(CMAKE_AUTOMOC ON)
 
-# Header files
-set(HDRS_FILES 
-    # widgets_global.h
-    checkablemessagebox.h
-    progresscircle.h
-    waitingspinnerwidget.h
-
-    frameless/basedialog.h
-    frameless/framelesshelper.h
-    frameless/titlebar.h
+file(GLOB HDRS_FILES
+    "*.h"
+    "frameless/*.h"
+    "material/*.h"
+    "material/layouts/*.h"
+    "material/lib/*.h"
 )
 
-# Source files
-set(SRCS_FILES 
-    checkablemessagebox.cpp
-    progresscircle.cpp
-    waitingspinnerwidget.cpp
-
-    frameless/basedialog.cpp
-    frameless/framelesshelper.cpp
-    frameless/titlebar.cpp
+file(GLOB SRCS_FILES
+    "*.cpp"
+    "frameless/*.cpp"
+    "material/*.cpp"
+    "material/layouts/*.cpp"
+    "material/lib/*.cpp"
 )
 
-# UI files
-set(UI_FILES 
-
+file(GLOB UI_FILES
+    "*.ui"
+    "frameless/*.ui"
+    "material/*.ui"
 )
 
-# Resources files
-set(RCS_FILES 
-  
+file(GLOB RCS_FILES
+    "*.qrc"
+    "frameless/*.qrc"
+    "material/*.qrc"
 )
 
 # Headers that should run through moc
@@ -41,7 +36,7 @@ set(MOC_FILES
 
 )
 
-qt4_wrap_cpp(MOC_SRCS ${MOC_FILES})
+# qt4_wrap_cpp(MOC_SRCS ${MOC_FILES})
 qt4_wrap_ui(UI_HDRS ${UI_FILES})
 qt4_add_resources(RCS ${RCS_FILES})
 
@@ -55,15 +50,22 @@ add_library(${Target_Name} STATIC
     ${SRCS_FILES}
     ${HDRS_FILES} 
     ${UI_FILES} 
-    ${MOC_SRCS}
+    # ${MOC_SRCS}
     ${UI_HDRS} 
     ${RCS}
 )
 target_link_libraries(${Target_Name} ${QT_LIBRARIES})
 set_target_properties(${Target_Name} PROPERTIES VERSION 1.0.0 SOVERSION 1)
-set_target_properties(${Target_Name} PROPERTIES AUTOMOC TRUE)
 
-target_include_directories(${Target_Name} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../")
+target_include_directories(${Target_Name} 
+    PUBLIC 
+        "${CMAKE_CURRENT_SOURCE_DIR}/../"
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/material
+        # ${CMAKE_CURRENT_SOURCE_DIR}/material/lib
+        # ${CMAKE_CURRENT_SOURCE_DIR}/material/layouts
+)
 
 INSTALL(TARGETS ${Target_Name} 
         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX})

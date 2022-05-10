@@ -26,7 +26,7 @@ protected slots:
     void snackbarShown();
 
 protected:
-    bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
     Q_DISABLE_COPY(QtMaterialSnackbarStateMachine)

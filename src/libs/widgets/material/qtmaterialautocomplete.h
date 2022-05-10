@@ -22,8 +22,8 @@ protected slots:
     void updateResults(QString text);
 
 protected:
-    bool event(QEvent *event) Q_DECL_OVERRIDE;
-    bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
+    bool event(QEvent *event) override;
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
     Q_DISABLE_COPY(QtMaterialAutoComplete)

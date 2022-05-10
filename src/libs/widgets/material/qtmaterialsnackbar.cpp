@@ -4,8 +4,8 @@
 #include "lib/qtmaterialstyle.h"
 #include "qtmaterialsnackbar_internal.h"
 #include "qtmaterialsnackbar_p.h"
-#include <QtWidgets/QApplication>
 
+#include <QApplication>
 #include <QDebug>
 #include <QPainter>
 

@@ -45,7 +45,7 @@ protected slots:
     void dequeue();
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) override;
 
     const QScopedPointer<QtMaterialSnackbarPrivate> d_ptr;
 

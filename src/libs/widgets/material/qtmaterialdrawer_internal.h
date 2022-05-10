@@ -60,9 +60,9 @@ public:
     inline int offset() const;
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) override;
 
-    QRect overlayGeometry() const Q_DECL_OVERRIDE;
+    QRect overlayGeometry() const override;
 
 private:
     int m_offset;

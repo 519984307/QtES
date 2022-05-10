@@ -3,13 +3,13 @@
 #include "qtmaterialautocomplete_internal.h"
 #include "qtmaterialautocomplete_p.h"
 #include "qtmaterialflatbutton.h"
-#include <QtWidgets/QGraphicsDropShadowEffect>
-#include <QtWidgets/QVBoxLayout>
 
 #include <QDebug>
 #include <QEvent>
+#include <QGraphicsDropShadowEffect>
 #include <QPainter>
 #include <QTimer>
+#include <QVBoxLayout>
 
 /*!
  *  \class QtMaterialAutoCompletePrivate

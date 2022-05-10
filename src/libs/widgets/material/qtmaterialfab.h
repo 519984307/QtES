@@ -13,7 +13,7 @@ public:
     explicit QtMaterialFloatingActionButton(const QIcon &icon, QWidget *parent = 0);
     ~QtMaterialFloatingActionButton();
 
-    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
 
     void setMini(bool state);
     bool isMini() const;
@@ -31,11 +31,11 @@ public:
     int yOffset() const;
 
 protected:
-    bool event(QEvent *event) Q_DECL_OVERRIDE;
-    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    bool event(QEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
-    void updateClipPath() Q_DECL_OVERRIDE;
+    void updateClipPath() override;
 
 private:
     Q_DISABLE_COPY(QtMaterialFloatingActionButton)

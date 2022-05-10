@@ -1,8 +1,8 @@
 #ifndef QTMATERIALAPPBAR_H
 #define QTMATERIALAPPBAR_H
 
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QWidget>
+#include <QHBoxLayout>
+#include <QWidget>
 
 class QtMaterialAppBarPrivate;
 
@@ -17,7 +17,7 @@ public:
     explicit QtMaterialAppBar(QWidget *parent = 0);
     ~QtMaterialAppBar();
 
-    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
 
     void setUseThemeColors(bool value);
     bool useThemeColors() const;
@@ -31,7 +31,7 @@ public:
     inline QHBoxLayout *appBarLayout() const;
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) override;
 
     const QScopedPointer<QtMaterialAppBarPrivate> d_ptr;
 

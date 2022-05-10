@@ -1,7 +1,7 @@
 #ifndef QTMATERIALICONBUTTON_H
 #define QTMATERIALICONBUTTON_H
 
-#include <QtWidgets/QAbstractButton>
+#include <QAbstractButton>
 
 class QtMaterialIconButtonPrivate;
 
@@ -13,7 +13,7 @@ public:
     explicit QtMaterialIconButton(const QIcon &icon, QWidget *parent = 0);
     ~QtMaterialIconButton();
 
-    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
 
     void setUseThemeColors(bool value);
     bool useThemeColors() const;
@@ -27,10 +27,10 @@ public:
 protected:
     QtMaterialIconButton(QtMaterialIconButtonPrivate &d, QWidget *parent = 0);
 
-    bool event(QEvent *event) Q_DECL_OVERRIDE;
-    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    bool event(QEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
     const QScopedPointer<QtMaterialIconButtonPrivate> d_ptr;
 

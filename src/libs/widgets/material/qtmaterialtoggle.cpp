@@ -3,8 +3,8 @@
 #include "lib/qtmaterialstyle.h"
 #include "qtmaterialtoggle_internal.h"
 #include "qtmaterialtoggle_p.h"
-#include <QtWidgets/QApplication>
 
+#include <QApplication>
 #include <QPropertyAnimation>
 #include <QSignalTransition>
 #include <QStateMachine>

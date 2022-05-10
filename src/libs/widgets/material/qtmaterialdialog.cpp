@@ -3,12 +3,12 @@
 #include "lib/qtmaterialstatetransition.h"
 #include "qtmaterialdialog_internal.h"
 #include "qtmaterialdialog_p.h"
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QGraphicsDropShadowEffect>
-#include <QtWidgets/QStackedLayout>
 
+#include <QApplication>
+#include <QGraphicsDropShadowEffect>
 #include <QPainter>
 #include <QPropertyAnimation>
+#include <QStackedLayout>
 #include <QState>
 #include <QStateMachine>
 

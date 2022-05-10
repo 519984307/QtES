@@ -2,15 +2,15 @@
 
 #include "qtmaterialdrawer_internal.h"
 #include "qtmaterialdrawer_p.h"
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QLayout>
-#include <QtWidgets/QVBoxLayout>
 
+#include <QApplication>
 #include <QDebug>
 #include <QEvent>
+#include <QLayout>
 #include <QLinearGradient>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QVBoxLayout>
 
 /*!
  *  \class QtMaterialDrawerPrivate

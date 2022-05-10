@@ -1,9 +1,9 @@
 #include "qtmaterialraisedbutton.h"
 
 #include "qtmaterialraisedbutton_p.h"
-#include <QtWidgets/QGraphicsDropShadowEffect>
 
 #include <QEventTransition>
+#include <QGraphicsDropShadowEffect>
 #include <QPropertyAnimation>
 #include <QStateMachine>
 

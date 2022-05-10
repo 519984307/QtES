@@ -3,7 +3,8 @@
 #include "lib/qtmaterialstyle.h"
 #include "qtmaterialtabs_internal.h"
 #include "qtmaterialtabs_p.h"
-#include <QtWidgets/QHBoxLayout>
+
+#include <QHBoxLayout>
 
 /*!
  *  \QtMaterialTabsPrivate

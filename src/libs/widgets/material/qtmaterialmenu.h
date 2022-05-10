@@ -1,7 +1,7 @@
 #ifndef QTMATERIALMENU_H
 #define QTMATERIALMENU_H
 
-#include <QtWidgets/QWidget>
+#include <QWidget>
 
 class QtMaterialMenu : public QWidget
 {

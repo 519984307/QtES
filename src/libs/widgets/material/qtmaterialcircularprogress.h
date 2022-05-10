@@ -2,7 +2,8 @@
 #define QTMATERIALCIRCULARPROGRESS_H
 
 #include "lib/qtmaterialtheme.h"
-#include <QtWidgets/QProgressBar>
+
+#include <QProgressBar>
 
 class QtMaterialCircularProgressPrivate;
 
@@ -33,10 +34,10 @@ public:
     void setColor(const QColor &color);
     QColor color() const;
 
-    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) override;
 
     const QScopedPointer<QtMaterialCircularProgressPrivate> d_ptr;
 

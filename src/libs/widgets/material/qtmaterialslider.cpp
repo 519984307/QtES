@@ -4,8 +4,8 @@
 #include "lib/qtmaterialstyle.h"
 #include "qtmaterialslider_internal.h"
 #include "qtmaterialslider_p.h"
-#include <QtWidgets/QApplication>
 
+#include <QApplication>
 #include <QMouseEvent>
 
 /*!

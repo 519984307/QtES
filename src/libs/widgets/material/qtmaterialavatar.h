@@ -2,7 +2,8 @@
 #define QTMATERIALAVATAR_H
 
 #include "lib/qtmaterialtheme.h"
-#include <QtWidgets/QWidget>
+
+#include <QWidget>
 
 class QtMaterialAvatarPrivate;
 
@@ -26,7 +27,7 @@ public:
     void setBackgroundColor(const QColor &color);
     QColor backgroundColor() const;
 
-    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
 
     void setSize(int size);
     int size() const;
@@ -38,7 +39,7 @@ public:
     Material::AvatarType type() const;
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) override;
 
     const QScopedPointer<QtMaterialAvatarPrivate> d_ptr;
 

@@ -2,9 +2,9 @@
 
 #include "lib/qtmaterialripple.h"
 #include "qtmaterialtoggle.h"
-#include <QtWidgets/QGraphicsDropShadowEffect>
 
 #include <QEvent>
+#include <QGraphicsDropShadowEffect>
 #include <QPainter>
 
 /*!

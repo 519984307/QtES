@@ -1,7 +1,7 @@
 #ifndef QTMATERIALTOGGLE_H
 #define QTMATERIALTOGGLE_H
 
-#include <QtWidgets/QAbstractButton>
+#include <QAbstractButton>
 
 class QtMaterialTogglePrivate;
 
@@ -36,11 +36,11 @@ public:
     void setOrientation(Qt::Orientation orientation);
     Qt::Orientation orientation() const;
 
-    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
 
 protected:
-    bool event(QEvent *event) Q_DECL_OVERRIDE;
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    bool event(QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
     const QScopedPointer<QtMaterialTogglePrivate> d_ptr;
 

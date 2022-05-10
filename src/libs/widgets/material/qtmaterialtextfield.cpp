@@ -3,8 +3,8 @@
 #include "lib/qtmaterialstyle.h"
 #include "qtmaterialtextfield_internal.h"
 #include "qtmaterialtextfield_p.h"
-#include <QtWidgets/QApplication>
 
+#include <QApplication>
 #include <QDebug>
 #include <QPainter>
 
