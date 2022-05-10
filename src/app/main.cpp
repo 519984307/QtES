@@ -77,6 +77,9 @@ int main(int argc, char **argv)
     PluginManager pluginManager;
     PluginManager::setPluginPaths(QStringList() << pluginPath);
 
+    QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
+    QObject::connect(&app, SIGNAL(aboutToQuit()), &pluginManager, SLOT(shutdown()));
+
     const QList<PluginSpec *> plugins = PluginManager::plugins();
     PluginSpec *coreplugin = nullptr;
 
@@ -105,17 +108,28 @@ int main(int argc, char **argv)
     }
 
     PluginManager::loadPlugins();
-    if (coreplugin->hasError()) {
-        qWarning() << "Failed to load Core:" << coreplugin->errorString();
-        return 1;
+    if (PluginManager::hasError()) {
+
+        qWarning() << endl
+                   << " ======================== Load Plugin Failed ======================= ";
+        foreach (PluginSpec *spec, plugins) {
+            // only show errors on startup if plugin is enabled.
+            if (spec->hasError() && spec->isEnabledInSettings() && !spec->isDisabledIndirectly()) {
+                qWarning() << QString("Failed to load %1:").arg(spec->name()) << endl
+                           << spec->errorString() << endl;
+            }
+        }
+        qWarning() << " =================================================================== ";
     }
+
+    // if (coreplugin->hasError()) {
+    //     qWarning() << "Failed to load Core:" << coreplugin->errorString();
+    //     return 1;
+    // }
 
     HelloQtES::Service *helloQtESService = PluginManager::getObject<HelloQtES::Service>();
     if (helloQtESService != nullptr)
         helloQtESService->sayHello();
-
-    QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
-    QObject::connect(&app, SIGNAL(aboutToQuit()), &pluginManager, SLOT(shutdown()));
 
     // crashtest();
 

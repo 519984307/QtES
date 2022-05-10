@@ -8,7 +8,6 @@ set(HDRS_FILES
     crashhandlerdialog.h
     crashhandler.h
     utils.h
-    ../../libs/utils/checkablemessagebox.h
     ../../libs/utils/environment.h
 )
 
@@ -19,7 +18,6 @@ set(SRCS_FILES
     crashhandlerdialog.cpp
     crashhandler.cpp
     utils.cpp
-    ../../libs/utils/checkablemessagebox.cpp
     ../../libs/utils/environment.cpp
 )
 
@@ -38,7 +36,6 @@ set(MOC_FILES
   backtracecollector.h
   crashhandlerdialog.h
   crashhandler.h
-  ../../libs/utils/checkablemessagebox.h
 )
 
 qt4_wrap_cpp(MOC_SRCS ${MOC_FILES})
@@ -57,6 +54,6 @@ add_executable(${Target_Name}
     ${UI_HDRS} 
     ${RCS}
 )
-target_link_libraries(${Target_Name} ${QT_LIBRARIES})
+target_link_libraries(${Target_Name} ${QT_LIBRARIES} widgets)
 
 install(TARGETS ${Target_Name} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})

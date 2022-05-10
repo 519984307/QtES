@@ -1,6 +1,7 @@
 add_subdirectory(extensionsystem)
 add_subdirectory(utils)
 add_subdirectory(log)
+add_subdirectory(widgets)
 
 
 # # Target name

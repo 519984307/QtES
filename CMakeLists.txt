@@ -10,7 +10,7 @@ set(CMAKE_PROJECT_INCLUDE_BEFORE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/EnableCMP004
 # Global CMake options
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# # Turn on automatic invocation of the MOC, UIC & RCC
+# Turn on automatic invocation of the MOC, UIC & RCC
 # set(CMAKE_AUTOMOC ON)
 # set(CMAKE_AUTORCC ON)
 # set(CMAKE_AUTOUIC ON)
@@ -27,7 +27,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -O3")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -m64 -pthread -fPIC ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -m64 -pthread -fPIC")
 
 set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/install)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
@@ -39,3 +39,5 @@ include(${QT_USE_FILE})
 
 add_subdirectory(src)
 add_subdirectory(test)
+
+message("CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")

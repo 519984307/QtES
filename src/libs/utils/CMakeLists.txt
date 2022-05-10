@@ -6,7 +6,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 # Header files
 set(HDRS_FILES 
     utils_global.h
-    checkablemessagebox.h 
     environment.h
     hostosinfo.h
     singleton.hpp
@@ -14,7 +13,6 @@ set(HDRS_FILES
 
 # Source files
 set(SRCS_FILES 
-    checkablemessagebox.cpp
     environment.cpp
     hostosinfo.cpp
 )
@@ -31,7 +29,7 @@ set(RCS_FILES
 
 # Headers that should run through moc
 set(MOC_FILES 
-    checkablemessagebox.h 
+
 )
 
 qt4_wrap_cpp(MOC_SRCS ${MOC_FILES})

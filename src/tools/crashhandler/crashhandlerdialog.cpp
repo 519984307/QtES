@@ -5,7 +5,7 @@
 #include "ui_crashhandlerdialog.h"
 #include "utils.h"
 #include <../../app/app_version.h>
-#include <../../libs/utils/checkablemessagebox.h>
+#include <widgets/checkablemessagebox.h>
 
 #include <QClipboard>
 #include <QDialogButtonBox>

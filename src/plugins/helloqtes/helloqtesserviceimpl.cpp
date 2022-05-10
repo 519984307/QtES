@@ -11,6 +11,6 @@ HelloQtESServiceImpl::~HelloQtESServiceImpl() {}
 void HelloQtESServiceImpl::sayHello()
 {
     qDebug() << "Hello QtES Plugin.";
-    char *p = (char *)100;
-    *p = 100;
+    // char *p = (char *)100;
+    // *p = 100;
 }

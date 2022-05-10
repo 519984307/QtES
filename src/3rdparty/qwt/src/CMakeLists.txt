@@ -19,4 +19,7 @@ add_definitions(${QT_DEFINITIONS})
 add_library(${Target_Name} ${SRCS})
 target_link_libraries(${Target_Name} ${QT_LIBRARIES})
 
-target_include_directories(${Target_Name} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+target_include_directories(${Target_Name} PUBLIC 
+    "${CMAKE_CURRENT_SOURCE_DIR}" 
+    "${CMAKE_CURRENT_SOURCE_DIR}/../classincludes"
+)
