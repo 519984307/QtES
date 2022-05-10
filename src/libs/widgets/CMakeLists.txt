@@ -7,7 +7,6 @@ file(GLOB HDRS_FILES
     "*.h"
     "frameless/*.h"
     "material/*.h"
-    "material/layouts/*.h"
     "material/lib/*.h"
 )
 
@@ -15,7 +14,6 @@ file(GLOB SRCS_FILES
     "*.cpp"
     "frameless/*.cpp"
     "material/*.cpp"
-    "material/layouts/*.cpp"
     "material/lib/*.cpp"
 )
 
