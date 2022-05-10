@@ -917,7 +917,7 @@ bool PluginSpecPrivate::loadLibrary()
 #else //Q_NO_DEBUG
 
 #    ifdef Q_OS_WIN
-    QString libName = QString::fromLatin1("%1/%2d.dll").arg(location).arg(name);
+    QString libName = QString::fromLatin1("%1/%2.dll").arg(location).arg(name);
 #    elif defined(Q_OS_MAC)
     QString libName = QString::fromLatin1("%1/lib%2_debug.dylib").arg(location).arg(name);
 #    else
