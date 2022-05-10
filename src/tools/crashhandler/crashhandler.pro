@@ -6,13 +6,16 @@ DESTDIR = $$BIN_DIR
 CONFIG -= app_bundle
 TEMPLATE = app
 
+INCLUDEPATH += $$LIB_SRC_DIR
+message($$LIB_SRC_DIR)
+
 SOURCES += \
     main.cpp \
     backtracecollector.cpp \
     crashhandlerdialog.cpp \
     crashhandler.cpp \
     utils.cpp \
-    ../../libs/utils/checkablemessagebox.cpp \
+    ../../libs/widgets/checkablemessagebox.cpp \
     ../../libs/utils/environment.cpp
 
 HEADERS += \
@@ -20,7 +23,7 @@ HEADERS += \
     crashhandlerdialog.h \
     crashhandler.h \
     utils.h \
-    ../../libs/utils/checkablemessagebox.h \
+    ../../libs/widgets/checkablemessagebox.h \
     ../../libs/utils/environment.h
 
 FORMS += \

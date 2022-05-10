@@ -17,7 +17,7 @@ INSTALL_DIR     = $$PWD/bin
 INCLUDE_DIR = $$PWD/include
 INCLUDEPATH += $$INCLUDE_DIR
 
-SRC_DIR = $$PWD/
+SRC_DIR = $$PWD/src
 
 LIB_SRC_DIR     = $$SRC_DIR/libs
 PLUGIN_SRC_DIR  = $$SRC_DIR/plugins
