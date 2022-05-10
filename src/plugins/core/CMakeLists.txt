@@ -1,25 +1,25 @@
 set(Target_Name Core)
 
 # Header files
-set(HDRS_FILES 
+set(HDRS_FILES
     coreservice.h
     coreserviceimpl.h
     coreplugin.h
 )
 
 # Source files
-set(SRCS_FILES 
+set(SRCS_FILES
     coreserviceimpl.cpp
     coreplugin.cpp
 )
 
 # UI files
-set(UI_FILES 
+set(UI_FILES
 
 )
 
 # Resources files
-set(RCS_FILES 
+set(RCS_FILES
     resource.qrc
     Core.xml
 )
@@ -32,23 +32,18 @@ source_group("Generated Files" FILES ${UI_HDRS})
 source_group("Resources Files" FILES ${RCS})
 
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin/plugins)
-add_library(${Target_Name} SHARED 
+add_library(${Target_Name} SHARED
     ${SRCS_FILES}
-    ${HDRS_FILES} 
-    ${UI_FILES} 
-    ${UI_HDRS} 
+    ${HDRS_FILES}
+    ${UI_FILES}
+    ${UI_HDRS}
     ${RCS}
 )
 target_link_libraries(${Target_Name} ${QT_LIBRARIES} extensionsystem)
 set_target_properties(${Target_Name} PROPERTIES AUTOMOC TRUE)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/${Target_Name}.xml DESTINATION ${LIBRARY_OUTPUT_PATH})
-INSTALL(TARGETS ${Target_Name} 
+INSTALL(TARGETS ${Target_Name}
         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/plugins)
 INSTALL(FILES ${Target_Name}.xml
         DESTINATION ${CMAKE_INSTALL_PREFIX}/plugins)
-
-
-    
-
-    

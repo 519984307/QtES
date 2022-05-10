@@ -3,7 +3,7 @@ CONFIG += ordered
 
 SUBDIRS = \
     core \
-    helloqtes \
+    helloqtes
 
 OTHER_FILES += \
     CMakeLists.txt \

@@ -18,8 +18,8 @@ SOURCES += \\
 RESOURCES += \\
     resource.qrc
 
-OTHER_FILES += \
-    CMakeLists.txt \
+OTHER_FILES += \\
+    CMakeLists.txt \\
 
 DISTFILES += %{PluginName}.xml
 

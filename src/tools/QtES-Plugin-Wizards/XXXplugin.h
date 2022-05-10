@@ -12,7 +12,7 @@ class %{PluginClassCN}Private;
 class %{PluginClassCN} : public ExtensionSystem::IPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin.%{PluginName}" FILE "%{PluginName}.xml")
+    Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin" FILE "%{PluginName}.json")
 
 public:
     explicit %{PluginClassCN}();

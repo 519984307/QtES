@@ -187,6 +187,11 @@
                     "openInEditor": true
                 },
                 {
+                    "source": "XXX.json",
+                    "target": "%{JsonFile}",
+                    "openInEditor": true
+                },
+                {
                     "source": "CMakeLists.txt",
                     "target": "%{CMakeListsFile}",
                     "openInEditor": true

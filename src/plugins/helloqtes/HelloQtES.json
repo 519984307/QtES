@@ -1,0 +1,16 @@
+{
+    "Name" : "HelloQtES",
+    "Version" : "0.0.1",
+    "CompatVersion" : "0.0.1",
+    "DisabledByDefault" : false,
+    "HiddenByDefault" : false,
+    "Vendor" : "DJEL",
+    "Copyright" : "Copyright (C) 2022 The Programmer GuoBin",
+    "License" : ["Programmer GuoBin"],
+    "Category" : "HelloQtES",
+    "Description" : "The HelloQtES Plugin.",
+    "Url" : "",
+    "Dependencies" : [
+
+    ]
+}

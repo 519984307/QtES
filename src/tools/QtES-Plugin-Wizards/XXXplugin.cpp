@@ -12,6 +12,7 @@ namespace Internal {
 class %{PluginClassCN}Private
 {
     Q_DECLARE_PUBLIC(%{PluginClassCN})
+    
 protected:
     %{PluginClassCN} *const q_ptr;
 

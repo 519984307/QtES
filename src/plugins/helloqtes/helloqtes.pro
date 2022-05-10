@@ -18,9 +18,7 @@ SOURCES += \
 RESOURCES += \
     resource.qrc
 
-OTHER_FILES += \
-    CMakeLists.txt \
-
+OTHER_FILES +=     CMakeLists.txt 
 DISTFILES += HelloQtES.xml
 
 deployModule(HelloQtES.xml, $$PLUGINS_DIR)

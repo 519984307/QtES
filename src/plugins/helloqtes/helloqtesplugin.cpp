@@ -1,7 +1,7 @@
 #include "helloqtesplugin.h"
+#include "helloqtesserviceimpl.h"
 
 #include "extensionsystem/pluginmanager.h"
-#include "helloqtesserviceimpl.h"
 
 #include <QDebug>
 #include <QtPlugin>
@@ -12,7 +12,6 @@ namespace Internal {
 class HelloQtESPluginPrivate
 {
     Q_DECLARE_PUBLIC(HelloQtESPlugin)
-
 protected:
     HelloQtESPlugin *const q_ptr;
 

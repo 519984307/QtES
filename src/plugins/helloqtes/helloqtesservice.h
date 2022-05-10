@@ -10,6 +10,7 @@ class Service
 public:
     virtual ~Service() {}
 
+
     virtual void sayHello() = 0;
 };
 

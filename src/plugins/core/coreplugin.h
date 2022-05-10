@@ -11,7 +11,7 @@ class CorePluginPrivate;
 class CorePlugin : public ExtensionSystem::IPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin.Core" FILE "Core.xml")
+    Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin" FILE "Core.json")
 
 public:
     explicit CorePlugin();
