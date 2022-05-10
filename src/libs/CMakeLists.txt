@@ -7,8 +7,6 @@ add_subdirectory(widgets)
 # # Target name
 # set(Target_Name utils)
 
-# include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 # file(GLOB_RECURSE HDRS_FILES *.h *.hpp)
 # file(GLOB_RECURSE SRCS_FILES *.cpp *.cc *.cxx)
 # file(GLOB_RECURSE UI_FILES *.ui)
@@ -31,3 +29,5 @@ add_subdirectory(widgets)
 #     ${RCS}
 # )
 # target_link_libraries(${Target_Name} ${QT_LIBRARIES})
+# set_target_properties(${Target_Name} PROPERTIES VERSION 1.0.0 SOVERSION 1)
+# target_include_directories(${Target_Name} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

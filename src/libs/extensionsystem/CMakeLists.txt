@@ -1,7 +1,5 @@
 set(Target_Name extensionsystem)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 # Header files
 set(HDRS_FILES 
     aggregate.h

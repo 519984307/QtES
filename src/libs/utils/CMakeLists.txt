@@ -1,8 +1,6 @@
 # Target name
 set(Target_Name utils)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 # Header files
 set(HDRS_FILES 
     utils_global.h

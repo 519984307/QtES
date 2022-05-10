@@ -11,8 +11,6 @@ find_package(Qt4 REQUIRED QtCore QtGui QtSvg QtXml QtOpenGL)
 include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 file(GLOB SRCS_FILES
     "*.cpp"
 )

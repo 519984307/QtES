@@ -1,7 +1,5 @@
 set(Target_Name Core)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 # Header files
 set(HDRS_FILES 
     coreservice.h
