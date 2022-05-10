@@ -49,7 +49,7 @@ source_group("UI Files" FILES ${UI_FILES})
 source_group("Generated Files" FILES ${MOC_SRCS} ${UI_HDRS})
 source_group("Resources Files" FILES ${RCS})
 
-ADD_DEFINITIONS(-DWIDGETS_LIBRARY)
+add_definitions(-DWIDGETS_LIBRARY)
 
 add_library(${Target_Name} STATIC 
     ${SRCS_FILES}

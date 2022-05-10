@@ -15,6 +15,9 @@
 
 #include <qobject.h>
 
+#include <QPen>
+#include <QFont>
+
 class QwtPickerMachine;
 class QwtWidgetOverlay;
 class QwtText;

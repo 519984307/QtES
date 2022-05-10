@@ -40,7 +40,7 @@ source_group("UI Files" FILES ${UI_FILES})
 source_group("Generated Files" FILES ${MOC_SRCS} ${UI_HDRS})
 source_group("Resources Files" FILES ${RCS})
 
-ADD_DEFINITIONS(-DUTILS_LIBRARY)
+add_definitions(-DUTILS_LIBRARY)
 
 add_library(${Target_Name} SHARED 
     ${SRCS_FILES}
