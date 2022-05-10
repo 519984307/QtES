@@ -153,7 +153,12 @@ void QtMaterialToggleThumb::paintEvent(QPaintEvent *event)
 
 void QtMaterialToggleThumb::updateOffset()
 {
-    const QSize s(Qt::Horizontal == m_toggle->orientation() ? size() : size().transposed());
+    // const QSize s(Qt::Horizontal == m_toggle->orientation() ? size() : size().transposed());
+    // TODO fix QT4
+    const QSize s(Qt::Horizontal == m_toggle->orientation()
+                      ? size()
+                      : QSize(size().height(), size().width()));
+
     m_offset = m_shift * static_cast<qreal>(s.width() - s.height());
     update();
 }

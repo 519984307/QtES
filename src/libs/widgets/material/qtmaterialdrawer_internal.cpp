@@ -98,7 +98,9 @@ void QtMaterialDrawerStateMachine::setOpacity(qreal opacity)
 
 bool QtMaterialDrawerStateMachine::isInClosedState() const
 {
-    return m_closedState->active();
+    // TODO fix Qt4
+    // return m_closedState->active();
+    return true;
 }
 
 void QtMaterialDrawerStateMachine::updatePropertyAssignments()

@@ -74,8 +74,10 @@ void QtMaterialDialogProxy::paintEvent(QPaintEvent *event)
     } else if (Opaque != m_mode) {
         painter.setOpacity(m_opacity);
     }
-    QPixmap pm = m_source->grab(m_source->rect());
-    painter.drawPixmap(0, 0, pm);
+
+    // TODO fix Qt4
+    // QPixmap pm = m_source->grab(m_source->rect());
+    // painter.drawPixmap(0, 0, pm);
 }
 
 /*!

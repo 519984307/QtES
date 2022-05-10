@@ -25,6 +25,10 @@ public:
 
     void updatePropertyAssignments();
 
+public:
+    void emitSignalOpen() { emit signalOpen(); }
+    void emitSignalClose() { emit signalClose(); }
+
 signals:
     void signalOpen();
     void signalClose();

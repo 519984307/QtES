@@ -132,7 +132,8 @@ QtMaterialTextFieldLabel::QtMaterialTextFieldLabel(QtMaterialTextField *parent) 
 {
     Q_ASSERT(parent);
 
-    QFont font("Roboto", parent->labelFontSize(), QFont::Medium);
+    // TODO fix Qt4
+    QFont font("Roboto", parent->labelFontSize(), 57); // QFont::Medium
     font.setLetterSpacing(QFont::PercentageSpacing, 102);
     setFont(font);
 }

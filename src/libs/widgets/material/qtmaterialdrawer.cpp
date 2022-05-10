@@ -144,7 +144,8 @@ void QtMaterialDrawer::openDrawer()
 {
     Q_D(QtMaterialDrawer);
 
-    emit d->stateMachine->signalOpen();
+    // emit d->stateMachine->signalOpen();
+    d->stateMachine->emitSignalOpen();
 
     if (d->autoRaise) {
         raise();
@@ -157,7 +158,8 @@ void QtMaterialDrawer::closeDrawer()
 {
     Q_D(QtMaterialDrawer);
 
-    emit d->stateMachine->signalClose();
+    // emit d->stateMachine->signalClose();
+    d->stateMachine->emitSignalClose();
 
     if (d->overlay) {
         setAttribute(Qt::WA_TransparentForMouseEvents);

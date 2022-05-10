@@ -143,9 +143,11 @@ void QtMaterialAutoComplete::updateResults(QString text)
     }
 
     if (!results.count()) {
-        emit d->stateMachine->shouldClose();
+        // emit d->stateMachine->shouldClose();
+        d->stateMachine->emitShouldClose();
     } else {
-        emit d->stateMachine->shouldOpen();
+        // emit d->stateMachine->shouldOpen();
+        d->stateMachine->emitShouldOpen();
     }
 
     d->menu->setFixedHeight(results.length() * 50);
@@ -213,7 +215,8 @@ bool QtMaterialAutoComplete::eventFilter(QObject *watched, QEvent *event)
     } else {
         switch (event->type()) {
         case QEvent::MouseButtonPress: {
-            emit d->stateMachine->shouldFade();
+            // emit d->stateMachine->shouldFade();
+            d->stateMachine->emitShouldFade();
             QtMaterialFlatButton *widget;
             if ((widget = static_cast<QtMaterialFlatButton *>(watched))) {
                 QString text(widget->text());
