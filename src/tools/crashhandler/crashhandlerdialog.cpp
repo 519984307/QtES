@@ -143,7 +143,7 @@ bool CrashHandlerDialog::runDebuggerWhileBacktraceNotFinished()
              "</body></html>");
     const QString checkBoxText = tr("Do not &ask again.");
     bool checkBoxSetting = false;
-    const QDialogButtonBox::StandardButton button = Utils::CheckableMessageBox::question(
+    const QDialogButtonBox::StandardButton button = CheckableMessageBox::question(
         this, title, message, checkBoxText, &checkBoxSetting,
         QDialogButtonBox::Yes | QDialogButtonBox::No, QDialogButtonBox::No);
     if (checkBoxSetting)

@@ -4,8 +4,6 @@
 #include <QDialogButtonBox>
 #include <QMessageBox>
 
-namespace Utils {
-
 class CheckableMessageBoxPrivate;
 
 class CheckableMessageBox : public QDialog
@@ -69,7 +67,5 @@ private slots:
 private:
     CheckableMessageBoxPrivate *d;
 };
-
-} // namespace Utils
 
 #endif // CHECKABLEMESSAGEBOX_H

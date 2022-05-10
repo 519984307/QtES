@@ -8,7 +8,7 @@
 #include <QPushButton>
 
 /*!
-    \class Utils::CheckableMessageBox
+    \class CheckableMessageBox
 
     \brief The CheckableMessageBox class implements a message box suitable for
     questions with a
@@ -17,9 +17,6 @@
     Emulates the QMessageBox API with
     static conveniences. The message label can open external URLs.
 */
-
-namespace Utils {
-
 class CheckableMessageBoxPrivate
 {
 public:
@@ -228,5 +225,3 @@ QMessageBox::StandardButton
 {
     return static_cast<QMessageBox::StandardButton>(int(db));
 }
-
-} // namespace Utils
