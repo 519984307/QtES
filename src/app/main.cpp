@@ -1,12 +1,19 @@
 
 #include "../plugins/helloqtes/helloqtesservice.h"
-#include "../tools/crashhandler/crashhandlersetup.h"
+
 #include "app_version.h"
 #include "qtsingleapplication.h"
 #include <extensionsystem/iplugin.h>
 #include <extensionsystem/pluginmanager.h>
 #include <extensionsystem/pluginspec.h>
 #include <extensionsystem/pluginview.h>
+
+
+#ifdef ENABLE_QT_BREAKPAD
+
+#else
+#include "../tools/crashhandler/crashhandlersetup.h"
+#endif
 
 #include <QDebug>
 #include <QFileInfo>
@@ -69,8 +76,14 @@ int main(int argc, char **argv)
     const int threadCount = QThreadPool::globalInstance()->maxThreadCount();
     QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));
 
+
+#ifdef ENABLE_QT_BREAKPAD
+    // QtSystemExceptionHandler systemExceptionHandler(libexecPath);
+#else
     // Display a backtrace once a serious signal is delivered.
     CrashHandlerSetup setupCrashHandler(Core::Constants::APP_NAME);
+#endif
+
 
     QString pluginPath = QApplication::applicationDirPath() + "/plugins/";
 

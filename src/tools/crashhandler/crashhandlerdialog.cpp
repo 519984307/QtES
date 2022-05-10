@@ -12,6 +12,7 @@
 #include <QIcon>
 #include <QSettings>
 #include <QSyntaxHighlighter>
+#include <QStyle>
 #include <QTextCharFormat>
 
 static const char SettingsKeySkipWarningAbortingBacktrace[]

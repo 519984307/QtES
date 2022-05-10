@@ -3,7 +3,11 @@ CONFIG  += ordered
 
 SUBDIRS += \
     QtES-Plugin-Wizards \
-    crashhandler
 
 OTHER_FILES += \
     CMakeLists.txt \
+
+linux-* {
+    SUBDIRS += qtcreatorcrashhandler
+}
+

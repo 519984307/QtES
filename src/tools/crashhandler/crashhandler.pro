@@ -1,5 +1,7 @@
 include(../../../global.pri)
 
+QT += widgets
+
 TARGET = crash_handler
 DESTDIR = $$BIN_DIR
 
@@ -7,7 +9,6 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 INCLUDEPATH += $$LIB_SRC_DIR
-message($$LIB_SRC_DIR)
 
 SOURCES += \
     main.cpp \

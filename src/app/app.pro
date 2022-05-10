@@ -9,6 +9,8 @@ CONFIG += console
 TEMPLATE  = app
 DESTDIR = $$BIN_DIR
 
+DEFINES += ENABLE_QT_BREAKPAD
+
 INCLUDEPATH += \
     $$PWD/ \
     $$PWD/../ \
@@ -18,12 +20,20 @@ INCLUDEPATH += \
 LIBS += -L$$LIB_DIR/ -lextensionsystem
 
 HEADERS += \
-    ../tools/crashhandler/crashhandlersetup.h \
     app_version.h
 
 SOURCES += \
     main.cpp \
-    ../tools/crashhandler/crashhandlersetup.cpp
+
+contains(DEFINES, ENABLE_QT_BREAKPAD){
+
+}else{
+    HEADERS += \
+        ../tools/crashhandler/crashhandlersetup.h \
+
+    SOURCES += \
+        ../tools/crashhandler/crashhandlersetup.cpp \
+}
 
 OTHER_FILES += \
     CMakeLists.txt \

@@ -4,7 +4,7 @@ CONFIG += ordered
 SUBDIRS = \
     extensionsystem \
     utils \
-    widgets \
+#    widgets \
 
 OTHER_FILES += \
     CMakeLists.txt \
