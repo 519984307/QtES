@@ -15,5 +15,6 @@
     "files.watcherExclude": {
         "build": true,
         "install": true,
-    }
+    },
+    "window.zoomLevel": -0.3
 }
