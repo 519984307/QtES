@@ -1,7 +1,7 @@
 # QtES
 ## Qt Extension System
 
-...
+Qt Extension System is just a Qt application development that use plugin framework from Qt Creator plugin system.
 
 ## How to build
 
