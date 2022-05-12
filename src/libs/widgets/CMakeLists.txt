@@ -65,5 +65,5 @@ target_include_directories(${Target_Name}
         # ${CMAKE_CURRENT_SOURCE_DIR}/material/layouts
 )
 
-INSTALL(TARGETS ${Target_Name} 
-        LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX})
+# INSTALL(TARGETS ${Target_Name} 
+#         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX})
