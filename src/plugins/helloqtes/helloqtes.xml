@@ -1,10 +1,10 @@
-<plugin name="HelloQtES" version="0.0.1" compatVersion="0.0.1" disabledByDefault="false">
+<plugin name="helloqtes" version="0.0.1" compatVersion="0.0.1" disabledByDefault="false">
     <vendor>DJEL</vendor>
     <copyright>Copyright (C) 2022 The Programmer GuoBin</copyright>
     <license>
-    Programmer GuoBin
+        Programmer GuoBin
     </license>
-    <category>HelloQtES</category>
+    <category></category>
     <description>The HelloQtES Plugin.</description>
     <url></url>
     <dependencyList>
