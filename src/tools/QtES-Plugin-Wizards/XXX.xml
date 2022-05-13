@@ -1,10 +1,10 @@
-<plugin name="%{Plugin_Name}" version="%{Plugin_Version}" compatVersion="%{Plugin_Version}" disabledByDefault="false">
+<plugin name="%{ProjectName}" version="%{Plugin_Version}" compatVersion="%{Plugin_Version}" disabledByDefault="false">
     <vendor>%{Plugin_Vendor}</vendor>
     <copyright>Copyright (C) 2022 The Programmer GuoBin</copyright>
     <license>
-    Programmer GuoBin
+        Programmer GuoBin
     </license>
-    <category>%{Plugin_Name}</category>
+    <category></category>
     <description>%{Plugin_Description}</description>
     <url></url>
     <dependencyList>

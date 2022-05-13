@@ -12,7 +12,7 @@
     "options":
     [
         { "key": "ProjectFile", "value": "%{ProFile}" },
-        { "key": "ProFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{ProjectName}', 'pro')}" },
+        { "key": "ProFile", "value": "%{ProjectDirectory}/%{ProjectName}.pro" },
 
         { "key": "IsTopLevelProject", "value": "%{JS: !'%{Exists:ProjectExplorer.Profile.Ids}'}" },
 
@@ -44,8 +44,8 @@
         { "key": "PluginSrcPath", "value": "%{ProjectDirectory}/%{PluginSrcFileName}" },
         { "key": "PluginClassCN", "value": "%{JS: Cpp.className('%{PluginClass}')}" },
 
-        { "key": "JsonFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{PluginName}', 'json')}" },
-        { "key": "XmlFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{PluginName}', 'xml')}" },
+        { "key": "JsonFile", "value": "%{ProjectDirectory}/%{ProjectName}.json" },
+        { "key": "XmlFile", "value": "%{ProjectDirectory}/%{ProjectName}.xml" },
         { "key": "CMakeListsFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/CMakeLists.txt', 'txt')}" }
     ],
 
@@ -55,11 +55,10 @@
             "trDisplayName": "Project Location",
             "trShortTitle": "Location",
             "typeId": "Project",
-            "type": "LineEdit",
             "data":
             {
-                "trText": "",
-                "validator": "(?:(?:[a-zA-Z][a-zA-Z0-9]*::)*[a-zA-Z][a-zA-Z0-9]*|)"
+                "trDescription": "Create a plugin",
+                "projectNameValidator": "([a-zA-Z])([a-zA-Z0-9.?].*?)([a-zA-Z0-9]$)"
             }
         },
         {

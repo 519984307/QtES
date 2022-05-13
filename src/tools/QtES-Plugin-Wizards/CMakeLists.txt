@@ -1,4 +1,4 @@
-set(Target_Name %{Plugin_Name})
+set(Target_Name %{ProjectName})
 
 # Header files
 set(HDRS_FILES
@@ -21,7 +21,6 @@ set(UI_FILES
 # Resources files
 set(RCS_FILES
     resource.qrc
-    %{Plugin_Name}.xml
 )
 
 qt4_wrap_ui(UI_HDRS ${UI_FILES})
@@ -42,7 +41,7 @@ add_library(${Target_Name} SHARED
 target_link_libraries(${Target_Name} ${QT_LIBRARIES} extensionsystem)
 set_target_properties(${Target_Name} PROPERTIES AUTOMOC TRUE)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/${Target_Name}.xml DESTINATION ${LIBRARY_OUTPUT_PATH})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/%{ProjectName}.xml DESTINATION ${LIBRARY_OUTPUT_PATH})
 INSTALL(TARGETS ${Target_Name}
         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/plugins)
 INSTALL(FILES ${Target_Name}.xml

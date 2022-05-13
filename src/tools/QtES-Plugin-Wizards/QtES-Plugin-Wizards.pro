@@ -17,6 +17,7 @@ DISTFILES += \
     XXX.xml \
     lib.png \
     wizard.json \
+    resource.qrc \
 
 #message($(QTDIR))
 #message($$Wizards_Dir)

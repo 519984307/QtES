@@ -1,5 +1,5 @@
 {
-    "Name" : "%{Plugin_Name}",
+    "Name" : "%{ProjectName}",
     "Version" : "%{Plugin_Version}",
     "CompatVersion" : "%{Plugin_Version}",
     "DisabledByDefault" : false,
@@ -7,7 +7,7 @@
     "Vendor" : "%{Plugin_Vendor}",
     "Copyright" : "Copyright (C) 2022 The Programmer GuoBin",
     "License" : ["Programmer GuoBin"],
-    "Category" : "%{Plugin_Name}",
+    "Category" : "",
     "Description" : "%{Plugin_Description}",
     "Url" : "",
     "Dependencies" : [

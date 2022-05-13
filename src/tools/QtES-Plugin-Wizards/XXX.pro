@@ -4,7 +4,7 @@ QT += core
 
 TEMPLATE = lib
 CONFIG += plugin
-TARGET = %{PluginName}
+TARGET = %{ProjectName}
 
 HEADERS += \\
     %{ServiceHdrFileName} \\
@@ -21,8 +21,8 @@ RESOURCES += \\
 OTHER_FILES += \\
     CMakeLists.txt \\
 
-DISTFILES += %{PluginName}.xml
+DISTFILES += %{ProjectName}.xml
 
-deployModule(%{PluginName}.xml, $$PLUGINS_DIR)
+deployModule(%{ProjectName}.xml, $$PLUGINS_DIR)
 #deployModule(%{ServiceHdrFileName}, $$INCLUDE_DIR/pluginsNMS/)
 

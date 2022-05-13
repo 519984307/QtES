@@ -1,3 +1,5 @@
 <RCC>
-
+    <qresource prefix="/">
+        <file>%{ProjectName}.xml</file>
+    </qresource>
 </RCC>
