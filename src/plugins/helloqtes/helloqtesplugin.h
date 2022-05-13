@@ -11,7 +11,7 @@ class HelloQtESPluginPrivate;
 class HelloQtESPlugin : public ExtensionSystem::IPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin" FILE "HelloQtES.json")
+    Q_PLUGIN_METADATA(IID "org.DJEL.QtES.Plugin" FILE "helloqtes.json")
 
 public:
     explicit HelloQtESPlugin();

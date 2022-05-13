@@ -4,7 +4,7 @@ QT += core
 
 TEMPLATE = lib
 CONFIG += plugin
-TARGET = HelloQtES
+TARGET = helloqtes
 
 HEADERS += \
     helloqtesservice.h \
@@ -18,9 +18,11 @@ SOURCES += \
 RESOURCES += \
     resource.qrc
 
-OTHER_FILES +=     CMakeLists.txt 
-DISTFILES += HelloQtES.xml
+OTHER_FILES += \
+    CMakeLists.txt \
 
-deployModule(HelloQtES.xml, $$PLUGINS_DIR)
+DISTFILES += helloqtes.xml
+
+deployModule(helloqtes.xml, $$PLUGINS_DIR)
 #deployModule(helloqtesservice.h, $$INCLUDE_DIR/pluginsNMS/)
 

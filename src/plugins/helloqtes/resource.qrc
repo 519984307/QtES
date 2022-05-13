@@ -1,3 +1,5 @@
 <RCC>
-
+    <qresource prefix="/">
+        <file>helloqtes.xml</file>
+    </qresource>
 </RCC>

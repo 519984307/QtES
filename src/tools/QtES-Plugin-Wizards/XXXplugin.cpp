@@ -12,13 +12,13 @@ namespace Internal {
 class %{PluginClassCN}Private
 {
     Q_DECLARE_PUBLIC(%{PluginClassCN})
-    
-protected:
-    %{PluginClassCN} *const q_ptr;
 
 public:
     %{PluginClassCN}Private(%{PluginClassCN} &object);
     virtual ~%{PluginClassCN}Private();
+    
+protected:
+    %{PluginClassCN} *const q_ptr;
 
 private:
     %{ServiceImpl} service;

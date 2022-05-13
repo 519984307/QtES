@@ -2,7 +2,6 @@
 
 #include <QtDebug>
 
-
 using namespace HelloQtES;
 
 HelloQtESServiceImpl::HelloQtESServiceImpl(QObject *parent) : QObject(parent)

@@ -1,9 +1,12 @@
 #include "helloqtesplugin.h"
-#include "helloqtesserviceimpl.h"
 
 #include "extensionsystem/pluginmanager.h"
+#include "helloqtesserviceimpl.h"
+#include <extensionsystem/pluginview.h>
 
 #include <QDebug>
+#include <QVBoxLayout>
+#include <QWidget>
 #include <QtPlugin>
 
 namespace HelloQtES {
@@ -12,20 +15,23 @@ namespace Internal {
 class HelloQtESPluginPrivate
 {
     Q_DECLARE_PUBLIC(HelloQtESPlugin)
-protected:
-    HelloQtESPlugin *const q_ptr;
 
 public:
     HelloQtESPluginPrivate(HelloQtESPlugin &object);
     virtual ~HelloQtESPluginPrivate();
 
+protected:
+    HelloQtESPlugin *const q_ptr;
+
 private:
     HelloQtESServiceImpl service;
+    std::unique_ptr<QWidget> widget;
 };
 
 HelloQtESPluginPrivate::HelloQtESPluginPrivate(HelloQtESPlugin &object) : q_ptr(&object)
 {
     ExtensionSystem::PluginManager::addObject(&service);
+    widget = std::unique_ptr<QWidget>(new QWidget);
 }
 
 HelloQtESPluginPrivate::~HelloQtESPluginPrivate()
@@ -61,6 +67,12 @@ void HelloQtESPlugin::extensionsInitialized()
 bool HelloQtESPlugin::delayedInitialize()
 {
     qDebug() << "delayed initialize HelloQtES Plugin";
+    ExtensionSystem::PluginView *view = new ExtensionSystem::PluginView();
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(view);
+    d_ptr_->widget->setLayout(layout);
+    d_ptr_->widget->show();
 
     return true;
 }

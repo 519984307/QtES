@@ -22,7 +22,7 @@
 using namespace ExtensionSystem;
 
 static const char appNameC[] = "App";
-static const char corePluginNameC[] = "Core";
+static const char helloQtESPluginNameC[] = "helloqtes";
 
 static void printSpecs(QList<PluginSpec *> plugins)
 {
@@ -90,29 +90,30 @@ int main(int argc, char **argv)
     QObject::connect(&app, SIGNAL(aboutToQuit()), &pluginManager, SLOT(shutdown()));
 
     const QList<PluginSpec *> plugins = PluginManager::plugins();
-    PluginSpec *coreplugin = nullptr;
+    PluginSpec *helloQtESPlugin = nullptr;
 
     printSpecs(plugins);
 
     foreach (PluginSpec *spec, plugins) {
-        if (spec->name() == QLatin1String(corePluginNameC)) {
-            coreplugin = spec;
+        if (spec->name() == QLatin1String(helloQtESPluginNameC)) {
+            helloQtESPlugin = spec;
             break;
         }
     }
 
-    if (coreplugin == nullptr) {
-        qCritical() << "Could not find Core plugin.";
+    if (helloQtESPlugin == nullptr) {
+        qCritical() << QString("Could not find %1 plugin.").arg(helloQtESPluginNameC);
         return 1;
     }
 
-    if (!coreplugin->isEffectivelyEnabled()) {
-        qCritical() << "Core plugin is disabled.";
+    if (!helloQtESPlugin->isEffectivelyEnabled()) {
+        qCritical() << QString("%1 plugin is disabled.").arg(helloQtESPluginNameC);
         return 1;
     }
 
-    if (coreplugin->hasError()) {
-        qCritical() << coreplugin->errorString();
+    if (helloQtESPlugin->hasError()) {
+        qCritical() << QString("Failed to load %1 :").arg(helloQtESPluginNameC)
+                    << helloQtESPlugin->errorString();
         return 1;
     }
 
@@ -131,11 +132,6 @@ int main(int argc, char **argv)
         qWarning() << " =================================================================== ";
     }
 
-    // if (coreplugin->hasError()) {
-    //     qWarning() << "Failed to load Core:" << coreplugin->errorString();
-    //     return 1;
-    // }
-
     HelloQtES::Service *helloQtESService = PluginManager::getObject<HelloQtES::Service>();
     if (helloQtESService != nullptr)
         helloQtESService->sayHello();
@@ -143,9 +139,8 @@ int main(int argc, char **argv)
     // crashtest();
 
     // PluginManager::instance()->shutdown();
-
-    PluginView view;
-    view.show();
+    // PluginView view;
+    // view.show();
 
     const int r = app.exec();
     return r;
