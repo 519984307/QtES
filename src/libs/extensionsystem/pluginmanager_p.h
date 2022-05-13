@@ -76,6 +76,7 @@ public:
     QList<PluginSpec *> pluginSpecs;
     QList<TestSpec> testSpecs;
     QStringList pluginPaths;
+    QString pluginIID;
     QString extension;
     QList<QObject *> allObjects; // ### make this a QList<QPointer<QObject> > > ?
     QStringList defaultDisabledPlugins;

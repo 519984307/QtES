@@ -39,11 +39,8 @@ public:
     virtual bool delayedInitialize() { return false; }
     virtual ShutdownFlag aboutToShutdown() { return SynchronousShutdown; }
     virtual QObject *remoteCommand(const QStringList & /* options */,
-                                   const QStringList & /* arguments */)
-    {
-        return 0;
-    }
-
+                                   const QString & /* workingDirectory */,
+                                   const QStringList & /* arguments */) { return nullptr; }
     PluginSpec *pluginSpec() const;
 
     void addObject(QObject *obj);

@@ -131,9 +131,18 @@
 */
 
 /*!
-    \fn QObject *IPlugin::remoteCommand(const QStringList &options, const QStringList &arguments)
-    \brief When \QC is executed with the -client argument while already another instance of \QC
-           is running, this method of plugins is called in the running instance.
+    \fn QObject *ExtensionSystem::IPlugin::remoteCommand(const QStringList &options,
+                                           const QString &workingDirectory,
+                                           const QStringList &arguments)
+
+    When \QC is executed with the \c -client argument while another \QC instance
+    is running, this function of the plugin is called in the running instance.
+
+    The \a workingDirectory argument specifies the working directory of the
+    calling process. For example, if you're in a directory, and you execute
+    \c { qtcreator -client file.cpp}, the working directory of the calling
+    process is passed to the running instance and \c {file.cpp} is transformed
+    into an absolute path starting from this directory.
 
     Plugin-specific arguments are passed in \a options, while the rest of the
     arguments are passed in \a arguments.

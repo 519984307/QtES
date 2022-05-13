@@ -341,6 +341,31 @@ void PluginManager::setPluginPaths(const QStringList &paths)
 }
 
 /*!
+    The IID that valid plugins must have.
+
+    \sa setPluginIID()
+*/
+QString PluginManager::pluginIID()
+{
+    return m_instance->d->pluginIID;
+}
+
+/*!
+    Sets the IID that valid plugins must have to \a iid. Only plugins with this
+    IID are loaded, others are silently ignored.
+
+    At the moment this must be called before setPluginPaths() is called.
+
+    \omit
+    // ### TODO let this + setPluginPaths read the plugin meta data lazyly whenever loadPlugins() or plugins() is called.
+    \endomit
+*/
+void PluginManager::setPluginIID(const QString &iid)
+{
+    m_instance->d->pluginIID = iid;
+}
+
+/*!
     The file extension of plugin description files.
     The default is "xml".
 
@@ -430,6 +455,7 @@ QHash<QString, PluginCollection *> PluginManager::pluginCollections()
 }
 
 static const char argumentKeywordC[] = ":arguments";
+static const char pwdKeywordC[] = ":pwd";
 
 /*!
     Serialize plugin options and arguments for sending in a single string
@@ -502,15 +528,18 @@ void PluginManager::remoteArguments(const QString &serializedArgument, QObject *
     if (serializedArgument.isEmpty())
         return;
     QStringList serializedArguments = serializedArgument.split(QLatin1Char('|'));
+    const QStringList pwdValue = subList(serializedArguments, QLatin1String(pwdKeywordC));
+    const QString workingDirectory = pwdValue.isEmpty() ? QString() : pwdValue.first();
     const QStringList arguments = subList(serializedArguments, QLatin1String(argumentKeywordC));
     foreach (const PluginSpec *ps, plugins()) {
         if (ps->state() == PluginSpec::Running) {
             const QStringList pluginOptions
                 = subList(serializedArguments, QLatin1Char(':') + ps->name());
-            QObject *socketParent = ps->plugin()->remoteCommand(pluginOptions, arguments);
+            QObject *socketParent
+                = ps->plugin()->remoteCommand(pluginOptions, workingDirectory, arguments);
             if (socketParent && socket) {
                 socket->setParent(socketParent);
-                socket = 0;
+                socket = nullptr;
             }
         }
     }
