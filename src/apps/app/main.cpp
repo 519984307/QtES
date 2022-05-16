@@ -45,11 +45,17 @@ static void printSpecs(QList<PluginSpec *> plugins)
         qDebug() << "url:" << spec->url();
         qDebug() << "category:" << spec->category();
 
+        QString depends;
         QList<PluginDependency> vector = spec->dependencies();
-        foreach (PluginDependency dep, vector) {
-            qDebug() << "Depends:" << dep.toString();
+        for (int i = 0; i < vector.size(); ++i) {
+            const PluginDependency &dep = vector.at(i);
+            depends += dep.toString();
+            if (i != vector.size() - 1) {
+                depends += ", ";
+            }
         }
 
+        qDebug() << "Depends:" << depends;
         qDebug() << "errorString:" << spec->errorString();
     }
 
