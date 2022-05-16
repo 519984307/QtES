@@ -4,15 +4,16 @@
 #include "crashhandler.h"
 #include "ui_crashhandlerdialog.h"
 #include "utils.h"
-#include <../../app/app_version.h>
+#include <../../apps/version_ini_tag.h>
 #include <widgets/checkablemessagebox.h>
 
 #include <QClipboard>
 #include <QDialogButtonBox>
 #include <QIcon>
+#include <QMessageBox>
 #include <QSettings>
-#include <QSyntaxHighlighter>
 #include <QStyle>
+#include <QSyntaxHighlighter>
 #include <QTextCharFormat>
 
 static const char SettingsKeySkipWarningAbortingBacktrace[]
@@ -92,8 +93,13 @@ private:
 } // namespace
 
 CrashHandlerDialog::CrashHandlerDialog(CrashHandler *handler, const QString &signalName,
+                                       const QString &appName, const QString &organizationName,
                                        QWidget *parent) :
-    QDialog(parent), m_crashHandler(handler), m_ui(new Ui::CrashHandlerDialog)
+    QDialog(parent),
+    m_crashHandler(handler),
+    m_ui(new Ui::CrashHandlerDialog),
+    m_appName(appName),
+    m_organizationName(organizationName)
 {
     m_ui->setupUi(this);
     m_ui->introLabel->setTextFormat(Qt::RichText);
@@ -128,9 +134,7 @@ CrashHandlerDialog::~CrashHandlerDialog()
 bool CrashHandlerDialog::runDebuggerWhileBacktraceNotFinished()
 {
     // Check settings.
-    QSettings settings(QSettings::IniFormat, QSettings::UserScope,
-                       QLatin1String(Core::Constants::APP_SETTINGSVARIANT_STR),
-                       QLatin1String(Core::Constants::APP_NAME));
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, m_organizationName, m_appName);
     if (settings.value(QLatin1String(SettingsKeySkipWarningAbortingBacktrace), false).toBool())
         return true;
 
@@ -172,7 +176,13 @@ void CrashHandlerDialog::disableDebugAppButton()
 
 void CrashHandlerDialog::setApplicationInfo(const QString &signalName)
 {
-    const QString ideName = QLatin1String(Core::Constants::APP_NAME);
+    // Check settings.
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, m_organizationName, m_appName);
+    settings.beginGroup(VersionIniTag::APPGROUP);
+    const QString ideName = settings.value(VersionIniTag::APPNAME).toString();
+    const QString version = settings.value(VersionIniTag::VERSION).toString();
+    settings.endGroup();
+
     const QString title = tr("%1 has closed unexpectedly (Signal \"%2\")").arg(ideName, signalName);
     const QString introLabelContents = tr("<p><b>%1.</b></p>"
                                           "<p>Please file a <a href='%2'>bug report</a> with the "
@@ -187,10 +197,9 @@ void CrashHandlerDialog::setApplicationInfo(const QString &signalName)
                    .arg(QString::fromLatin1(Core::Constants::APP_REVISION_STR).left(10));
 #endif
     const QString versionInformation
-        = tr("%1 %2%3, built on %4 at %5, based on Qt %6 (%7 bit)\n")
-              .arg(ideName, QLatin1String(Core::Constants::APP_VERSION_LONG), revision,
-                   QLatin1String(__DATE__), QLatin1String(__TIME__), QLatin1String(QT_VERSION_STR),
-                   QString::number(QSysInfo::WordSize));
+        = tr("%1 v%2%3, built on %4 at %5, based on Qt %6 (%7 bit)\n")
+              .arg(ideName, version, revision, QLatin1String(__DATE__), QLatin1String(__TIME__),
+                   QLatin1String(QT_VERSION_STR), QString::number(QSysInfo::WordSize));
     m_ui->debugInfoEdit->append(versionInformation);
 }
 

@@ -19,6 +19,7 @@ class CrashHandlerDialog : public QDialog
 
 public:
     explicit CrashHandlerDialog(CrashHandler *handler, const QString &signalName,
+                                const QString &appName, const QString &organizationName,
                                 QWidget *parent = 0);
     ~CrashHandlerDialog();
 
@@ -38,6 +39,8 @@ private slots:
 private:
     CrashHandler *m_crashHandler;
     Ui::CrashHandlerDialog *m_ui;
+    QString m_appName;
+    QString m_organizationName;
 };
 
 #endif // CRASHHANDLERDIALOG_H

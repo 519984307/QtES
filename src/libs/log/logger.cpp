@@ -15,13 +15,13 @@
 
 namespace Log {
 
-bool logger::init(std::string log_file_path)
+bool logger::init(std::string logFilePath)
 {
     if (is_inited_)
         return true;
     try {
         // check log path and try to create log directory
-        QFileInfo log_path(log_file_path.c_str());
+        QFileInfo log_path(logFilePath.c_str());
         QDir log_dir = log_path.absoluteDir();
         if (!log_path.exists()) {
             log_dir.mkdir(log_dir.dirName());

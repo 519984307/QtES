@@ -53,6 +53,7 @@ using QHashSeedType = size_t;
 #    endif
 
 static const char *appNameC = nullptr;
+static const char *organizationNameC = nullptr;
 static const char *disableRestartOptionC = nullptr;
 static const char *crashHandlerPathC = nullptr;
 static void *signalHandlerStack = nullptr;
@@ -71,9 +72,10 @@ extern "C" void signalHandler(int signal)
     case 0: // child
         if (disableRestartOptionC) {
             execl(crashHandlerPathC, crashHandlerPathC, strsignal(signal), appNameC,
-                  disableRestartOptionC, (char *)0);
+                  organizationNameC, disableRestartOptionC, (char *)0);
         } else {
-            execl(crashHandlerPathC, crashHandlerPathC, strsignal(signal), appNameC, (char *)0);
+            execl(crashHandlerPathC, crashHandlerPathC, strsignal(signal), appNameC,
+                  organizationNameC, (char *)0);
         }
         _exit(EXIT_FAILURE);
     default: // parent
@@ -85,8 +87,8 @@ extern "C" void signalHandler(int signal)
 }
 #endif // BUILD_CRASH_HANDLER
 
-CrashHandlerSetup::CrashHandlerSetup(const QString &appName, RestartCapability restartCap,
-                                     const QString &executableDirPath)
+CrashHandlerSetup::CrashHandlerSetup(const QString &appName, const QString &organizationName,
+                                     RestartCapability restartCap, const QString &executableDirPath)
 {
 #ifdef BUILD_CRASH_HANDLER
     const QString value = "yes"; //qEnvironmentVariable("QTC_USE_CRASH_HANDLER");
@@ -100,6 +102,7 @@ CrashHandlerSetup::CrashHandlerSetup(const QString &appName, RestartCapability r
     }
 
     appNameC = qstrdup(qPrintable(appName));
+    organizationNameC = qstrdup(qPrintable(organizationName));
 
     if (restartCap == DisableRestart)
         disableRestartOptionC = "--disable-restart";

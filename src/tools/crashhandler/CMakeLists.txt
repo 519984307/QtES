@@ -7,6 +7,7 @@ set(HDRS_FILES
     crashhandler.h
     utils.h
     ../../libs/utils/environment.h
+    ../../apps/version_ini_tag.h
 )
 
 # Source files

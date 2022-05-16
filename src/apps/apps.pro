@@ -1,8 +1,9 @@
-TEMPLATE  = subdirs
+TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS = \
-    helloqtes
+    app \
 
 OTHER_FILES += \
     CMakeLists.txt \
+

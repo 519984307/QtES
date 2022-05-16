@@ -1,7 +1,7 @@
-include(../../global.pri)
-include(../../rpath.pri)
+include(../../../global.pri)
+include(../../../rpath.pri)
 
-include(../shared/qtsingleapplication/qtsingleapplication.pri)
+include(../../shared/qtsingleapplication/qtsingleapplication.pri)
 
 QT += core gui widgets
 
@@ -14,13 +14,14 @@ win32: DEFINES += ENABLE_QT_BREAKPAD
 INCLUDEPATH += \
     $$PWD/ \
     $$PWD/../ \
-    $$PWD/../libs/ \
-    $$PWD/../plugins/
+    $$PWD/../../libs/ \
+    $$PWD/../../plugins/
 
 LIBS += -L$$LIB_DIR/ -lextensionsystem
 
 HEADERS += \
-    app_version.h
+    version_info.h \
+    ../version_ini_tag.h
 
 SOURCES += \
     main.cpp \
@@ -29,10 +30,10 @@ contains(DEFINES, ENABLE_QT_BREAKPAD){
 
 }else{
     HEADERS += \
-        ../tools/crashhandler/crashhandlersetup.h \
+        ../../tools/crashhandler/crashhandlersetup.h \
 
     SOURCES += \
-        ../tools/crashhandler/crashhandlersetup.cpp \
+        ../../tools/crashhandler/crashhandlersetup.cpp \
 }
 
 OTHER_FILES += \

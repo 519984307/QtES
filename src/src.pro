@@ -5,7 +5,7 @@ SUBDIRS = \
     libs \
     plugins \
     tools \
-    app \
+    apps \
 
 OTHER_FILES += \
     CMakeLists.txt \

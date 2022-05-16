@@ -33,9 +33,12 @@ int main(int argc, char *argv[])
     //    }
 
     // Run.
-    if (app.arguments().size() > 1) {
+    if (app.arguments().size() > 3) {
         QString signalName = app.arguments().at(1);
-        CrashHandler *crashHandler = new CrashHandler(parentPid, signalName);
+        QString appName = app.arguments().at(2);
+        QString organizationName = app.arguments().at(3);
+        CrashHandler *crashHandler
+            = new CrashHandler(parentPid, signalName, appName, organizationName);
         crashHandler->run();
     } else {
         qDebug() << "No input param, CrashHandler closed.";

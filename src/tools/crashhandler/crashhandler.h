@@ -16,7 +16,8 @@ class CrashHandler : public QObject
     Q_OBJECT
 
 public:
-    explicit CrashHandler(pid_t pid, const QString &signalName, QObject *parent = 0);
+    explicit CrashHandler(pid_t pid, const QString &signalName, const QString &appName,
+                          const QString &organizationName, QObject *parent = 0);
     ~CrashHandler();
 
     void run();

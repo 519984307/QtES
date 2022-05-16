@@ -12,7 +12,8 @@ public:
         DisableRestart
     };
 
-    CrashHandlerSetup(const QString &appName, RestartCapability restartCap = EnableRestart,
+    CrashHandlerSetup(const QString &appName, const QString &organizationName,
+                      RestartCapability restartCap = EnableRestart,
                       const QString &executableDirPath = QString());
     ~CrashHandlerSetup();
 };

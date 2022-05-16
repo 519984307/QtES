@@ -16,13 +16,13 @@ namespace Log {
 class logger final
 {
 public:
-    static logger &get()
+    static logger &instance()
     {
         static logger logger;
         return logger;
     }
 
-    bool init(std::string log_file_path);
+    bool init(std::string logFilePath);
 
     void shutdown();
 
@@ -60,7 +60,7 @@ private:
 // use fmt lib, e.g. LOG_WARN("warn log, {1}, {1}, {2}", 1, 2);
 #define LOG_TRACE(msg, ...)                                                                        \
     {                                                                                              \
-        if (Log::logger::get().level() == spdlog::level::trace)                                    \
+        if (Log::logger::instance().level() == spdlog::level::trace)                               \
             spdlog::log({__FILENAME__, __LINE__, __FUNCTION__}, spdlog::level::trace, msg,         \
                         ##__VA_ARGS__);                                                            \
     };
