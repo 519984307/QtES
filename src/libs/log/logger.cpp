@@ -7,6 +7,7 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/daily_file_sink.h>
 #include <spdlog/sinks/msvc_sink.h>
+#include <spdlog/sinks/rotating_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/stdout_sinks.h>
 
@@ -15,25 +16,26 @@
 
 namespace Log {
 
-bool logger::init(std::string logFilePath)
+bool logger::init(QString logFilePath)
 {
     if (is_inited_)
         return true;
     try {
         // check log path and try to create log directory
-        QFileInfo log_path(logFilePath.c_str());
-        QDir log_dir = log_path.absoluteDir();
-        if (!log_path.exists()) {
-            log_dir.mkdir(log_dir.dirName());
+        QFileInfo log_pat_info(logFilePath);
+
+        QDir log_dir = log_pat_info.dir();
+        if (!log_dir.exists()) {
+            log_dir.mkdir(log_dir.path());
         }
 
         // initialize spdlog
         constexpr std::size_t log_buffer_size = 32 * 1024; // 32kb
         // constexpr std::size_t max_file_size = 50 * 1024 * 1024; // 50mb
-        spdlog::init_thread_pool(log_buffer_size, std::thread::hardware_concurrency());
+        spdlog::init_thread_pool(log_buffer_size, 10 /*std::thread::hardware_concurrency()*/);
         std::vector<spdlog::sink_ptr> sinks;
-        auto daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>(
-            log_path.filePath().toStdString(), 0, 2);
+        auto daily_sink
+            = std::make_shared<spdlog::sinks::daily_file_sink_mt>(logFilePath.toStdString(), 0, 30);
         sinks.push_back(daily_sink);
 
         // auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(log_path.string(), true);
@@ -51,7 +53,8 @@ bool logger::init(std::string logFilePath)
         spdlog::set_default_logger(
             std::make_shared<spdlog::logger>("", sinks.begin(), sinks.end()));
 
-        spdlog::set_pattern("%s(%#): [%L %D %T.%e %P %t %!] %v");
+        // spdlog::set_pattern("%s(%#): [%L %D %T.%e %P %t %!] %v");
+        spdlog::set_pattern("[%D %T.%e] [%^%L%$] [thread %t] [%! %s(%#)]: %v");
         spdlog::flush_on(spdlog::level::warn);
         spdlog::set_level(log_level_);
     } catch (std::exception_ptr e) {

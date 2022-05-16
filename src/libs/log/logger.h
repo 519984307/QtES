@@ -1,6 +1,7 @@
 #ifndef __LOGGER_H__
 #define __LOGGER_H__
 
+#include <QString>
 #include <memory>
 #include <sstream>
 
@@ -22,7 +23,7 @@ public:
         return logger;
     }
 
-    bool init(std::string logFilePath);
+    bool init(QString logFilePath);
 
     void shutdown();
 

@@ -1,5 +1,7 @@
 set(Target_Name app)
 
+add_definitions(-DENABLE_LOG)
+
 EXEC_PROGRAM(
     "git"
     ${CMAKE_CURRENT_SOURCE_DIR}

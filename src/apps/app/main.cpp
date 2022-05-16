@@ -1,7 +1,6 @@
 
 #include "../plugins/helloqtes/helloqtesservice.h"
 #include "../version_ini_tag.h"
-//#include "log/logger.h"
 #include "qtsingleapplication.h"
 #include "version_info.h"
 #include <extensionsystem/iplugin.h>
@@ -11,8 +10,12 @@
 
 #include <QSettings>
 
-#ifdef ENABLE_QT_BREAKPAD
+#ifdef ENABLE_LOG
+#    include "log/logger.h"
+#endif
 
+#ifdef ENABLE_QT_BREAKPAD
+//
 #else
 #    include "../tools/crashhandler/crashhandlersetup.h"
 #endif
@@ -123,10 +126,6 @@ int main(int argc, char **argv)
         return 0;
     }
 
-    // log
-    // Log::logger::instance().init("logs/test.log");
-    // LOG_INFO(Sys::Version::fullVersion());
-
     const int threadCount = QThreadPool::globalInstance()->maxThreadCount();
     QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));
 
@@ -135,6 +134,15 @@ int main(int argc, char **argv)
 #else
     // Display a backtrace once a serious signal is delivered.
     CrashHandlerSetup setupCrashHandler(AppName, OrganizationName);
+#endif
+
+#ifdef ENABLE_LOG
+    // log
+    Log::logger::instance().init(
+        QString("%1/logs/pansim").arg(QCoreApplication::applicationDirPath()));
+    for (int i = 0; i < 10; ++i) {
+        LOG_INFO(std::to_string(i));
+    }
 #endif
 
     QString pluginPath = QApplication::applicationDirPath() + "/plugins/";

@@ -6,6 +6,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include)
 # Header files
 set(HDRS_FILES 
     logger.h
+    custome_file_sink.h
 )
 
 # Source files
