@@ -185,7 +185,7 @@ int main(int argc, char **argv)
     if (helloQtESService != nullptr)
         helloQtESService->sayHello();
 
-    crashtest();
+    // crashtest();
 
     // PluginManager::instance()->shutdown();
     // PluginView view;

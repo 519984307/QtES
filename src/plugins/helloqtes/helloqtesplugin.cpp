@@ -32,6 +32,7 @@ HelloQtESPluginPrivate::HelloQtESPluginPrivate(HelloQtESPlugin &object) : q_ptr(
 {
     ExtensionSystem::PluginManager::addObject(&service);
     widget = std::unique_ptr<QWidget>(new QWidget);
+    widget->setMinimumSize(800, 500);
 }
 
 HelloQtESPluginPrivate::~HelloQtESPluginPrivate()

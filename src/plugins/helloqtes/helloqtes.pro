@@ -1,6 +1,6 @@
 include(../plugincfg.prf)
 
-QT += core
+QT += core widgets
 
 TEMPLATE = lib
 CONFIG += plugin
