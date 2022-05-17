@@ -110,6 +110,13 @@ signals:
     void pluginsChanged();
     void initializationDone();
 
+signals: // for splash screen
+    void pluginLoaded(const QString &pluginName, bool success, const QString &errMsg);
+    void pluginInitialized(const QString &pluginName, bool success, const QString &errMsg);
+    void pluginExtensionsInitialized(const QString &pluginName, bool success,
+                                     const QString &errMsg);
+    void pluginDelayedInitialized(const QString &pluginName, bool delay, const QString &errMsg);
+
 public slots:
     void remoteArguments(const QString &serializedArguments, QObject *socket);
     void shutdown();

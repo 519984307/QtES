@@ -21,10 +21,12 @@ LIBS += -L$$LIB_DIR/ -lextensionsystem
 
 HEADERS += \
     version_info.h \
+    ../../shared/splashscreen/splashscreen.h \
     ../version_ini_tag.h
 
 SOURCES += \
     main.cpp \
+    ../../shared/splashscreen/splashscreen.cpp \
 
 contains(DEFINES, ENABLE_QT_BREAKPAD){
 

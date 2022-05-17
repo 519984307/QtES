@@ -62,6 +62,7 @@ set(HDRS_FILES
 # Source files
 set(SRCS_FILES 
     main.cpp
+    ../../shared/splashscreen/splashscreen.cpp
     ../../tools/crashhandler/crashhandlersetup.cpp
 )
 
@@ -77,7 +78,7 @@ set(RCS_FILES
 
 # Headers that should run through moc
 set(MOC_FILES 
-
+    ../../shared/splashscreen/splashscreen.h
 )
 
 

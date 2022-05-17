@@ -799,6 +799,7 @@ void PluginManagerPrivate::nextDelayedInitialize()
         PluginSpec *spec = delayedInitializeQueue.takeFirst();
         profilingReport(">delayedInitialize", spec);
         bool delay = spec->d->delayedInitialize();
+        emit q->pluginDelayedInitialized(spec->name(), delay, spec->errorString());
         profilingReport("<delayedInitialize", spec);
         if (delay)
             break; // do next delayedInitialize after a delay
@@ -965,15 +966,18 @@ void PluginManagerPrivate::loadPlugins()
     QList<PluginSpec *> queue = loadQueue();
     foreach (PluginSpec *spec, queue) {
         loadPlugin(spec, PluginSpec::Loaded);
+        emit q->pluginLoaded(spec->name(), !spec->hasError(), spec->errorString());
     }
     foreach (PluginSpec *spec, queue) {
         loadPlugin(spec, PluginSpec::Initialized);
+        emit q->pluginInitialized(spec->name(), !spec->hasError(), spec->errorString());
     }
     QListIterator<PluginSpec *> it(queue);
     it.toBack();
     while (it.hasPrevious()) {
         PluginSpec *spec = it.previous();
         loadPlugin(spec, PluginSpec::Running);
+        emit q->pluginExtensionsInitialized(spec->name(), !spec->hasError(), spec->errorString());
         if (spec->state() == PluginSpec::Running)
             delayedInitializeQueue.append(spec);
     }

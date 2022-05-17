@@ -1,12 +1,11 @@
 
-#include "../plugins/helloqtes/helloqtesservice.h"
+#include "../../shared/splashscreen/splashscreen.h"
 #include "../version_ini_tag.h"
 #include "qtsingleapplication.h"
 #include "version_info.h"
 #include <extensionsystem/iplugin.h>
 #include <extensionsystem/pluginmanager.h>
 #include <extensionsystem/pluginspec.h>
-#include <extensionsystem/pluginview.h>
 
 #include <QSettings>
 
@@ -138,25 +137,38 @@ int main(int argc, char **argv)
 
 #ifdef ENABLE_LOG
     // log
-    Log::logger::instance().init(
-        QString("%1/logs/pansim").arg(QCoreApplication::applicationDirPath()));
+    Log::logger::instance().init(QString("%1/logs/pansim").arg(QCoreApplication::applicationDirPath()));
     for (int i = 0; i < 10; ++i) {
         LOG_INFO(std::to_string(i));
     }
 #endif
 
+    // 打开启动画面
+    SplashScreen splashScreen(&app);
+    splashScreen.show();
+    app.processEvents();
+
     QString pluginPath = QApplication::applicationDirPath() + "/plugins/";
     PluginManager pluginManager;
     PluginManager::setPluginPaths(QStringList() << pluginPath);
+
+    // splash connect
+    QObject::connect(&pluginManager, SIGNAL(pluginLoaded(const QString &, bool, const QString &)), &splashScreen,
+                     SLOT(pluginLoaded(const QString &, bool, const QString &)));
+    QObject::connect(&pluginManager, SIGNAL(pluginInitialized(const QString &, bool, const QString &)), &splashScreen,
+                     SLOT(pluginInitialized(const QString &, bool, const QString &)));
+    QObject::connect(&pluginManager, SIGNAL(pluginExtensionsInitialized(const QString &, bool, const QString &)),
+                     &splashScreen, SLOT(pluginExtensionsInitialized(const QString &, bool, const QString &)));
 
     QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
     QObject::connect(&app, SIGNAL(aboutToQuit()), &pluginManager, SLOT(shutdown()));
 
     const QList<PluginSpec *> plugins = PluginManager::plugins();
-    PluginSpec *helloQtESPlugin = nullptr;
 
     printSpecs(plugins);
+    splashScreen.setProgressRange(0, plugins.length() * 3);
 
+    PluginSpec *helloQtESPlugin = nullptr;
     foreach (PluginSpec *spec, plugins) {
         if (spec->name() == QLatin1String(helloQtESPluginNameC)) {
             helloQtESPlugin = spec;
@@ -175,36 +187,29 @@ int main(int argc, char **argv)
     }
 
     if (helloQtESPlugin->hasError()) {
-        qCritical() << QString("Failed to load %1 :").arg(helloQtESPluginNameC)
-                    << helloQtESPlugin->errorString();
+        qCritical() << QString("Failed to load %1 :").arg(helloQtESPluginNameC) << helloQtESPlugin->errorString();
         return 1;
     }
 
     PluginManager::loadPlugins();
     if (PluginManager::hasError()) {
 
-        qWarning() << endl
-                   << " ======================== Load Plugin Failed ======================= ";
+        qWarning() << endl << " ======================== Load Plugin Failed ======================= ";
         foreach (PluginSpec *spec, plugins) {
             // only show errors on startup if plugin is enabled.
             if (spec->hasError() && spec->isEnabledInSettings() && !spec->isDisabledIndirectly()) {
-                qWarning() << QString("Failed to load %1:").arg(spec->name()) << endl
-                           << spec->errorString() << endl;
+                qWarning() << QString("Failed to load %1:").arg(spec->name()) << endl << spec->errorString() << endl;
             }
         }
         qWarning() << " =================================================================== ";
     }
 
-    HelloQtES::Service *helloQtESService = PluginManager::getObject<HelloQtES::Service>();
-    if (helloQtESService != nullptr)
-        helloQtESService->sayHello();
+    splashScreen.finish(0);
 
     // crashtest();
 
     // PluginManager::instance()->shutdown();
-    // PluginView view;
-    // view.show();
 
-    const int r = app.exec();
-    return r;
+    const int ret = app.exec();
+    return ret;
 }
