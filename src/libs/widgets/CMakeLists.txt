@@ -6,6 +6,7 @@ set(CMAKE_AUTOMOC ON)
 file(GLOB HDRS_FILES
     "*.h"
     "frameless/*.h"
+    "qlite/*.h"
     "material/*.h"
     "material/lib/*.h"
 )
@@ -13,6 +14,7 @@ file(GLOB HDRS_FILES
 file(GLOB SRCS_FILES
     "*.cpp"
     "frameless/*.cpp"
+    "qlite/*.cpp"
     "material/*.cpp"
     "material/lib/*.cpp"
 )
@@ -26,6 +28,7 @@ file(GLOB UI_FILES
 file(GLOB RCS_FILES
     "*.qrc"
     "frameless/*.qrc"
+    "qlite/*.qrc"
     "material/*.qrc"
 )
 
@@ -43,12 +46,13 @@ source_group("Generated Files" FILES ${MOC_SRCS} ${UI_HDRS})
 source_group("Resources Files" FILES ${RCS})
 
 add_definitions(-DWIDGETS_LIBRARY)
+add_definitions(-DQLITE_LIBRARY)
 
-add_library(${Target_Name} STATIC 
+add_library(${Target_Name} SHARED 
     ${SRCS_FILES}
     ${HDRS_FILES} 
     ${UI_FILES} 
-    # ${MOC_SRCS}
+    ${MOC_SRCS}
     ${UI_HDRS} 
     ${RCS}
 )
@@ -65,5 +69,5 @@ target_include_directories(${Target_Name}
         # ${CMAKE_CURRENT_SOURCE_DIR}/material/layouts
 )
 
-# install(TARGETS ${Target_Name} 
-#         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS ${Target_Name} 
+        LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX})

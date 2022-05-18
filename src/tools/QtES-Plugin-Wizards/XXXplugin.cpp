@@ -1,7 +1,7 @@
 #include "%{PluginHdrFileName}"
 #include "%{ServiceImplHdrFileName}"
 
-#include "extensionsystem/pluginmanager.h"
+#include <extensionsystem/pluginmanager.h>
 
 #include <QDebug>
 #include <QtPlugin>
