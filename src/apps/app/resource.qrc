@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/configs/config.ini</file>
+        <file>resources/splash/splash.png</file>
+    </qresource>
+</RCC>

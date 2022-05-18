@@ -1,16 +1,12 @@
 
 #include "../../shared/splashscreen/splashscreen.h"
 #include "../version_ini_tag.h"
-#include "qtsingleapplication.h"
 #include "version_info.h"
-#include <extensionsystem/iplugin.h>
-#include <extensionsystem/pluginmanager.h>
-#include <extensionsystem/pluginspec.h>
 
-#include <QSettings>
+#include <qtsingleapplication.h>
 
 #ifdef ENABLE_LOG
-#    include "log/logger.h"
+#    include <log/logger.h>
 #endif
 
 #ifdef ENABLE_QT_BREAKPAD
@@ -19,10 +15,16 @@
 #    include "../tools/crashhandler/crashhandlersetup.h"
 #endif
 
+#include <extensionsystem/iplugin.h>
+#include <extensionsystem/pluginmanager.h>
+#include <extensionsystem/pluginspec.h>
+
 #include <QDebug>
 #include <QFileInfo>
+#include <QFontDatabase>
 #include <QList>
 #include <QMessageBox>
+#include <QSettings>
 #include <QThreadPool>
 
 using namespace ExtensionSystem;
@@ -64,7 +66,7 @@ static void printSpecs(QList<PluginSpec *> plugins)
     qDebug() << " ==================== Get Plugins Info finished ==================== ";
 }
 
-void writeSettings()
+void writeUserScopeSettings()
 {
     QString AppName = QString::fromStdString(Sys::Version::appName());
     QString AppDisplayName = QString::fromStdString(Sys::Version::appDisplayName());
@@ -94,6 +96,21 @@ void writeSettings()
     settings.endGroup();
 }
 
+void loadFonts(QApplication &app)
+{
+    QString appDir = QApplication::applicationDirPath();
+    int fontId = QFontDatabase::addApplicationFont(appDir + "/fonts/SourceHanSansCN-Normal.ttf");
+    QFontDatabase::addApplicationFont(appDir + "/fonts/SourceHanSansCN-Bold.ttf");
+
+    if (fontId == -1) {
+        LOG_INFO("load SourceHanSansCN-Normal.ttf font failed.");
+    } else {
+        QFont fontName = QFontDatabase::applicationFontFamilies(fontId).at(0);
+        // fontName.setPointSize(12);
+        app.setFont(fontName);
+    }
+}
+
 void crashtest()
 {
     char *p = (char *)100;
@@ -105,7 +122,7 @@ const char helloQtESPluginNameC[] = "helloqtes";
 int main(int argc, char **argv)
 {
     // setting
-    writeSettings();
+    writeUserScopeSettings();
 
     QString AppName = QString::fromStdString(Sys::Version::appName());
     QString Version = QString::fromStdString(Sys::Version::version().c_str());
@@ -143,11 +160,14 @@ int main(int argc, char **argv)
     }
 #endif
 
-    // 打开启动画面
+    loadFonts(app);
+
+    // splashscreen
     SplashScreen splashScreen(&app);
     splashScreen.show();
     app.processEvents();
 
+    // loadplugins
     QString pluginPath = QApplication::applicationDirPath() + "/plugins/";
     PluginManager pluginManager;
     PluginManager::setPluginPaths(QStringList() << pluginPath);
