@@ -100,4 +100,9 @@ add_executable(${Target_Name}
 )
 target_link_libraries(${Target_Name} ${QT_LIBRARIES} log shared_qtsingleapplication extensionsystem utils)
 
+file(COPY ./resources/splash/splash.png DESTINATION ${EXECUTABLE_OUTPUT_PATH}/splash)
+file(COPY ./resources/configs/config.ini DESTINATION ${EXECUTABLE_OUTPUT_PATH}/configs)
+
 install(TARGETS ${Target_Name} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(FILES ./resources/splash/splash.png DESTINATION ${CMAKE_INSTALL_PREFIX}/splash)
+install(DIRECTORY ./resources/configs DESTINATION ${CMAKE_INSTALL_PREFIX})

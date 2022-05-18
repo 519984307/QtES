@@ -41,3 +41,6 @@ add_subdirectory(src)
 add_subdirectory(test)
 
 message("CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
+
+file(COPY ./fonts DESTINATION ${EXECUTABLE_OUTPUT_PATH})
+install(DIRECTORY ./fonts DESTINATION ${CMAKE_INSTALL_PREFIX})

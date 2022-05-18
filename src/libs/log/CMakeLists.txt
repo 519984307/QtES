@@ -21,5 +21,5 @@ set_target_properties(${Target_Name} PROPERTIES VERSION 1.0.0 SOVERSION 1)
 
 target_include_directories(${Target_Name} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../" "${CMAKE_CURRENT_SOURCE_DIR}/spdlog/include")
 
-INSTALL(TARGETS ${Target_Name} 
+install(TARGETS ${Target_Name} 
         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX})

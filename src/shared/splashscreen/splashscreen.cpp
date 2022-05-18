@@ -41,7 +41,7 @@ void SplashScreen::setProgressRange(int min, int max)
 void SplashScreen::setProgressValue(int value)
 {
     m_progressBar->setValue(value);
-    usleep(100000);
+    usleep(200000);
 }
 
 void SplashScreen::finish(QWidget *w)
@@ -171,16 +171,18 @@ void SplashScreen::drawContents(QPainter *painter)
         0, qRound(double(m_progressBar->value() + 1) / m_progressBar->maximum() * (rect().width() - 2 * startX)),
         rect().width() - 2 * startX);
 
+    painter->setPen(Qt::gray);
     painter->setBrush(QBrush(Qt::gray));
     painter->drawRoundedRect(QRect(startX, rect().height() - startY, rect().width() - 2 * startX, PROGRESSBAR_HEIGHT),
                              3, 3);
+    painter->setPen(m_progressColor);
     painter->setBrush(QBrush(m_progressColor));
     painter->drawRoundedRect(QRect(startX, rect().height() - startY, width, PROGRESSBAR_HEIGHT), 3, 3);
 }
 
 void SplashScreen::initStyle()
 {
-    QString splshConfigFile = QCoreApplication::applicationDirPath() + QString("/config/config.ini");
+    QString splshConfigFile = QCoreApplication::applicationDirPath() + QString("/configs/config.ini");
     QSettings config(splshConfigFile, QSettings::IniFormat);
     config.setIniCodec("UTF-8");
     QString splashPicName = config.value("SplashScreen/background").toString().trimmed();
@@ -195,13 +197,13 @@ void SplashScreen::initStyle()
     }
     setPixmap(QPixmap::fromImage(m_image));
 
-    QString m_progressColorName = config.value("SplashScreen/m_progressColor", "green").toString().trimmed();
+    QString m_progressColorName = config.value("SplashScreen/progressColor", "green").toString().trimmed();
     m_progressColor.setNamedColor(m_progressColorName);
     if (!m_progressColor.isValid()) {
         m_progressColor.setNamedColor("green");
     }
 
-    QString m_fontColorName = config.value("SplashScreen/m_fontcolor", "white").toString().trimmed();
+    QString m_fontColorName = config.value("SplashScreen/fontColor", "white").toString().trimmed();
     m_fontColor.setNamedColor(m_fontColorName);
     if (!m_fontColor.isValid()) {
         m_fontColor.setNamedColor("white");

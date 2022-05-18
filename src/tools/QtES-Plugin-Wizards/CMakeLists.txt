@@ -42,7 +42,7 @@ target_link_libraries(${Target_Name} ${QT_LIBRARIES} extensionsystem)
 set_target_properties(${Target_Name} PROPERTIES AUTOMOC TRUE)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/%{ProjectName}.xml DESTINATION ${LIBRARY_OUTPUT_PATH})
-INSTALL(TARGETS ${Target_Name}
+install(TARGETS ${Target_Name}
         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/plugins)
-INSTALL(FILES ${Target_Name}.xml
+install(FILES ${Target_Name}.xml
         DESTINATION ${CMAKE_INSTALL_PREFIX}/plugins)
