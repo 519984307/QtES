@@ -18,8 +18,8 @@ SplashScreen::SplashScreen(QApplication *app, QWidget *parent) :
     m_fontColor(Qt::green),
     m_opacity(1)
 {
-    // always top and frameless window
-    this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    // always top , frameless window and not display on task bar
+    this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Tool);
     // transparent window
     this->setAttribute(Qt::WA_TranslucentBackground);
     // this->setAttribute(Qt::WA_DeleteOnClose);
