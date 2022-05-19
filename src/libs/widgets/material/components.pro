@@ -1,5 +1,6 @@
 TEMPLATE = lib
 CONFIG += staticlib
+
 SOURCES = \
     qtmaterialavatar.cpp \
     lib/qtmaterialstyle.cpp \
@@ -48,6 +49,7 @@ SOURCES = \
     qtmaterialmenu_internal.cpp \
     qtmateriallist.cpp \
     qtmateriallistitem.cpp
+
 HEADERS = \
     qtmaterialavatar_p.h \
     qtmaterialavatar.h \
@@ -126,5 +128,6 @@ HEADERS = \
     qtmateriallist_p.h \
     qtmateriallistitem.h \
     qtmateriallistitem_p.h
+
 RESOURCES += \
-    resources.qrc
+    material.qrc

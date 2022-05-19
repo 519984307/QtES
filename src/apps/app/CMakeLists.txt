@@ -73,7 +73,7 @@ set(UI_FILES
 
 # Resources files
 set(RCS_FILES 
-    resource.qrc
+    app.qrc
 )
 
 # Headers that should run through moc

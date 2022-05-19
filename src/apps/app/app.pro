@@ -38,6 +38,9 @@ contains(DEFINES, ENABLE_QT_BREAKPAD){
         ../../tools/crashhandler/crashhandlersetup.cpp \
 }
 
+RESOURCES += \
+    app.qrc
+
 OTHER_FILES += \
     CMakeLists.txt \
 
