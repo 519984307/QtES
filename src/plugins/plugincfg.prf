@@ -1,6 +1,6 @@
 include(../../global.pri)
 
-DESTDIR = $$PLUGINS_DIR
+DESTDIR = $$PLUGINS_DIR/
 LIBS += -L$$LIB_DIR/ -lextensionsystem
 
 INCLUDEPATH += $$PWD/../libs/

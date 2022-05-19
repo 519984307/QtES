@@ -103,7 +103,11 @@ void loadFonts(QApplication &app)
     QFontDatabase::addApplicationFont(appDir + "/fonts/SourceHanSansCN-Bold.ttf");
 
     if (fontId == -1) {
+#ifdef ENABLE_LOG
         LOG_INFO("load SourceHanSansCN-Normal.ttf font failed.");
+#else
+        qDebug() << "load SourceHanSansCN-Normal.ttf font failed.";
+#endif
     } else {
         QFont fontName = QFontDatabase::applicationFontFamilies(fontId).at(0);
         // fontName.setPointSize(12);

@@ -8,7 +8,8 @@
 #include <QPropertyAnimation>
 #include <QSettings>
 #include <QtGlobal>
-#include <unistd.h>
+#include <chrono>
+#include <thread>
 
 SplashScreen::SplashScreen(QApplication *app, QWidget *parent) :
     QSplashScreen(parent),
@@ -41,7 +42,7 @@ void SplashScreen::setProgressRange(int min, int max)
 void SplashScreen::setProgressValue(int value)
 {
     m_progressBar->setValue(value);
-    usleep(200000);
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 }
 
 void SplashScreen::finish(QWidget *w)

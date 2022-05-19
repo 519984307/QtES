@@ -40,3 +40,6 @@ contains(DEFINES, ENABLE_QT_BREAKPAD){
 
 OTHER_FILES += \
     CMakeLists.txt \
+
+copyFolder(resources/configs, $$BIN_DIR/configs)
+copyFolder(resources/splash, $$BIN_DIR/splash)
