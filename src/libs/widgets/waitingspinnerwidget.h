@@ -1,20 +1,21 @@
 #ifndef __WAITINGSPINNERWIDGET_H__
 #define __WAITINGSPINNERWIDGET_H__
 
+#include "widgets_global.h"
+
 #include <QColor>
 #include <QTimer>
 #include <QWidget>
 
-class WaitingSpinnerWidget : public QWidget
+class WIDGETS_EXPORT WaitingSpinnerWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    WaitingSpinnerWidget(QWidget *parent = 0, bool centerOnParent = true,
-                         bool disableParentWhenSpinning = true);
+    WaitingSpinnerWidget(QWidget *parent = 0, bool centerOnParent = true, bool disableParentWhenSpinning = true);
 
-    WaitingSpinnerWidget(Qt::WindowModality modality, QWidget *parent = 0,
-                         bool centerOnParent = true, bool disableParentWhenSpinning = true);
+    WaitingSpinnerWidget(Qt::WindowModality modality, QWidget *parent = 0, bool centerOnParent = true,
+                         bool disableParentWhenSpinning = true);
 
 public slots:
     void start();
@@ -52,8 +53,8 @@ protected:
 
 private:
     static int lineCountDistanceFromPrimary(int current, int primary, int totalNrOfLines);
-    static QColor currentLineColor(int distance, int totalNrOfLines, qreal trailFadePerc,
-                                   qreal minOpacity, QColor color);
+    static QColor currentLineColor(int distance, int totalNrOfLines, qreal trailFadePerc, qreal minOpacity,
+                                   QColor color);
 
     void initialize();
     void updateSize();

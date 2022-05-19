@@ -4,32 +4,32 @@ set(Target_Name widgets)
 set(CMAKE_AUTOMOC ON)
 
 file(GLOB HDRS_FILES
-    "*.h"
-    "frameless/*.h"
-    "qlite/*.h"
-    "material/*.h"
-    "material/lib/*.h"
+    *.h
+    frameless/*.h
+    qlite/*.h
+    material/*.h
+    material/lib/*.h
 )
 
 file(GLOB SRCS_FILES
-    "*.cpp"
-    "frameless/*.cpp"
-    "qlite/*.cpp"
-    "material/*.cpp"
-    "material/lib/*.cpp"
+    *.cpp
+    frameless/*.cpp
+    qlite/*.cpp
+    material/*.cpp
+    material/lib/*.cpp
 )
 
 file(GLOB UI_FILES
-    "*.ui"
-    "frameless/*.ui"
-    "material/*.ui"
+    *.ui
+    frameless/*.ui
+    material/*.ui
 )
 
 file(GLOB RCS_FILES
-    "*.qrc"
-    "frameless/*.qrc"
-    "qlite/*.qrc"
-    "material/*.qrc"
+    *.qrc
+    frameless/*.qrc
+    qlite/*.qrc
+    material/*.qrc
 )
 
 # Headers that should run through moc
@@ -61,7 +61,7 @@ set_target_properties(${Target_Name} PROPERTIES VERSION 1.0.0 SOVERSION 1)
 
 target_include_directories(${Target_Name} 
     PUBLIC 
-        "${CMAKE_CURRENT_SOURCE_DIR}/../"
+        ${CMAKE_CURRENT_SOURCE_DIR}/../
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/material

@@ -2,10 +2,12 @@
 #ifndef __PROGRESSCIRCLE_H__
 #define __PROGRESSCIRCLE_H__
 
+#include "widgets_global.h"
+
 #include <QPropertyAnimation>
 #include <QWidget>
 
-class ProgressCircle : public QWidget
+class WIDGETS_EXPORT ProgressCircle : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
@@ -15,8 +17,7 @@ class ProgressCircle : public QWidget
     Q_PROPERTY(QColor color READ color WRITE setColor)
 
     //private
-    Q_PROPERTY(
-        qreal infiniteAnimationValue READ infiniteAnimationValue WRITE setInfiniteAnimationValue)
+    Q_PROPERTY(qreal infiniteAnimationValue READ infiniteAnimationValue WRITE setInfiniteAnimationValue)
     Q_PROPERTY(int visibleValue READ visibleValue WRITE setVisibleValue)
 
 public:
