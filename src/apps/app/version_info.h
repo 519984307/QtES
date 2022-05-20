@@ -33,17 +33,17 @@ static std::string organizationDomain()
 
 static std::string buildDate()
 {
-    return "2022-05-19";
+    return "2022-05-20";
 }
 
 static std::string buildTime()
 {
-    return "09:52:43";
+    return "15:34:51";
 }
 
 static std::string commit()
 {
-    return "commit 4068c5f04792adf9fc42240a8872b8e387359917";
+    return "commit 02e6f7e49f0ed00e92df1cf7bf48fe76a81f206d";
 }
 
 static std::string branch()
@@ -53,7 +53,7 @@ static std::string branch()
 
 static std::string tag()
 {
-    return "";
+    return "v0.0.1";
 }
 
 static std::string fullVersion()

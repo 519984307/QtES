@@ -8,6 +8,7 @@ const char *APPGROUP = "AppGroup";
 const char *APPNAME = "AppName";
 const char *APPDISPLAYNAME = "AppDisplayName";
 const char *VERSION = "Version";
+const char *COPYRIGHT = "Copyright";
 const char *ORGANIZATIONNAME = "OrganizationName";
 const char *ORGANIZATIONDOMAIN = "OrganizationDomain";
 const char *BUILDDATE = "BuildDate";
