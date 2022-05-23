@@ -383,6 +383,8 @@ void LiteBarPrivate::handleMouseDblClickEvent(QMouseEvent *event)
 
 void LiteBarPrivate::restoreWidget(QWidget *pWidget)
 {
+    m_mainWidget->setWindowState(m_mainWidget->windowState() & ~Qt::WindowMaximized);
+
     m_isMaximized = false;
     pWidget->setGeometry(m_normalRect);
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
@@ -394,6 +396,8 @@ void LiteBarPrivate::restoreWidget(QWidget *pWidget)
 
 void LiteBarPrivate::maximizeWidget(QWidget *pWidget)
 {
+    m_mainWidget->setWindowState(m_mainWidget->windowState() & ~Qt::WindowMinimized);
+
     m_isMaximized = true;
     int x = pWidget->frameGeometry().x() + pWidget->frameGeometry().width() / 2;
     LiteScreen sreen;
