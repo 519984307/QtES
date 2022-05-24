@@ -33,27 +33,27 @@ static std::string organizationDomain()
 
 static std::string buildDate()
 {
-    return "2022-05-20";
+    return "2022-05-23";
 }
 
 static std::string buildTime()
 {
-    return "15:34:51";
+    return "14:54:13";
 }
 
 static std::string commit()
 {
-    return "commit 02e6f7e49f0ed00e92df1cf7bf48fe76a81f206d";
+    return "commit 900640481467848443a75871040bd0f9fb6f6646";
 }
 
 static std::string branch()
 {
-    return "main";
+    return "pansiumgui";
 }
 
 static std::string tag()
 {
-    return "v0.0.1";
+    return "";
 }
 
 static std::string fullVersion()
