@@ -1,9 +1,9 @@
 
+#include <qtsingleapplication.h>
+
 #include "../../shared/splashscreen/splashscreen.h"
 #include "../version_ini_tag.h"
 #include "version_info.h"
-
-#include <qtsingleapplication.h>
 
 #ifdef ENABLE_LOG
 #    include <log/logger.h>
@@ -15,10 +15,6 @@
 #    include "../tools/crashhandler/crashhandlersetup.h"
 #endif
 
-#include <extensionsystem/iplugin.h>
-#include <extensionsystem/pluginmanager.h>
-#include <extensionsystem/pluginspec.h>
-
 #include <QDebug>
 #include <QFileInfo>
 #include <QFontDatabase>
@@ -26,6 +22,11 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QThreadPool>
+
+#include <extensionsystem/iplugin.h>
+#include <extensionsystem/pluginmanager.h>
+#include <extensionsystem/pluginspec.h>
+#include <utils/fileutil.h>
 
 using namespace ExtensionSystem;
 
@@ -98,7 +99,7 @@ void writeUserScopeSettings()
 
 void loadFonts(QApplication &app)
 {
-    QString appDir = QApplication::applicationDirPath();
+    QString appDir = Utils::FileUtil::getAppDirPath();
     int fontId = QFontDatabase::addApplicationFont(appDir + "/fonts/SourceHanSansCN-Normal.ttf");
     QFontDatabase::addApplicationFont(appDir + "/fonts/SourceHanSansCN-Bold.ttf");
 
@@ -158,7 +159,7 @@ int main(int argc, char **argv)
 
 #ifdef ENABLE_LOG
     // log
-    Log::logger::instance().init(QString("%1/logs/pansim").arg(QCoreApplication::applicationDirPath()));
+    Log::logger::instance().init(QString("%1/logs/pansim").arg(Utils::FileUtil::getAppDirPath()));
     for (int i = 0; i < 10; ++i) {
         LOG_INFO(std::to_string(i));
     }
@@ -172,7 +173,7 @@ int main(int argc, char **argv)
     app.processEvents();
 
     // loadplugins
-    QString pluginPath = QApplication::applicationDirPath() + "/plugins/";
+    QString pluginPath = Utils::FileUtil::getAppDirPath() + "/plugins/";
     PluginManager pluginManager;
     PluginManager::setPluginPaths(QStringList() << pluginPath);
 

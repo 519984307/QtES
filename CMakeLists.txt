@@ -34,7 +34,8 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/libs)
 
 # Configure Qt
-find_package(Qt4 REQUIRED)
+# find_package(Qt4 REQUIRED)
+find_package(Qt4 COMPONENTS QtCore QtGui QtNetwork QtXml REQUIRED)
 include(${QT_USE_FILE})
 
 add_subdirectory(src)

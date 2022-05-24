@@ -5,6 +5,7 @@ set(Target_Name utils)
 set(HDRS_FILES 
     utils_global.h
     environment.h
+    fileutil.h
     hostosinfo.h
     singleton.hpp
 )
@@ -12,6 +13,7 @@ set(HDRS_FILES
 # Source files
 set(SRCS_FILES 
     environment.cpp
+    fileutil.cpp
     hostosinfo.cpp
 )
 
