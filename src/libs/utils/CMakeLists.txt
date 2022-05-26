@@ -7,7 +7,9 @@ set(HDRS_FILES
     environment.h
     fileutil.h
     hostosinfo.h
+    runtimeerror.h
     singleton.hpp
+    yamlutil.h
 )
 
 # Source files
@@ -17,6 +19,7 @@ set(SRCS_FILES
     hostosinfo.cpp
     optional.hpp
     visit_struct.hpp
+    yamlutil.cpp
 )
 
 # UI files
@@ -52,7 +55,7 @@ add_library(${Target_Name} SHARED
     ${UI_HDRS} 
     ${RCS}
 )
-target_link_libraries(${Target_Name} ${QT_LIBRARIES} yaml-cpp)
+target_link_libraries(${Target_Name} ${QT_LIBRARIES} yaml-cpp log)
 set_target_properties(${Target_Name} PROPERTIES VERSION 1.0.0 SOVERSION 1)
 
 target_include_directories(${Target_Name} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../")
