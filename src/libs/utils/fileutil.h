@@ -18,6 +18,9 @@ public:
     static QString getScriptsAbsPath();
     static QString getConfigFilePath();
 
+    static QString getPansimPath();
+    static QString getWorkingPath();
+
     static bool fileExist(const QString &filename);
     static bool removeFile(const QString &filename);
     static bool copyFile(const QString &srcFile, const QString &dstFile);

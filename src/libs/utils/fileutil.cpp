@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QFile>
 #include <QHostInfo>
+#include <QSettings>
 
 namespace Utils {
 
@@ -40,6 +41,28 @@ QString FileUtil::getConfigFilePath()
 {
     QString configFilePath = QCoreApplication::applicationDirPath() + QString("/configs/config.ini");
     return configFilePath;
+}
+
+QString FileUtil::getPansimPath()
+{
+    QString configFile = getConfigFilePath();
+    QSettings config(configFile, QSettings::IniFormat);
+    config.setIniCodec("UTF-8");
+
+    QString pansimPath = config.value("Settings/PansimPath", "").toString();
+
+    return pansimPath;
+}
+
+QString FileUtil::getWorkingPath()
+{
+    QString configFile = getConfigFilePath();
+    QSettings config(configFile, QSettings::IniFormat);
+    config.setIniCodec("UTF-8");
+
+    QString workingPath = config.value("Settings/WorkingPath", "").toString();
+
+    return workingPath;
 }
 
 bool FileUtil::fileExist(const QString &filename)
