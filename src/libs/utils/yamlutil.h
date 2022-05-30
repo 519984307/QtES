@@ -137,7 +137,7 @@ public:
     explicit operator bool() const { return !is_null(); }
 
     std::string to_string() const;
-    void to_file(const std::string &filename) const;
+    bool to_file(const std::string &filename) const;
     void set_double_precision(int p) { m_double_precision = p; }
     void set_float_precision(int p) { m_float_precision = p; }
 

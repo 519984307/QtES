@@ -61,7 +61,7 @@ void writeNode(YAML::Emitter &emitter, const YAML::Node &node)
             ++key_it;
         }
         // Then sort them
-        std::sort(keys.begin(), keys.end());
+        // std::sort(keys.begin(), keys.end());
         // Then emit all the entries in sorted order.
         for (size_t i = 0; i < keys.size(); i++) {
             emitter << YAML::Key;
@@ -87,14 +87,20 @@ std::string YAMLNode::to_string() const
     if (m_float_precision > 0) {
         emitter.SetFloatPrecision(m_float_precision);
     }
+    // emitter.SetSeqFormat(YAML::EMITTER_MANIP::Flow);
     writeNode(emitter, get_yaml());
     return emitter.c_str();
 }
 
-void YAMLNode::to_file(const std::string &filename) const
+bool YAMLNode::to_file(const std::string &filename) const
 {
     std::ofstream ofs(filename);
-    ofs << to_string();
+    if (ofs) {
+        ofs << m_yaml_node;
+        return !ofs.bad();
+    }
+
+    return false;
 }
 
 YAMLNode YAMLNode::clone() const
