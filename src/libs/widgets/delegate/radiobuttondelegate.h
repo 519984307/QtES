@@ -3,7 +3,7 @@
 
 #include <QStyledItemDelegate>
 
-#include "widgets_global.h"
+#include "widgets/widgets_global.h"
 
 static const int RadioSelectedRole = Qt::UserRole + 102;
 static const int IsRadioRole = Qt::UserRole + 103;

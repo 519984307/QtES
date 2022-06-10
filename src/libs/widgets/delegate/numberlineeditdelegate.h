@@ -4,7 +4,7 @@
 #include <QModelIndex>
 #include <QStyledItemDelegate>
 
-#include "widgets_global.h"
+#include "widgets/widgets_global.h"
 
 namespace PansimGuiCore {
 

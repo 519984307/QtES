@@ -3,7 +3,7 @@
 
 #include <QStyledItemDelegate>
 
-#include "widgets_global.h"
+#include "widgets/widgets_global.h"
 
 class WIDGETS_EXPORT ComboBoxDelegate : public QStyledItemDelegate
 {

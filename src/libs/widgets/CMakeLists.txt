@@ -62,6 +62,7 @@ target_include_directories(${Target_Name}
         ${CMAKE_CURRENT_SOURCE_DIR}/../
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/delegate
         ${CMAKE_CURRENT_SOURCE_DIR}/material
         # ${CMAKE_CURRENT_SOURCE_DIR}/material/lib
         # ${CMAKE_CURRENT_SOURCE_DIR}/material/layouts

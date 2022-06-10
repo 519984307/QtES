@@ -6,7 +6,7 @@
 #include <QTableView>
 #include <QWidget>
 
-#include "widgets_global.h"
+#include "widgets/widgets_global.h"
 
 class WIDGETS_EXPORT ButtonColumnDelegate : public QStyledItemDelegate
 {

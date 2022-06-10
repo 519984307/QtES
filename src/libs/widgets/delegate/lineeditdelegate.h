@@ -3,6 +3,8 @@
 
 #include <QStyledItemDelegate>
 
+#include "widgets/widgets_global.h"
+
 class LineEditDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
