@@ -5,29 +5,27 @@ set(CMAKE_AUTOMOC ON)
 
 file(GLOB HDRS_FILES
     *.h
-    frameless/*.h
-    qlite/*.h
+    delegate/*.h
     material/*.h
     material/lib/*.h
+    qlite/*.h
 )
 
 file(GLOB SRCS_FILES
     *.cpp
-    frameless/*.cpp
-    qlite/*.cpp
+    delegate/*.cpp
     material/*.cpp
     material/lib/*.cpp
+    qlite/*.cpp
 )
 
 file(GLOB UI_FILES
     *.ui
-    frameless/*.ui
     material/*.ui
 )
 
 file(GLOB RCS_FILES
     *.qrc
-    frameless/*.qrc
     qlite/*.qrc
     material/*.qrc
 )
